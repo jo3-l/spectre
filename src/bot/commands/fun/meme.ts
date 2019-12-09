@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { constructEmbed, scrape } from '../../../lib/util/Reddit';
+import { constructEmbed, scrape } from '../../../util/Reddit';
 
 export default class MemeCommand extends Command {
 	public constructor() {

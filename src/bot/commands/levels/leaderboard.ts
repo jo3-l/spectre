@@ -1,7 +1,7 @@
 import { Command, Argument } from 'discord-akairo';
-import { Member } from '../../../lib/db/entities/Member';
+import { Member } from '../../db/entities/Member';
 import { MessageEmbed, Message } from 'discord.js';
-import { calculateLevel } from '../../../lib/util/Util';
+import { calculateLevel } from '../../../util/Util';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {

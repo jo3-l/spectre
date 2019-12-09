@@ -7,7 +7,7 @@ connectionManager.create({
 	name: 'spectre',
 	type: 'postgres',
 	url: db,
-	entities: [join(__dirname, 'entities/*.ts')],
+	entities: [join(__dirname, 'entities/*.{ts,js}')],
 	synchronize: true,
 });
 

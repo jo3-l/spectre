@@ -1,9 +1,9 @@
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, AkairoModule } from 'discord-akairo';
 import { join } from 'path';
 import { token, prefix, activities, owner, version, color, db } from '../../../config';
-import ActivityHandler, { Activity } from '../../lib/util/ActivityHandler';
-import SpectreLogger from '../../lib/util/Logger';
-import Database from '../../lib/db/index';
+import ActivityHandler, { Activity } from '../../util/ActivityHandler';
+import SpectreLogger from '../../util/Logger';
+import Database from '../db/index';
 import { Logger } from 'winston';
 import { Connection } from 'typeorm';
 

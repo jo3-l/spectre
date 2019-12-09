@@ -2,8 +2,8 @@ import { Command, Argument } from 'discord-akairo';
 import { promisify, inspect } from 'util';
 import { exec as _exec } from 'child_process';
 import { MessageEmbed, Message } from 'discord.js';
-import * as Util from '../../../../lib/util/Util';
-import Timer from '../../../../lib/util/Timer';
+import * as Util from '../../../../util/Util';
+import Timer from '../../../../util/Timer';
 const exec = promisify(_exec);
 
 export default class ExecCommand extends Command {

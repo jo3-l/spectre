@@ -2,9 +2,9 @@ import { Listener } from 'discord-akairo';
 import { MessageAttachment, Message, User } from 'discord.js';
 import { Canvas } from 'canvas-constructor';
 import { join } from 'path';
-import { calculateLevel } from '../../../lib/util/Util';
+import { calculateLevel } from '../../../util/Util';
 import fetch from 'node-fetch';
-import { Member } from '../../../lib/db/entities/Member';
+import { Member } from '../../db/entities/Member';
 import { promisify } from 'util';
 import { readFile } from 'fs';
 

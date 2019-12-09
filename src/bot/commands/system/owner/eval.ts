@@ -1,9 +1,9 @@
 import { Command } from 'discord-akairo';
 import { MessageEmbed, Message } from 'discord.js';
 import { join } from 'path';
-import Timer from '../../../../lib/util/Timer';
+import Timer from '../../../../util/Timer';
 import { inspect } from 'util';
-import * as Util from '../../../../lib/util/Util';
+import * as Util from '../../../../util/Util';
 const CODEBLOCK_REGEX = /```([a-zA-Z]*)\n?([\s\S]*?)\n?```/;
 
 export default class EvalCommand extends Command {
