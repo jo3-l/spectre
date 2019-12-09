@@ -1,3 +1,4 @@
+![Banner](https://i.imgur.com/abq2Gwr.png)
 # Spectre
 > A multipurpose Discord Bot written in Node.js with Discord.js & discord-akairo
 
