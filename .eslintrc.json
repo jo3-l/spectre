@@ -1,0 +1,15 @@
+{
+	"extends": "marine",
+	"rules": {
+		"no-useless-constructor": "off",
+		"@typescript-eslint/no-useless-constructor": "error",
+		"linebreak-style": "off",
+		"comma-dangle": [
+			"error",
+			"always-multiline"
+		],
+		"comma-spacing": "error",
+		"comma-style": "error",
+		"eol-last": "off"
+	}
+}
