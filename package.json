@@ -3,7 +3,8 @@
 	"version": "0.5.0",
 	"description": "Multi-purpose Discord Bot.",
 	"scripts": {
-		"start": "ts-node --files src/Spectre"
+		"start": "ts-node --files src/Spectre",
+		"build": "rimraf dist && tsc"
 	},
 	"author": "Joe",
 	"license": "MIT",
