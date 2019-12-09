@@ -4,7 +4,8 @@
 	"description": "An utility bot for Discord.",
 	"scripts": {
 		"start": "ts-node --files src/Spectre",
-		"build": "rimraf dist && tsc"
+		"build": "rimraf dist && tsc",
+		"lint": "eslint . --ext .ts"
 	},
 	"author": "Joe",
 	"license": "MIT",
