@@ -25,14 +25,14 @@ export default class RebootCommand extends Command {
 				start: 'please confirm that you wish to reload the bot (y/n).',
 			},
 		});
-		let confirm;
+		let confirm: string;
 		try {
 			confirm = await confirmArg.collect(message);
 		} catch {
 			return message.util!.send('Canceled.');
 		}
 		if (!confirm) return message.util!.send('Canceled.');
-		if (confirm.toLowerCase().startsWith('y')) {
+		if (confirm.startsWith('y')) {
 			await message.channel.send('Rebooting...');
 			await this.client.destroy();
 			await process.exit();
