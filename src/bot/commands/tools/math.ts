@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { MessageEmbed, Message } from 'discord.js';
 import { evaluate } from 'mathjs';
+import { stripIndents } from 'common-tags';
 
 export default class EvaluateCommand extends Command {
 	public constructor() {
@@ -27,8 +28,10 @@ export default class EvaluateCommand extends Command {
 			message.util!.send(new MessageEmbed()
 				.setColor('GREEN')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
-				.addField('Input', `\`\`\`\n${trim(expr)}\`\`\``)
-				.addField('Output', `\`\`\`\n${trim(res)}\`\`\``));
+				.addField('Input', stripIndents`\`\`\`
+					${trim(expr)}\`\`\``)
+				.addField('Output', stripIndents`\`\`\`
+					${trim(res)}\`\`\``));
 		} catch (err) {
 			message.util!.send(new MessageEmbed()
 				.setColor('RED')
