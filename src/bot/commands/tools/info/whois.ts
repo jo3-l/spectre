@@ -39,6 +39,7 @@ export default class WhoisCommand extends Command {
 			.setThumbnail(user.displayAvatarURL())
 			.setColor(member.roles.highest ? member.roles.highest.color : this.client.config.color)
 			.addField('ID', user.id)
+			.addField('Nickname', member.nickname ?? 'None')
 			.addField('Status', HUMAN_STATUSES[user.presence.status])
 			.addField('Playing', user.presence?.activity?.name ?? 'None')
 			.addField('Joined at', moment.utc(member.joinedAt!).format('YYYY/MM/DD hh:mm:ss'))
