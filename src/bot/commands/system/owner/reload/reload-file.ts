@@ -20,7 +20,7 @@ export default class ReloadFileCommand extends Command {
 				{
 					id: 'path',
 					type: async (_, phrase) => {
-						const BASE_URL = join(__dirname, '..', '..', '..', '..');
+						const BASE_URL = join(__dirname, '..', '..', '..', '..', '..');
 						const dir = join(BASE_URL, (phrase.endsWith('.ts') ? phrase : `${phrase}.ts`));
 						try {
 							if (!(await stat(dir)).isDirectory()) return dir;
@@ -36,7 +36,7 @@ export default class ReloadFileCommand extends Command {
 	}
 
 	public exec(message: Message, { path }: { path: string }) {
-		const rg = new RegExp(join(__dirname, '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g');
+		const rg = new RegExp(join(__dirname, '..', '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g');
 		delete require.cache[path];
 		message.util!.reply(`reloaded the file \`${path.replace(rg, '~')}\` successfully.`);
 	}
