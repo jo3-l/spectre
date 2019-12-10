@@ -20,6 +20,6 @@ export default class TopicCommand extends Command {
 	public async exec(message: Message) {
 		const raw = await fetch('https://www.conversationstarters.com/generator.php').then(res => res.text());
 		const $ = cheerio.load(raw);
-		return message.util!.send(`${$('#random').text()}`);
+		return message.util!.send($('#random').text());
 	}
 }
