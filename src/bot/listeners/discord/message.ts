@@ -28,7 +28,7 @@ export default class MessageListener extends Listener {
 		if (cooldowns!.has(message.author.id)) return;
 		const xpAmount = Math.floor(Math.random() * 10) + 15;
 		const repo = this.client.db.getRepository(Member);
-		let member = await repo.findOne({ where: data });
+		let member = await repo.findOne(data);
 		if (!member) member = await repo.create(data);
 
 		const oldLevel = calculateLevel(member.xp);

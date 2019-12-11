@@ -29,7 +29,7 @@ export default class ExecCommand extends Command {
 					}),
 					'flag': ['-t', '--timeout'],
 					'unordered': true,
-					'default': 5,
+					'default': 5000,
 				},
 				{
 					id: 'expr',

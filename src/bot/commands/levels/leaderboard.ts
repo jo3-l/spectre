@@ -20,7 +20,7 @@ export default class LeaderboardCommand extends Command {
 					'id': 'page',
 					/** @todo Find a more elegant solution to this */
 					'type': Argument.compose('number', (_, int: unknown) => (int as number >= 1 ? int as number * 10 : null)),
-					'default': 1,
+					'default': 10,
 				},
 			],
 			channel: 'guild',
@@ -29,12 +29,13 @@ export default class LeaderboardCommand extends Command {
 
 	public async exec(message: Message, { page }: { page: number }) {
 		const repo = this.client.db.getRepository(Member);
-		const result = (await repo.find({
+		const result = await repo.find({
 			where: { guildId: message.guild!.id },
 			select: ['id', 'xp'],
 			order: { xp: 'DESC' },
+			skip: page - 10,
 			take: page,
-		})).slice((page - 10), page);
+		});
 		if (!result.length) return message.util!.reply(`there are no ranked members on page ${page / 10}!`);
 		const mapped = await Promise.all(result
 			.map(async (member, i) => {
