@@ -4,7 +4,7 @@ import { Message } from 'discord.js';
 export default class RebootCommand extends Command {
 	public constructor() {
 		super('reboot', {
-			aliases: ['reboot', 'die'],
+			aliases: ['reboot', 'die', 'shutdown'],
 			category: 'Owner',
 			description: {
 				content: 'Reboots the bot.',
