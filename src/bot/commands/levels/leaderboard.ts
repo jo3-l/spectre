@@ -18,7 +18,7 @@ export default class LeaderboardCommand extends Command {
 			args: [
 				{
 					'id': 'page',
-					'type': Argument.range('integer', 0, Infinity),
+					'type': Argument.compose('integer', (_, int: unknown) => (int as number >= 1 ? int as number * 10 : null)),
 					'default': 1,
 				},
 			],
@@ -27,7 +27,6 @@ export default class LeaderboardCommand extends Command {
 	}
 
 	public async exec(message: Message, { page }: { page: number }) {
-		page *= 10;
 		const repo = this.client.db.getRepository(Member);
 		const result = (await repo.find({
 			where: { guildId: message.guild!.id },
