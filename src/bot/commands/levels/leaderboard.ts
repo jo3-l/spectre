@@ -18,6 +18,7 @@ export default class LeaderboardCommand extends Command {
 			args: [
 				{
 					'id': 'page',
+					/** @todo Find a more elegant solution to this */
 					'type': Argument.compose('number', (_, int: unknown) => (int as number >= 1 ? int as number * 10 : null)),
 					'default': 1,
 				},

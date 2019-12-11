@@ -22,7 +22,11 @@ export default class ExecCommand extends Command {
 				{
 					'id': 'timeout',
 					'match': 'option',
-					'type': Argument.range('number', 0, 61),
+					'type': Argument.compose('number', (_, int: unknown) => {
+						/** @todo Find a more elegant implementation for this */
+						if (typeof int !== 'number') return;
+						return int >= 1 && int <= 60 ? int * 1000 : null;
+					}),
 					'flag': ['-t', '--timeout'],
 					'unordered': true,
 					'default': 5,
