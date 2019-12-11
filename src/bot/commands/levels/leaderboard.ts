@@ -18,7 +18,7 @@ export default class LeaderboardCommand extends Command {
 			args: [
 				{
 					'id': 'page',
-					'type': Argument.compose('integer', (_, int: unknown) => (int as number >= 1 ? int as number * 10 : null)),
+					'type': Argument.compose('number', (_, int: unknown) => (int as number >= 1 ? int as number * 10 : null)),
 					'default': 1,
 				},
 			],
