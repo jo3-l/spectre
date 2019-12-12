@@ -37,11 +37,10 @@ export default class LeaderboardCommand extends Command {
 			take: page,
 		});
 		if (!result.length) return message.util!.reply(`there are no ranked members on page ${page / 10}!`);
-		const mapped = await Promise.all(result
-			.map(async (member, i) => {
-				const { id, xp } = member;
-				return `• **${i + 1}.** [${(await this.client.users.fetch(id)).tag}](https://discordapp.com) :: Level ${calculateLevel(xp)} (${xp} XP)`;
-			}));
+		const mapped = await Promise.all(result.map(async (member, i) => {
+			const { id, xp } = member;
+			return `• **${i + 1}.** [${(await this.client.users.fetch(id)).tag}](https://discordapp.com) :: Level ${calculateLevel(xp)} (${xp} XP)`;
+		}));
 		return message.util!.send(new MessageEmbed()
 			.setAuthor(`${message.guild!.name}'s Leaderboard`)
 			.setThumbnail(message.guild!.iconURL() ?? '')
