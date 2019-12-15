@@ -23,7 +23,7 @@ export default class MessageListener extends Listener {
 	public async exec(message: Message) {
 		if (!message.guild || message.author.bot) return;
 		const data = { guildId: message.guild.id, id: message.author.id };
-		let cooldowns = this.client.xpCooldowns.get(message.guild.id) ??
+		const cooldowns = this.client.xpCooldowns.get(message.guild.id) ??
 			this.client.xpCooldowns.set(message.guild.id, new Set()).get(message.guild.id);
 		if (!cooldowns) return;
 		if (cooldowns.has(message.author.id)) return;
