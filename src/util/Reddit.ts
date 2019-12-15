@@ -29,12 +29,12 @@ class RedditPost {
 	}
 }
 
-export async function scrape({ subreddit = 'dankmemes', limit = 500, t = 'day', sort = 'top', filterNSFW = true }: IScrapeOptions) {
+export async function scrapeSubreddit({ subreddit = 'dankmemes', limit = 500, t = 'day', sort = 'top', filterNSFW = true }: IScrapeOptions) {
 	const params = stringify({ t, limit });
 	const url = `https://www.reddit.com/r/${subreddit}/${sort}/.json?${params}`;
 	let data = (await fetch(url).then(res => res.json()) as IRedditAPIResponse).data.children;
 	if (filterNSFW) data = data.filter(({ data: postData }) => !postData.over_18);
-	if (!data.length) return Promise.reject(new Error('NO_ITEMS_FOUND'));
+	if (!data.length) return 'NO_ITEMS_FOUND';
 	return new RedditPost(data[Math.floor(Math.random() * data.length)].data);
 }
 

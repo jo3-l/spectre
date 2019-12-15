@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { scrape } from '../../../util/Reddit';
+import { scrapeSubreddit } from '../../../util/Reddit';
 
 export default class MemeCommand extends Command {
 	public constructor() {
@@ -17,10 +17,8 @@ export default class MemeCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const meme = await scrape({ subreddit: 'dankmemes' }).catch(() => {
-			message.util!.reply('sorry, there were no fresh memes. Please try again later.');
-		});
-		if (!meme) return;
+		const meme = await scrapeSubreddit({ subreddit: 'dankmemes' });
+		if (meme === 'NO_ITEMS_FOUND') return message.util!.send('Sorry, we could\'t find any dank memes to show you. Try again later.');
 		return message.util!.send(meme.toEmbed());
 	}
 }
