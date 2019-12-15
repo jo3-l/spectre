@@ -12,7 +12,7 @@ const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)\.(.+)$/;
 export default class EvalCommand extends Command {
 	public constructor() {
 		super('eval', {
-			aliases: ['eval', 'evaluate', 'e', 'ev'],
+			aliases: ['eval', 'evaluate', 'ev'],
 			category: 'Owner',
 			description: {
 				content: 'Evalutes arbitrary JavaScript code. Run as async with `--async`, silent with `--silent`, or stack errors with `--stack`.',
