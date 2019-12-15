@@ -36,7 +36,7 @@ export default class TriviaCommand extends Command {
 			.setColor('RANDOM')
 			.setAuthor(`${message.author.username}'s Trivia Question`, message.author.displayAvatarURL())
 			.setDescription(stripIndents`**${trivia.question}**
-				*Please choose an answer within ${time / 1000}s*
+				*Please choose an answer within ${time / 1000}s.*
 				
 				${front}`)
 			.addField('Difficulty', `\`${trivia.difficulty}\``, true)
