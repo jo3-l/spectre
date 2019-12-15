@@ -44,6 +44,7 @@ export default class ExecCommand extends Command {
 	}
 
 	public async exec(message: Message, { expr, timeout }: { expr: string; timeout: number }) {
+		await message.util!.send('⏱ Waiting for response...');
 		const timer = new Timer();
 		const result = await exec(expr, { timeout })
 			.catch(error => ({ stdout: null, stderr: error.stderr }));
