@@ -3,8 +3,11 @@ import { MessageEmbed, Message } from 'discord.js';
 import { join } from 'path';
 import Timer from '../../../../util/Timer';
 import { inspect } from 'util';
+import fetch from 'node-fetch';
 import * as Util from '../../../../util/Util';
-const CODEBLOCK_REGEX = /```([a-zA-Z]*)\n?([\s\S]*?)\n?```/;
+
+const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
+const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)\.(.+)$/;
 
 export default class EvalCommand extends Command {
 	public constructor() {
@@ -19,44 +22,34 @@ export default class EvalCommand extends Command {
 			ownerOnly: true,
 			clientPermissions: ['EMBED_LINKS'],
 			ratelimit: 2,
-			args: [
-				{
-					id: 'async',
-					match: 'flag',
-					flag: ['--async', '-a'],
-					unordered: true,
-				},
-				{
-					id: 'silent',
-					match: 'flag',
-					flag: ['--silent', '-s'],
-					unordered: true,
-				},
-				{
-					id: 'stack',
-					match: 'flag',
-					flag: ['--stack', '-st'],
-					unordered: true,
-				},
-				{
-					id: 'code',
-					match: 'rest',
-					type: (_, code) => {
-						if (!code) return;
-						const [match, lang = '', content] = CODEBLOCK_REGEX.exec(code) || [];
-						if (match && ['js', 'javascript'].includes(lang.toLowerCase())) return content;
-						return code;
-					},
-					prompt: {
-						start: 'what would you like to evaluate?',
-					},
-					unordered: true,
-				},
-			],
+			flags: ['--async', '-a', '--silent', '-s', '--stack', '-st'],
 		});
 	}
 
-	public async exec(message: Message, { code, silent, async, stack }: { code: string; silent?: string; async?: string; stack?: string }) {
+	public *args() {
+		const codeTypeCaster = async (_: Message, code?: string) => {
+			if (!code) return;
+			const hastebinKey = LINK_REGEX.exec(code)?.[2];
+			if (hastebinKey) {
+				const { data } = await fetch(`https://hasteb.in/documents/${hastebinKey}`).then(res => res.json());
+				return data;
+			}
+			const content = CODEBLOCK_REGEX.exec(code)?.[2];
+			return content ?? code;
+		};
+		const flags: any = { async: ['--async', '-a'], silent: ['--silent', '-s'], stack: ['--stack', '-st'] };
+		// eslint-disable-next-line
+		for (const flag in flags) flags[flag] = yield { match: 'flag', flag: flags[flag], unordered: true };
+		const code = yield {
+			match: 'rest',
+			type: codeTypeCaster,
+			prompt: { start: 'what would you like to evaluate?' },
+			unordered: true,
+		};
+		return { code, ...flags };
+	}
+
+	public async exec(message: Message, { code, silent, async, stack }: { code: string; silent: boolean; async: boolean; stack: boolean }) {
 		if (async) code = `(async () => {\n${code}\n})()`;
 		const embed = new MessageEmbed().setAuthor('Eval', 'https://discordemoji.com/assets/emoji/node_js.png');
 		try {
