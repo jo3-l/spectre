@@ -23,7 +23,7 @@ export default class TriviaCommand extends Command {
 		const { results: [trivia] } = await fetch(url).then(res => res.json()) as IApiResponse;
 		for (const key in trivia) {
 			if (key === 'incorrect_answers') continue;
-			// @ts-ignore
+			// @ts-ignore - Yeah, this is a bad way of handling it but the alternative is too complicated. Feel free to fix if you have a solution.
 			trivia[key] = decodeURIComponent(trivia[key]);
 		}
 		let answers = trivia.incorrect_answers;
