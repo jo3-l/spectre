@@ -38,8 +38,7 @@ export default class EvalCommand extends Command {
 			return content ?? code;
 		};
 		const flags: any = { async: ['--async', '-a'], silent: ['--silent', '-s'], stack: ['--stack', '-st'] };
-		// eslint-disable-next-line
-		for (const flag in flags) flags[flag] = yield { match: 'flag', flag: flags[flag], unordered: true };
+		for (const [name, flag] of Object.entries(flags)) flags[name] = yield { match: 'flag', flag, unordered: true };
 		const code = yield {
 			match: 'rest',
 			type: codeTypeCaster,
