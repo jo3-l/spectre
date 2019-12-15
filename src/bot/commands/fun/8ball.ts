@@ -46,9 +46,9 @@ export default class EightballCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const msg = await message.util!.send('🎱 - The 8ball is thinking...');
+		await message.util!.send('🎱 - The 8ball is thinking...');
 		setTimeout(() => {
-			msg.edit(`🎱 - ${this.answers[Math.floor(Math.random() * this.answers.length)]}`);
+			message.util!.send(`🎱 - ${this.answers[Math.floor(Math.random() * this.answers.length)]}`);
 		}, Math.round(Math.random() * 5) * 1000);
 	}
 }
