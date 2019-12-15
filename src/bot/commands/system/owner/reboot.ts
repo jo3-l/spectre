@@ -31,11 +31,9 @@ export default class RebootCommand extends Command {
 		} catch {
 			return message.util!.send('Canceled.');
 		}
-		if (!confirm) return message.util!.send('Canceled.');
-		if (confirm.startsWith('y')) {
-			await message.channel.send('Rebooting...');
-			await this.client.destroy();
-			await process.exit();
-		}
+		if (!confirm.startsWith('y')) return message.util!.send('Cancelled.');
+		await message.channel.send('Rebooting...');
+		await this.client.destroy();
+		await process.exit();
 	}
 }
