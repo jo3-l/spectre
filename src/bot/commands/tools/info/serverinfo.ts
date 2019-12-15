@@ -38,13 +38,13 @@ export default class ServerInfoCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const { guild } = message;
+		const guild = message.guild!;
 		const suffixes = ['Text', 'Store', 'Voice', 'Category'];
 		let textAmt: ChannelAmountType = 0;
 		let storeAmt: ChannelAmountType = 0;
 		let voiceAmt: ChannelAmountType = 0;
 		let categoryAmt: ChannelAmountType = 0;
-		for (const channel of guild!.channels.values()) {
+		for (const channel of guild.channels.values()) {
 			switch (channel.type) {
 				case 'category':
 					++categoryAmt;
@@ -63,17 +63,17 @@ export default class ServerInfoCommand extends Command {
 		}
 		const embed = new MessageEmbed()
 			.setColor(this.client.config.color)
-			.setAuthor(`${guild!.name} (ID ${guild!.id})`, guild!.iconURL() ?? '')
-			.setThumbnail(guild!.iconURL() ?? '')
-			.addField('ID', guild!.id)
-			.addField('Channels', commaListsAnd`• ${[textAmt, storeAmt, voiceAmt, categoryAmt].map((v, i) => `${v} ${suffixes[i]}`)}\n• AFK: ${guild!.afkChannel?.toString() ?? 'None'}`)
-			.addField('Membercount', `${guild!.memberCount}`)
-			.addField('Owner', `${(await guild!.members.fetch(guild!.ownerID)).user.tag} (${guild!.ownerID})`)
-			.addField('Roles', guild!.roles.size)
-			.addField('Region', HUMAN_REGIONS[guild!.region])
-			.addField('Verification Level', verificationLevels[guild!.verificationLevel])
+			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() ?? '')
+			.setThumbnail(guild.iconURL() ?? '')
+			.addField('ID', guild.id)
+			.addField('Channels', commaListsAnd`• ${[textAmt, storeAmt, voiceAmt, categoryAmt].map((v, i) => `${v} ${suffixes[i]}`)}\n• AFK: ${guild.afkChannel?.toString() ?? 'None'}`)
+			.addField('Membercount', `${guild.memberCount}`)
+			.addField('Owner', `${(await guild.members.fetch(guild.ownerID)).user.tag} (${guild.ownerID})`)
+			.addField('Roles', guild.roles.size)
+			.addField('Region', HUMAN_REGIONS[guild.region])
+			.addField('Verification Level', verificationLevels[guild.verificationLevel])
 			.setFooter('Created at')
-			.setTimestamp(guild!.createdAt);
+			.setTimestamp(guild.createdAt);
 		message.util!.send(embed);
 	}
 }
