@@ -21,18 +21,16 @@ export default class TriviaCommand extends Command {
 	public async exec(message: Message) {
 		const url = `https://opentdb.com/api.php?${stringify({ amount: 1, type: 'multiple', encode: 'url3986' })}`;
 		const { results: [trivia] } = await fetch(url).then(res => res.json()) as IApiResponse;
-		for (const key in trivia) {
-			if (key === 'incorrect_answers') continue;
-			// @ts-ignore - Yeah, this is a bad way of handling it but the alternative is too complicated. Feel free to fix if you have a solution.
-			trivia[key] = decodeURIComponent(trivia[key]);
+		for (const [key, value] of Object.entries(trivia)) {
+			trivia[key as Key] = (typeof value === 'string'
+				? decodeURIComponent(value)
+				: value.map(decodeURIComponent)) as string & string[];
 		}
 		let answers = trivia.incorrect_answers;
 		answers.push(trivia.correct_answer);
-		const time = 25e3;
-		answers = answers
-			.map(decodeURIComponent)
-			.sort();
+		answers = answers.sort();
 		const front = answers.map((answer, i) => `**${i + 1}.** *${answer}*`).join('\n');
+		const time = 25e3;
 
 		message.util!.send(new MessageEmbed()
 			.setColor('RANDOM')
@@ -71,3 +69,5 @@ interface IApiResponse {
 		incorrect_answers: string[];
 	}];
 }
+
+type Key = 'category' | 'type' | 'difficulty' | 'question' | 'correct_answer' | 'incorrect_answers';
