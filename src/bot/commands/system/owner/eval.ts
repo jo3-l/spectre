@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
 import * as Util from '../../../../util/Util';
 
 const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
-const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)\.(.+)$/;
+const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)(\..+)?$/;
 
 export default class EvalCommand extends Command {
 	public constructor() {
