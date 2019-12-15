@@ -23,9 +23,10 @@ export default class MessageListener extends Listener {
 	public async exec(message: Message) {
 		if (!message.guild || message.author.bot) return;
 		const data = { guildId: message.guild.id, id: message.author.id };
-		let cooldowns = this.client.xpCooldowns.get(message.guild.id);
-		if (!cooldowns) cooldowns = this.client.xpCooldowns.set(message.guild.id, new Set()).get(message.guild.id);
-		if (cooldowns!.has(message.author.id)) return;
+		let cooldowns = this.client.xpCooldowns.get(message.guild.id) ??
+			this.client.xpCooldowns.set(message.guild.id, new Set()).get(message.guild.id);
+		if (!cooldowns) return;
+		if (cooldowns.has(message.author.id)) return;
 		const xpAmount = Math.floor(Math.random() * 10) + 15;
 		const repo = this.client.db.getRepository(Member);
 		let member = await repo.findOne(data);
@@ -39,8 +40,8 @@ export default class MessageListener extends Listener {
 			message.channel.send(`GG ${message.author}, you advanced to **level ${newLevel}**!`,
 				new MessageAttachment(await this.generate({ user: message.author, level: newLevel })));
 		}
-		cooldowns!.add(message.author.id);
-		setTimeout(() => cooldowns!.delete(message.author.id), 60000);
+		cooldowns.add(message.author.id);
+		setTimeout(() => cooldowns?.delete(message.author.id), 60000);
 	}
 
 	private async generate({ user, background = 'Clouds', level }: IGenerateOptions) {
