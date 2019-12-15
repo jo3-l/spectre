@@ -1,5 +1,5 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed, Collection, Snowflake } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { stringify } from 'querystring';
 import fetch from 'node-fetch';
 import { stripIndents } from 'common-tags';
@@ -44,16 +44,16 @@ export default class TriviaCommand extends Command {
 			.setFooter('💡 Tip: You can use either the number or the word to answer!'));
 
 		const validAnswers = [trivia.correct_answer.toLowerCase(), (answers.indexOf(trivia.correct_answer) + 1).toString()];
-		let choice: Collection<Snowflake, Message>;
+		let choice: Message;
 		try {
-			choice = await message.channel.awaitMessages((msg: Message) => msg.author.id === message.author.id, {
+			choice = (await message.channel.awaitMessages((msg: Message) => msg.author.id === message.author.id, {
 				max: 1, time, errors: ['time'],
-			});
+			})).first()!;
 		} catch {
 			return message.channel.send(`You didn\'t answer in time. The correct answer was ${trivia.correct_answer}.`);
 		}
 
-		if (validAnswers.includes(choice.first()?.content.toLowerCase() ?? '')) return message.channel.send('Good job! That was the correct answer.');
+		if (validAnswers.includes(choice.content.toLowerCase() ?? '')) return message.channel.send('Good job! That was the correct answer.');
 		return message.channel.send(`That wasn\'t the correct response. The answer was ${trivia.correct_answer}.`);
 	}
 }
