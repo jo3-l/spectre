@@ -1,5 +1,5 @@
 import { Command } from 'discord-akairo';
-import { Message, TextChannel, MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 
 export default class QuoteCommand extends Command {
 	public constructor() {
@@ -18,7 +18,7 @@ export default class QuoteCommand extends Command {
 	}
 
 	public *args() {
-		const channel: TextChannel | null = yield { type: 'textChannel' };
+		const channel = yield { type: 'textChannel' };
 		let msg: any = { type: 'message', prompt: { start: 'please provide a valid message ID.', retry: 'that wasn\'t a valid message ID!' }, match: 'content' };
 		if (channel) {
 			msg = {
@@ -32,9 +32,9 @@ export default class QuoteCommand extends Command {
 		return { msg };
 	}
 
-	public async exec(message: Message, { match, msg }: { match: any; msg?: Message }) {
+	public async exec(message: Message, { match, msg }: { match?: string[]; msg?: Message }) {
 		if (!msg && match) {
-			const [, , , , channel, id] = match;
+			const [channel, id] = match.slice(4);
 			if (!message.guild!.channels.has(channel)) return;
 			try {
 				msg = await message.channel.messages.fetch(id);
