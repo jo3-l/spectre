@@ -50,7 +50,7 @@ export default class EvalCommand extends Command {
 
 	public async exec(message: Message, { code, silent, async, stack }: { code: string; silent: boolean; async: boolean; stack: boolean }) {
 		if (async) code = `(async () => {\n${code}\n})()`;
-		const embed = new MessageEmbed().setAuthor('Eval', 'https://discordemoji.com/assets/emoji/node_js.png');
+		const embed = new MessageEmbed().setAuthor('Eval', 'https://image.flaticon.com/icons/png/512/919/919832.png');
 		try {
 			const timer = new Timer();
 			// eslint-disable-next-line
