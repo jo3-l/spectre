@@ -21,7 +21,6 @@ export interface SpectreConfig {
 
 export default class SpectreClient extends AkairoClient {
 	public version = version;
-	public xpCooldowns = new Map();
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', 'commands'),
 		aliasReplacement: /-/g,
@@ -95,7 +94,6 @@ export default class SpectreClient extends AkairoClient {
 declare module 'discord-akairo' {
 	interface AkairoClient {
 		version: string;
-		xpCooldowns: Map<string, Set<string>>;
 		logger: Logger;
 		db: Connection;
 		config: SpectreConfig;

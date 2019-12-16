@@ -1,5 +1,5 @@
 import { Listener } from 'discord-akairo';
-import { MessageAttachment, Message, User } from 'discord.js';
+import { MessageAttachment, Message, User, Snowflake } from 'discord.js';
 import { Canvas } from 'canvas-constructor';
 import { join } from 'path';
 import { calculateLevel } from '../../../util/Util';
@@ -12,6 +12,7 @@ const loadImage = promisify(readFile);
 const IMAGE_DIRECTORY = join(__dirname, '..', '..', '..', 'assets', 'social', 'levelup');
 
 export default class MessageListener extends Listener {
+	private readonly cooldowns: Map<Snowflake, Set<Snowflake>> = new Map();
 	public constructor() {
 		super('message', {
 			emitter: 'client',
@@ -23,8 +24,8 @@ export default class MessageListener extends Listener {
 	public async exec(message: Message) {
 		if (!message.guild || message.author.bot) return;
 		const data = { guildId: message.guild.id, id: message.author.id };
-		const cooldowns = this.client.xpCooldowns.get(message.guild.id) ??
-			this.client.xpCooldowns.set(message.guild.id, new Set()).get(message.guild.id);
+		const cooldowns = this.cooldowns.get(message.guild.id) ??
+			this.cooldowns.set(message.guild.id, new Set()).get(message.guild.id);
 		if (!cooldowns) return;
 		if (cooldowns.has(message.author.id)) return;
 		const xpAmount = Math.floor(Math.random() * 10) + 15;
@@ -41,7 +42,7 @@ export default class MessageListener extends Listener {
 				new MessageAttachment(await this.generate({ user: message.author, level: newLevel })));
 		}
 		cooldowns.add(message.author.id);
-		setTimeout(() => cooldowns?.delete(message.author.id), 60000);
+		setTimeout(() => cooldowns.delete(message.author.id), 60000);
 	}
 
 	private async generate({ user, background = 'Clouds', level }: IGenerateOptions) {
