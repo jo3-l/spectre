@@ -31,11 +31,25 @@ export default class MessageListener extends Listener {
 		const xpAmount = Math.floor(Math.random() * 10) + 15;
 		const repo = this.client.db.getRepository(Member);
 		let member = await repo.findOne(data);
-		if (!member) member = await repo.create(data);
+		if (!member) {
+			await repo
+				.createQueryBuilder()
+				.insert()
+				.into(Member)
+				.values(data)
+				.execute();
+			member = { ...data, xp: 0 };
+		}
 
 		const oldLevel = calculateLevel(member.xp);
-		member.xp += xpAmount;
-		const { xp: newXp } = await repo.save(member);
+		this.logger.debug(member);
+		const newXp = member.xp + xpAmount;
+		await repo
+			.createQueryBuilder()
+			.update()
+			.set({ xp: newXp })
+			.where(data)
+			.execute();
 		const newLevel = calculateLevel(newXp);
 		if (newLevel !== 0 && newLevel !== oldLevel) {
 			message.channel.send(`GG ${message.author}, you advanced to **level ${newLevel}**!`,

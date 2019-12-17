@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, BeforeInsert } from 'typeorm';
+import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity('members')
 export class Member {
@@ -8,11 +8,6 @@ export class Member {
 	@PrimaryColumn({ type: 'bigint' })
 	public guildId!: string;
 
-	@Column('int')
+	@Column({ 'type': 'int', 'default': () => '0' })
 	public xp!: number;
-
-	@BeforeInsert()
-	public setDefault() {
-		this.xp = 0;
-	}
 }
