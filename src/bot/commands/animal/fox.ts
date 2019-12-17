@@ -19,7 +19,7 @@ export default class FoxCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const { link } = await fetch(this.url).then(res => res.json()) as IApiResponse;
+		const { link } = await fetch(this.url).then(res => res.json()) as ApiResponse;
 		const embed = new MessageEmbed()
 			.setTitle('🦊 Fox')
 			.setImage(link)
@@ -31,6 +31,6 @@ export default class FoxCommand extends Command {
 	}
 }
 
-interface IApiResponse {
+interface ApiResponse {
 	link: string;
 }

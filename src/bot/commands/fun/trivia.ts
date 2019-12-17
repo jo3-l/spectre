@@ -20,9 +20,9 @@ export default class TriviaCommand extends Command {
 
 	public async exec(message: Message) {
 		const url = `https://opentdb.com/api.php?${stringify({ amount: 1, type: 'multiple', encode: 'url3986' })}`;
-		const { results: [trivia] } = await fetch(url).then(res => res.json()) as IApiResponse;
+		const { results: [trivia] } = await fetch(url).then(res => res.json()) as ApiResponse;
 		for (const [key, value] of Object.entries(trivia)) {
-			trivia[key as keyof IQuestion] = typeof value === 'string'
+			trivia[key as keyof Question] = typeof value === 'string'
 				? decodeURIComponent(value)
 				: value.map(decodeURIComponent);
 		}
@@ -58,12 +58,12 @@ export default class TriviaCommand extends Command {
 	}
 }
 
-interface IApiResponse {
+interface ApiResponse {
 	response_code: number;
-	results: [IQuestion];
+	results: [Question];
 }
 
-interface IQuestion {
+interface Question {
 	category: string;
 	type: string;
 	difficulty: string;

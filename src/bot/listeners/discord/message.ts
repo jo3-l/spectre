@@ -59,7 +59,7 @@ export default class MessageListener extends Listener {
 		setTimeout(() => cooldowns.delete(message.author.id), 60000);
 	}
 
-	private async generate({ user, background = 'Clouds', level }: IGenerateOptions) {
+	private async generate({ user, background = 'Clouds', level }: ImgenOptions) {
 		const _background = await loadImage(join(IMAGE_DIRECTORY, `${background}.png`));
 		const avatar = await fetch(user.displayAvatarURL({ format: 'png', size: 1024 })).then(res => res.buffer());
 
@@ -80,7 +80,7 @@ export default class MessageListener extends Listener {
 	}
 }
 
-interface IGenerateOptions {
+interface ImgenOptions {
 	user: User;
 	background?: string;
 	level: number;

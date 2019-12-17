@@ -17,11 +17,11 @@ export default class CatfactCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const { fact } = await fetch('https://catfact.ninja/fact').then(res => res.json()) as IApiResponse;
+		const { fact } = await fetch('https://catfact.ninja/fact').then(res => res.json()) as ApiResponse;
 		return message.util!.send(`🐱: ${fact}`);
 	}
 }
 
-interface IApiResponse {
+interface ApiResponse {
 	fact: string;
 }

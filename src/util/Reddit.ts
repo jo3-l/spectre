@@ -10,7 +10,7 @@ class RedditPost {
 	public readonly image: string;
 	public readonly url: string;
 
-	public constructor({ over_18, title, ups, num_comments, permalink, url }: IRedditPostData) {
+	public constructor({ over_18, title, ups, num_comments, permalink, url }: RedditPostPartial) {
 		this.nsfw = over_18;
 		this.title = title;
 		this.upvotes = ups;
@@ -29,35 +29,35 @@ class RedditPost {
 	}
 }
 
-export async function scrapeSubreddit({ subreddit = 'dankmemes', limit = 500, t = 'day', sort = 'top', filterNSFW = true }: IScrapeOptions) {
+export async function scrapeSubreddit({ subreddit = 'dankmemes', limit = 500, t = 'day', sort = 'top', filterNSFW = true }: RedditScrapeOptions) {
 	const params = stringify({ t, limit });
 	const url = `https://www.reddit.com/r/${subreddit}/${sort}/.json?${params}`;
-	let data = (await fetch(url).then(res => res.json()) as IRedditAPIResponse).data.children;
+	let data = (await fetch(url).then(res => res.json()) as RedditApiResponse).data.children;
 	if (filterNSFW) data = data.filter(({ data: postData }) => !postData.over_18);
 	if (!data.length) return 'NO_ITEMS_FOUND';
 	return new RedditPost(data[Math.floor(Math.random() * data.length)].data);
 }
 
-interface IScrapeOptions {
+interface RedditScrapeOptions {
 	subreddit?: string;
 	limit?: number;
 	filterNSFW?: boolean;
 	t?: 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 	sort?: 'hot' | 'new' | 'controversial' | 'top' | 'rising';
 }
-interface IRedditAPIResponse {
+interface RedditApiResponse {
 	kind: 'Listing';
 	data: {
 		modhash: string;
 		dist: number;
-		children: IRedditPostInfo[];
+		children: RedditPostRaw[];
 	};
 }
-interface IRedditPostInfo {
+interface RedditPostRaw {
 	kind: string;
-	data: IRedditPostData;
+	data: RedditPostPartial;
 }
-interface IRedditPostData {
+interface RedditPostPartial {
 	over_18: boolean;
 	title: string;
 	created: number;

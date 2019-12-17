@@ -1,13 +1,9 @@
 import { format, createLogger, transports } from 'winston';
 import * as moment from 'moment';
-import { hex, red, yellow, green, blue, Chalk } from 'chalk';
+import { hex, red, yellow, green, blue } from 'chalk';
 import { inspect } from 'util';
 
-interface ILevelColors {
-	[key: string]: Chalk;
-}
-
-const LEVEL_COLORS: ILevelColors = {
+const LEVEL_COLORS = {
 	error: red,
 	warn: yellow,
 	info: green,
@@ -24,7 +20,7 @@ export default createLogger({
 			let { message } = info;
 			if (level === 'debug' && typeof message !== 'string') message = inspect(message, { depth: 1 });
 			const display = moment().format('kk:mm');
-			const color = LEVEL_COLORS[level];
+			const color = LEVEL_COLORS[level as 'error' | 'warn' | 'info' | 'debug'];
 			return `${hex('#FF8800')(display)} | ${color(`[${timestamp}] ${label} - ${level.toUpperCase()}: `)} ${message}`;
 		}),
 	),

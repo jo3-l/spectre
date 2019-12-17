@@ -1,23 +1,22 @@
 import { AkairoClient } from 'discord-akairo';
 import { ActivityOptions } from 'discord.js';
 
-interface IActivity {
+interface StaticActivity {
 	activity: string;
 	options?: ActivityOptions;
 }
-type ActivityFunction = (client: AkairoClient) => IActivity;
-
-export type Activity = IActivity | ActivityFunction;
+type ActivityFunction = (client: AkairoClient) => StaticActivity;
+export type Activity = StaticActivity | ActivityFunction;
 
 export default class ActivityHandler {
 	private current = 0;
 	private _interval: NodeJS.Timeout | null = null;
-	public readonly activities: IActivity[];
+	public readonly activities: StaticActivity[];
 	public constructor(private readonly client: AkairoClient, activities: Activity[], private readonly interval: number = 5 * 60000) {
 		this.activities = activities.map((activity: Activity) => Object.assign({ type: 'PLAYING' }, typeof activity === 'function' ? activity(this.client) : activity));
 	}
 
-	private get next(): IActivity {
+	private get next(): StaticActivity {
 		return this.activities[++this.current % this.activities.length];
 	}
 

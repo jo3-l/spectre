@@ -68,7 +68,7 @@ export default class RankCommand extends Command {
 		})));
 	}
 
-	private async generate({ background = 'default', current, total, rank, level, user, color = 'ff0000' }: IGenerationOptions) {
+	private async generate({ background = 'default', current, total, rank, level, user, color = 'ff0000' }: ImgenOptions) {
 		current = current.toString();
 		total = total.toString();
 		rank = rank.toString();
@@ -146,7 +146,7 @@ export default class RankCommand extends Command {
 	}
 }
 
-interface IGenerationOptions {
+interface ImgenOptions {
 	background?: string;
 	current: number | string;
 	total: number | string;

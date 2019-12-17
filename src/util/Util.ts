@@ -13,7 +13,7 @@ export function ordinal(cardinal: number) {
 	}
 }
 
-export async function hastebin(content: string, { url = 'https://hasteb.in', extension = 'js' }: IHastebinOptions = { url: 'https://hasteb.in', extension: 'js' }) {
+export async function hastebin(content: string, { url = 'https://hasteb.in', extension = 'js' }: HastebinOptions = { url: 'https://hasteb.in', extension: 'js' }) {
 	const res = await fetch(`${url}/documents`, {
 		method: 'POST',
 		body: content,
@@ -21,14 +21,14 @@ export async function hastebin(content: string, { url = 'https://hasteb.in', ext
 	});
 
 	if (!res.ok) throw new Error(res.statusText);
-	const { key } = await res.json() as IHastebinResponse;
+	const { key } = await res.json() as HastebinResponsePartial;
 	return `${url}/${key}.${extension}`;
 }
 
 export const calculateLevel = (xp: number) => Math.floor(0.1 * Math.sqrt(xp));
 export const calculateXp = (level: number) => Math.floor(100 * (level ** 2));
 /* eslint-disable */
-export const emojis: IEmoji = {
+export const emojis = {
 	a: '🇦', b: '🇧', c: '🇨', d: '🇩',
 	e: '🇪', f: '🇫', g: '🇬', h: '🇭',
 	i: '🇮', j: '🇯', k: '🇰', l: '🇱',
@@ -43,15 +43,12 @@ export const emojis: IEmoji = {
 };
 /* eslint-enable */
 export function emojify(str: string) {
-	return [...str].map(v => emojis[v.toLowerCase()] ?? '').join('');
+	return [...str].map(v => (emojis as { [key: string]: string })[v.toLowerCase()]).join('');
 }
 export const emotify = emojify;
 
-interface IHastebinOptions {
+interface HastebinOptions {
 	url?: string;
 	extension?: string;
 }
-interface IHastebinResponse { key: string }
-interface IEmoji {
-	[key: string]: string;
-}
+interface HastebinResponsePartial { key: string }

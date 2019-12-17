@@ -11,7 +11,7 @@ export default class RichDisplay {
 	private readonly channel: TextChannel;
 	private message!: Message;
 
-	public constructor({ filter, timeout, pages, channel }: IRichDisplayOptions = { timeout: 5 * 6e4, pages: [] }) {
+	public constructor({ filter, timeout, pages, channel }: RichDisplayOptions = { timeout: 5 * 6e4, pages: [] }) {
 		if (!channel) throw new Error('A channel must be provided.');
 		this.channel = channel;
 		if (filter) this.filter = filter;
@@ -90,7 +90,7 @@ export default class RichDisplay {
 	}
 }
 
-interface IRichDisplayOptions {
+interface RichDisplayOptions {
 	filter?: (reaction: MessageReaction, user: User) => boolean;
 	timeout: number;
 	pages: MessageEmbed[];

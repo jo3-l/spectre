@@ -20,7 +20,7 @@ export default class MessageDeleteListener extends Listener {
 	}
 }
 
-interface ISnipe {
+interface Snipe {
 	author: User;
 	timestamp: Date;
 	content: string;
@@ -28,6 +28,6 @@ interface ISnipe {
 }
 
 declare module 'discord.js' {
-	interface TextChannel { snipe?: ISnipe }
-	interface DMChannel { snipe?: ISnipe }
+	interface TextChannel { snipe?: Snipe }
+	interface DMChannel { snipe?: Snipe }
 }

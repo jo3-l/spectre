@@ -3,7 +3,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import { emojify } from '../../../../util/Util';
 import { commaListsAnd } from 'common-tags';
 
-const HUMAN_REGIONS: IRegions = {
+const HUMAN_REGIONS: Regions = {
 	'brazil': `${emojify('br')} Brazil`,
 	'eu-central': `${emojify('eu')} Central Europe`,
 	'singapore': `${emojify('sg')} Singapore`,
@@ -79,4 +79,4 @@ export default class ServerInfoCommand extends Command {
 }
 
 type ChannelAmountType = number | string | null;
-interface IRegions { [key: string]: string }
+interface Regions { [key: string]: string }

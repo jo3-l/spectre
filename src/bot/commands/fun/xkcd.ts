@@ -30,7 +30,7 @@ export default class XkcdCommand extends Command {
 
 	public async exec(message: Message, { latest, number }: { latest: boolean; number: number }) {
 		const latestComic = await fetch('https://xkcd.com/info.0.json').then(res => res.json());
-		let comic: IXkcdComic = latestComic;
+		let comic: XkcdComic = latestComic;
 		const { num: latestComicNumber } = latestComic;
 		if (!latest && !number) {
 			comic = await fetch(
@@ -50,7 +50,7 @@ export default class XkcdCommand extends Command {
 	}
 }
 
-interface IXkcdComic {
+interface XkcdComic {
 	month: string;
 	num: number;
 	link: string;
