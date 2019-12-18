@@ -4,7 +4,7 @@ import { Canvas } from 'canvas-constructor';
 import { join } from 'path';
 import { calculateLevel } from '../../../util/Util';
 import fetch from 'node-fetch';
-import { Member } from '../../db/entities/Member';
+import { Member } from '../../models/Member';
 import { promisify } from 'util';
 import { readFile } from 'fs';
 
@@ -42,7 +42,6 @@ export default class MessageListener extends Listener {
 		}
 
 		const oldLevel = calculateLevel(member.xp);
-		this.logger.debug(member);
 		const newXp = member.xp + xpAmount;
 		await repo
 			.createQueryBuilder()

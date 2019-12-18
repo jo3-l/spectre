@@ -6,7 +6,7 @@ import fetch from 'node-fetch';
 import { promisify } from 'util';
 import { readFile } from 'fs';
 import { join } from 'path';
-import { Member } from '../../db/entities/Member';
+import { Member } from '../../models/Member';
 import * as d3 from 'd3-format';
 
 const loadImage = promisify(readFile);

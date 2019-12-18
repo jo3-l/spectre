@@ -1,5 +1,5 @@
 import { Command, Argument } from 'discord-akairo';
-import { Member } from '../../db/entities/Member';
+import { Member } from '../../models/Member';
 import { MessageEmbed, Message } from 'discord.js';
 import { calculateLevel } from '../../../util/Util';
 
