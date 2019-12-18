@@ -11,5 +11,8 @@
 		"comma-spacing": "error",
 		"comma-style": "error",
 		"eol-last": "off"
+	},
+	"parserOptions": {
+		"createDefaultProgram": true
 	}
 }
