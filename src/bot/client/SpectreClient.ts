@@ -104,6 +104,8 @@ declare module 'discord-akairo' {
 	}
 
 	interface AkairoModule {
-		logger: Logger;
+		logger: Logger & {
+			debug: (message: any) => Logger;
+		};
 	}
 }
