@@ -32,15 +32,13 @@ export default class QuoteCommand extends Command {
 		return { msg };
 	}
 
-	public async exec(message: Message, { match, msg }: { match?: string[]; msg?: Message }) {
+	public async exec(message: Message, { match, msg }: { match?: RegExpMatchArray; msg?: Message }) {
 		if (!msg && match) {
 			const [channel, id] = match.slice(4);
 			if (!message.guild!.channels.has(channel)) return;
 			try {
 				msg = await message.channel.messages.fetch(id);
-			} catch {
-				return;
-			}
+			} catch { }
 		}
 		if (!msg || (!msg.content && !msg.attachments.size)) return;
 		const embed = new MessageEmbed()
