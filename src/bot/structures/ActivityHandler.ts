@@ -5,8 +5,8 @@ interface StaticActivity {
 	activity: string;
 	options?: ActivityOptions;
 }
-type ActivityFunction = (client: AkairoClient) => StaticActivity;
-export type Activity = StaticActivity | ActivityFunction;
+type ActivityCastor = (client: AkairoClient) => StaticActivity;
+export type Activity = StaticActivity | ActivityCastor;
 
 export default class ActivityHandler {
 	private current = 0;

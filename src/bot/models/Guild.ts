@@ -19,11 +19,11 @@ export class Guild {
 	public id!: string;
 
 	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'" })
-	public roleRewards!: object;
+	public roleRewards!: RoleRewards;
 
 	@Column({ 'type': 'enum', 'enum': RewardType, 'default': RewardType.STACK })
 	public rewardType!: RewardType;
 
 	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'" })
-	public backgrounds!: object;
+	public backgrounds!: Backgrounds;
 }

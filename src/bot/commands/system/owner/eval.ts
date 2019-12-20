@@ -23,28 +23,39 @@ export default class EvalCommand extends Command {
 			clientPermissions: ['EMBED_LINKS'],
 			ratelimit: 2,
 			flags: ['--async', '-a', '--silent', '-s', '--stack', '-st'],
+			optionFlags: ['-f', '--insert-from'],
 		});
 	}
 
 	public *args() {
-		const codeTypeCaster = async (_: Message, code?: string) => {
-			if (!code) return;
+		const hastebinLinkTypeCastor = async (_: Message, code: string) => {
 			const hastebinKey = LINK_REGEX.exec(code)?.[2];
 			if (hastebinKey) {
 				const { data } = await fetch(`https://hasteb.in/documents/${hastebinKey}`).then(res => res.json());
 				return data;
 			}
-			const content = CODEBLOCK_REGEX.exec(code)?.[2];
-			return content ?? code;
+		};
+		const codeTypeCaster = async (_: Message, code?: string) => {
+			if (!code) return;
+			const content = await hastebinLinkTypeCastor(_, code);
+			if (content) return content;
+			return CODEBLOCK_REGEX.exec(code)?.[2] ?? code;
 		};
 		const flags: any = { async: ['--async', '-a'], silent: ['--silent', '-s'], stack: ['--stack', '-st'] };
 		for (const [name, flag] of Object.entries(flags)) flags[name] = yield { match: 'flag', flag, unordered: true };
-		const code = yield {
+		let code = yield {
 			match: 'rest',
 			type: codeTypeCaster,
 			prompt: { start: 'what would you like to evaluate?' },
 			unordered: true,
 		};
+		const insert = yield {
+			match: 'option',
+			flag: ['--insert-from', '-f'],
+			type: hastebinLinkTypeCastor,
+			unordered: true,
+		};
+		if (insert) code = `${insert}\n${code}`;
 		return { code, ...flags };
 	}
 
