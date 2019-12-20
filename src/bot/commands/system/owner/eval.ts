@@ -41,14 +41,19 @@ export default class EvalCommand extends Command {
 			if (content) return content;
 			return CODEBLOCK_REGEX.exec(code)?.[2] ?? code;
 		};
+
 		const flags: any = { async: ['--async', '-a'], silent: ['--silent', '-s'], stack: ['--stack', '-st'] };
-		for (const [name, flag] of Object.entries(flags)) flags[name] = yield { match: 'flag', flag, unordered: true };
+		for (const [name, flag] of Object.entries(flags)) {
+			flags[name] = yield { match: 'flag', flag, unordered: true };
+		}
+
 		let code = yield {
 			match: 'rest',
 			type: codeTypeCaster,
 			prompt: { start: 'what would you like to evaluate?' },
 			unordered: true,
 		};
+
 		const insert = yield {
 			match: 'option',
 			flag: ['--insert-from', '-f'],
