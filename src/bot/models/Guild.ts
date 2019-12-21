@@ -8,9 +8,9 @@ export interface RoleRewards {
 	[key: string]: string;
 }
 export interface Backgrounds {
-	rank: string;
-	levelUp: string;
-	color: number;
+	rank?: string;
+	levelUp?: string;
+	color?: number;
 }
 
 @Entity('guilds')
