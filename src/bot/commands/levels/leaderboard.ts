@@ -28,6 +28,7 @@ export default class LeaderboardCommand extends Command {
 	}
 
 	public async exec(message: Message, { page }: { page: number }) {
+		await message.util!.send(`${this.client.emojis.loading} Generating leaderboard...`);
 		const repo = this.client.db.getRepository(Member);
 		const result = await repo.find({
 			where: { guildId: message.guild!.id },

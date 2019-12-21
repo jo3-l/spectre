@@ -1,5 +1,6 @@
-import { Command, Argument } from 'discord-akairo';
-import { Message } from 'discord.js';
+import { Command } from 'discord-akairo';
+import Confirmation, { Responses } from '../../../../util/Confirm';
+import { Message, MessageEmbed } from 'discord.js';
 
 export default class RebootCommand extends Command {
 	public constructor() {
@@ -18,22 +19,19 @@ export default class RebootCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const confirmArg = new Argument(this, {
-			id: 'confirm',
-			type: [['yes', 'yup', 'y'], ['no', 'nope', 'n']],
-			prompt: {
-				start: 'please confirm that you wish to reload the bot (y/n).',
-			},
-		});
-		let confirm: string;
-		try {
-			confirm = await confirmArg.collect(message);
-		} catch {
-			return message.util!.send('Canceled.');
+		const confirm = await new Confirmation(message, new MessageEmbed()
+			.setColor(this.client.config.color)
+			.setAuthor('Confirmation')
+			.setDescription('Are you sure you wish to reload the bot? Respond with `yes/no`.')
+			.setFooter('You may respond with \'cancel\' to cancel the command.')).run();
+		switch (confirm) {
+			case Responses.Canceled:
+			case Responses.No: return message.reply('The command has been cancelled.');
+			case Responses.Timeout: return message.reply('you didn\'t respond in time. The command has been cancelled.');
+			default:
+				await message.channel.send(`${this.client.emojis.loading} Rebooting...`);
+				await this.client.destroy();
+				await process.exit();
 		}
-		if (!confirm.startsWith('y')) return message.util!.send('Cancelled.');
-		await message.channel.send('Rebooting...');
-		await this.client.destroy();
-		await process.exit();
 	}
 }

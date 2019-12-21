@@ -38,6 +38,6 @@ export default class ReloadFileCommand extends Command {
 	public exec(message: Message, { path }: { path: string }) {
 		const rg = new RegExp(join(__dirname, '..', '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g');
 		delete require.cache[path];
-		message.util!.reply(`reloaded the file \`${path.replace(rg, '~')}\` successfully.`);
+		message.util!.send(`${this.client.emojis.success} Reloaded the file \`${path.replace(rg, '~')}\` successfully.`);
 	}
 }

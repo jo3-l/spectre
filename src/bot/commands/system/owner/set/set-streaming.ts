@@ -34,9 +34,9 @@ export default class SetStreamingCommand extends Command {
 	public exec(message: Message, { status, url }: { status?: string; url?: string }) {
 		if (!status) {
 			this.client.activityHandler.start();
-			return message.util!.reply('set status to default.');
+			return message.util!.send(`${this.client.emojis.success} Set status to default.`);
 		}
 		this.client.activityHandler.set(status, { type: 'STREAMING', url });
-		message.util!.reply(`set status to \`${status}\`.`);
+		message.util!.send(`${this.client.emojis.success} Set status to \`${status}\`.`);
 	}
 }

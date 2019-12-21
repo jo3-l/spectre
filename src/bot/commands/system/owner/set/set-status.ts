@@ -28,6 +28,6 @@ export default class SetStatusCommand extends Command {
 
 	public exec(message: Message, { status }: { status: PresenceStatusData }) {
 		this.client.user!.setStatus(status);
-		message.util!.reply(`set status to \`${status}\`.`);
+		message.util!.send(`${this.client.emojis.success} Set status to \`${status}\`.`);
 	}
 }

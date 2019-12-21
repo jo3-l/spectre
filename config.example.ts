@@ -12,6 +12,12 @@ export const color = 14232643;
 export const version = '0.5.0 Beta' || packageVersion;
 // Database connection URI
 export const db = '';
+// Emojis
+export const emojis = {
+	loading: '',
+	success: '',
+	error: '',
+};
 // Array of activities
 export const activities = [
 	{ activity: version },

@@ -37,14 +37,14 @@ export default class WhoisCommand extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(user.tag, user.displayAvatarURL())
 			.setThumbnail(user.displayAvatarURL())
-			.setColor(member.roles.highest ? member.roles.highest.color : this.client.config.color)
+			.setColor(member.displayColor || this.client.config.color)
 			.addField('ID', user.id)
 			.addField('Nickname', member.nickname ?? 'None')
 			.addField('Status', HUMAN_STATUSES[user.presence.status])
 			.addField('Playing', user.presence?.activity?.name ?? 'None')
 			.addField('Joined at', moment.utc(member.joinedAt!).format('YYYY/MM/DD hh:mm:ss'))
 			.addField('Registered', moment.utc(user.createdAt).format('YYYY/MM/DD hh:mm:ss'))
-			.addField(`Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(' ') || 'None');
+			.addField(`Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(', ') || 'None');
 		if (user.presence.clientStatus) {
 			embed.setFooter(oneLineCommaListsAnd`${user.username} is active on 
 				${Object.keys(user.presence.clientStatus ?? '')}`);

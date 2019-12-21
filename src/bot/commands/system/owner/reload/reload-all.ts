@@ -47,6 +47,6 @@ export default class ReloadAllCommand extends Command {
 	public async exec(message: Message, { handler, loadNew, name }: { handler: ListenerHandler | InhibitorHandler | CommandHandler; loadNew?: boolean; name: string }) {
 		if (loadNew) await handler.removeAll().loadAll();
 		else await handler.reloadAll();
-		return message.util!.reply(`all ${name} were reloaded.`);
+		return message.util!.send(`${this.client.emojis.success} All ${name} were reloaded.`);
 	}
 }

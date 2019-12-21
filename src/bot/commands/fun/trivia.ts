@@ -39,7 +39,7 @@ export default class TriviaCommand extends Command {
 				*Please choose an answer within ${time / 1000}s.*
 				
 				${front}`)
-			.addField('Difficulty', `\`${trivia.difficulty}\``, true)
+			.addField('Difficulty', `\`${trivia.difficulty[0].toUpperCase()}${trivia.difficulty.substr(1)}\``, true)
 			.addField('Category', `\`${trivia.category}\``, true)
 			.setFooter('💡 Tip: You can use either the number or the word to answer!'));
 

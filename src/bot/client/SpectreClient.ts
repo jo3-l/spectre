@@ -1,19 +1,49 @@
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, AkairoModule } from 'discord-akairo';
 import { join } from 'path';
-import { token, prefix, activities, owner, version, color, db } from '../../../config';
+import { token, prefix, activities, owner, version, color, db, emojis } from '../../../config';
 import ActivityHandler, { Activity } from '../structures/ActivityHandler';
 import SpectreLogger from '../structures/Logger';
 import Database from '../structures/Database';
 import { Logger } from 'winston';
+import { GuildEmojiStore } from 'discord.js';
 import { Connection } from 'typeorm';
 
-AkairoModule.prototype.logger = SpectreLogger;
+Reflect.defineProperty(AkairoModule.prototype, 'logger', { value: SpectreLogger });
+Reflect.defineProperty(GuildEmojiStore.prototype, 'loading', { value: emojis.loading });
+Reflect.defineProperty(GuildEmojiStore.prototype, 'success', { value: emojis.success });
+Reflect.defineProperty(GuildEmojiStore.prototype, 'error', { value: emojis.error });
+
+declare module 'discord-akairo' {
+	interface AkairoClient {
+		version: string;
+		logger: Logger;
+		db: Connection;
+		config: SpectreConfig;
+		commandHandler: CommandHandler;
+		inhibitorHandler: InhibitorHandler;
+		listenerHandler: ListenerHandler;
+		activityHandler: ActivityHandler;
+	}
+
+	interface AkairoModule {
+		logger: Logger & { debug: (message: any) => Logger };
+	}
+}
+
+declare module 'discord.js' {
+	interface GuildEmojiStore {
+		loading: string;
+		success: string;
+		error: string;
+	}
+}
 
 export interface SpectreConfig {
 	prefix: string | string[];
 	token: string;
 	color: number;
 	version: string;
+	emojis: { success: string; loading: string; error: string };
 	db: string;
 	owner: string;
 	activities?: Activity[];
@@ -55,7 +85,7 @@ export default class SpectreClient extends AkairoClient {
 
 	public logger = SpectreLogger;
 	public db = Database.get('spectre');
-	public config = { token, prefix, color, owner, db, activities, version };
+	public config = { token, prefix, color, owner, db, activities, version, emojis };
 	public activityHandler: ActivityHandler = new ActivityHandler(this, activities);
 
 	public constructor() {
@@ -65,8 +95,8 @@ export default class SpectreClient extends AkairoClient {
 	}
 
 	private async init() {
-		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
-		this.commandHandler.useListenerHandler(this.listenerHandler);
+		this.commandHandler.useInhibitorHandler(this.inhibitorHandler)
+			.useListenerHandler(this.listenerHandler);
 		this.logger.info('Set handlers for the commandHandler.');
 		this.commandHandler.loadAll();
 		this.logger.info('Loaded all commands.');
@@ -74,7 +104,7 @@ export default class SpectreClient extends AkairoClient {
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
 			inhibitorHandler: this.inhibitorHandler,
-			process: process,
+			process,
 		});
 		this.logger.info('Set emitters for the listenerHandler.');
 		this.inhibitorHandler.loadAll();
@@ -88,24 +118,5 @@ export default class SpectreClient extends AkairoClient {
 	public async start() {
 		await this.init();
 		this.login(token);
-	}
-}
-
-declare module 'discord-akairo' {
-	interface AkairoClient {
-		version: string;
-		logger: Logger;
-		db: Connection;
-		config: SpectreConfig;
-		commandHandler: CommandHandler;
-		inhibitorHandler: InhibitorHandler;
-		listenerHandler: ListenerHandler;
-		activityHandler: ActivityHandler;
-	}
-
-	interface AkairoModule {
-		logger: Logger & {
-			debug: (message: any) => Logger;
-		};
 	}
 }

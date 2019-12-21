@@ -30,10 +30,10 @@ export default class ReloadCommand extends Command {
 	public async exec(message: Message, { module }: { module: Module | Category<string, Module> }) {
 		if (module instanceof Category) {
 			module.reloadAll();
-			return message.util!.send(`Successfully reloaded all modules in category \`${module}\`!`);
+			return message.util!.send(`${this.client.emojis.success} Successfully reloaded all modules in category \`${module}\`!`);
 		}
 		module.reload();
-		return message.util!.send(`Successfully reloaded the module \`${module}\`!`);
+		return message.util!.send(`${this.client.emojis.success} Successfully reloaded the module \`${module}\`!`);
 	}
 }
 

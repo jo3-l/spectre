@@ -1,0 +1,23 @@
+{
+	"success": {
+		"prefix": "success",
+		"body": [
+			"this.client.emojis.success"
+		],
+		"description": "success"
+	},
+	"error": {
+		"prefix": "error",
+		"body": [
+			"this.client.emojis.error"
+		],
+		"description": "error"
+	},
+	"loading": {
+		"prefix": "loading",
+		"body": [
+			"this.client.emojis.loading"
+		],
+		"description": "loading"
+	}
+}

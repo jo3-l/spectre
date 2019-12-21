@@ -10,16 +10,16 @@ export default class SetWatchingCommand extends Command {
 				usage: '<status>',
 			},
 			clientPermissions: ['SEND_MESSAGES'],
-			args: [{ id: 'status' }],
+			args: [{ id: 'status', match: 'content' }],
 		});
 	}
 
 	public exec(message: Message, { status }: { status: string }) {
 		if (!status) {
 			this.client.activityHandler.start();
-			return message.util!.reply('set status to default.');
+			return message.util!.send(`${this.client.emojis.success} Set status to default.`);
 		}
 		this.client.activityHandler.set(status, { type: 'LISTENING' });
-		message.util!.reply(`set status to \`${status}\`.`);
+		message.util!.send(`${this.client.emojis.success} Set status to \`${status}\`.`);
 	}
 }
