@@ -84,7 +84,7 @@ export default class EvalCommand extends Command {
 			return message.util!.send(embed
 				.setColor(this.client.config.color)
 				.setTitle('`Error`')
-				.setDescription(await this.clean(stack ? err.stack : err)));
+				.setDescription(await this.clean(stack ? err.stack : err, 'Error')));
 		}
 	}
 
