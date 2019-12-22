@@ -6,7 +6,7 @@ export default class MessageUpdateListener extends Listener {
 		super('messageUpdate', {
 			emitter: 'client',
 			event: 'messageUpdate',
-			category: 'Discord',
+			category: 'Snipes',
 		});
 	}
 

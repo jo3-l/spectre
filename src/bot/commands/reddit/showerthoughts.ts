@@ -6,7 +6,7 @@ export default class ShowerThoughtsCommand extends Command {
 	public constructor() {
 		super('shower-thoughts', {
 			aliases: ['shower-thoughts', 'shower-thought'],
-			category: 'Fun',
+			category: 'Reddit',
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: 'Things to think about in the shower.',

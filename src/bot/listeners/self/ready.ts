@@ -5,7 +5,7 @@ export default class extends Listener {
 		super('ready', {
 			emitter: 'client',
 			event: 'ready',
-			category: 'Discord',
+			category: 'Self',
 		});
 	}
 

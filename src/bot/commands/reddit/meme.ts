@@ -6,7 +6,7 @@ export default class MemeCommand extends Command {
 	public constructor() {
 		super('meme', {
 			aliases: ['meme', 'random-meme', 'dankmeme'],
-			category: 'Fun',
+			category: 'Reddit',
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			description: {
 				content: 'Fresh dank memes!',
