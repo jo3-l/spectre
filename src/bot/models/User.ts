@@ -12,7 +12,7 @@ export class User {
 	public id!: string;
 
 	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'" })
-	public backgrounds!: object;
+	public backgrounds!: any;
 
 	@Column({ 'type': 'int', 'default': 0 })
 	public credits!: number;
