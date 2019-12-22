@@ -61,8 +61,8 @@ export default class ExecCommand extends Command {
 
 	public async clean(text: any, name?: string) {
 		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
-		const raw = text.replace(/`/g, `\`${String.fromCharCode(8203)}`);
-		text = `\`\`\`prolog\n${raw}\`\`\``;
+		const raw = text;
+		text = Util.escapedCodeblock(text, 'prolog');
 		if ((8 + (text as string).length) > 1024) {
 			try {
 				text = `[${name}](${(await Util.hastebin(raw, { extension: 'prolog' }))})`;

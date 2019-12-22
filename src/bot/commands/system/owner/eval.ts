@@ -93,10 +93,9 @@ export default class EvalCommand extends Command {
 		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
 
 		const raw = text
-			.replace(/`/g, `\`${String.fromCharCode(8203)}`)
 			.replace(new RegExp(join(__dirname, '..', '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g'), '~')
-			.replace(this.client.token, 'token');
-		text = `\`\`\`js\n${raw}\`\`\``;
+			.replace(this.client.token, '<token>');
+		text = Util.escapedCodeblock(raw, 'js');
 		if ((8 + (text as string).length) > 1024) {
 			try {
 				text = `[${name}](${(await Util.hastebin(raw))})`;

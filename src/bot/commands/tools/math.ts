@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { MessageEmbed, Message } from 'discord.js';
 import { evaluate } from 'mathjs';
-import { stripIndents } from 'common-tags';
+import { codeblock } from '../../../util/Util';
 
 export default class EvaluateCommand extends Command {
 	public constructor() {
@@ -28,16 +28,14 @@ export default class EvaluateCommand extends Command {
 			message.util!.send(new MessageEmbed()
 				.setColor('GREEN')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
-				.addField('Input', stripIndents`\`\`\`
-					${trim(expr)}\`\`\``)
-				.addField('Output', stripIndents`\`\`\`
-					${trim(res)}\`\`\``));
+				.addField('Input', codeblock(trim(expr)))
+				.addField('Output', codeblock(trim(res))));
 		} catch (err) {
 			message.util!.send(new MessageEmbed()
 				.setColor('RED')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
-				.addField('Input', `\`\`\`\n${trim(expr)}\`\`\``)
-				.addField('Error', `\`\`\`\n${trim(err)}\`\`\``));
+				.addField('Input', codeblock(trim(expr)))
+				.addField('Error', codeblock(trim(err))));
 		}
 	}
 }

@@ -27,6 +27,11 @@ export async function hastebin(content: string, { url = 'https://hasteb.in', ext
 
 export const calculateLevel = (xp: number) => Math.floor(0.1 * Math.sqrt(xp));
 export const calculateXp = (level: number) => Math.floor(100 * (level ** 2));
+export const codeblock = (content: string, lang = '') =>
+	`\`\`\`${lang}\n${content}\`\`\``;
+
+export const escapedCodeblock = (content: string, lang = '') =>
+	codeblock(content.replace(/`/g, `\`${String.fromCharCode(8203)}`), lang);
 /* eslint-disable */
 export const emojis = {
 	a: '🇦', b: '🇧', c: '🇨', d: '🇩',
