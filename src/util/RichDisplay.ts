@@ -4,14 +4,14 @@ export default class RichDisplay {
 	private readonly emojis = { first: '⏪', prev: '◀️', stop: '⏹️', next: '▶️', last: '⏩' };
 	private readonly filter: (reaction: MessageReaction, user: User) => boolean = () => true;
 	private readonly timeout: number;
-	private pages: MessageEmbed[];
+	private pages: MessageEmbed[] = [];
 	private page = 0;
 	private startPage: MessageEmbed | number | null = null;
 	private endPage: MessageEmbed | number | null = null;
 	private readonly channel: TextChannel;
 	private message!: Message;
 
-	public constructor({ filter, timeout, pages, channel }: RichDisplayOptions = { timeout: 5 * 6e4, pages: [] }) {
+	public constructor({ filter, timeout = 5 * 6e4, pages = [], channel }: RichDisplayOptions = {}) {
 		if (!channel) throw new Error('A channel must be provided.');
 		this.channel = channel;
 		if (filter) this.filter = filter;
@@ -92,7 +92,7 @@ export default class RichDisplay {
 
 interface RichDisplayOptions {
 	filter?: (reaction: MessageReaction, user: User) => boolean;
-	timeout: number;
-	pages: MessageEmbed[];
+	timeout?: number;
+	pages?: MessageEmbed[];
 	channel?: TextChannel;
 }
