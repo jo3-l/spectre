@@ -47,8 +47,7 @@ export default class WhoisCommand extends Command {
 			.addField(`Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(' ') || 'None');
 
 		if (user.presence.clientStatus) {
-			embed.setFooter(oneLineCommaListsAnd`${user.username} is active on 
-				${Object.keys(user.presence.clientStatus ?? '')}`);
+			embed.setFooter(oneLineCommaListsAnd`${user.username} is active on ${Object.keys(user.presence.clientStatus)}`);
 		}
 		return message.util!.send(embed);
 	}
