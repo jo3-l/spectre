@@ -23,7 +23,6 @@
 		"canvas-constructor": "^3.1.0",
 		"chalk": "^3.0.0",
 		"cheerio": "^1.0.0-rc.3",
-		"city-timezones": "^1.1.0",
 		"common-tags": "^1.8.0",
 		"d3-format": "^1.4.2",
 		"discord-akairo": "github:discord-akairo/discord-akairo",
