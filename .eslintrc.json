@@ -10,7 +10,13 @@
 		],
 		"comma-spacing": "error",
 		"comma-style": "error",
-		"eol-last": "off"
+		"eol-last": "off",
+		"max-len": [
+			"error",
+			{
+				"code": 130
+			}
+		]
 	},
 	"parserOptions": {
 		"createDefaultProgram": true

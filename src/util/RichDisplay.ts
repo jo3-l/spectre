@@ -55,7 +55,9 @@ export default class RichDisplay {
 
 	public async build() {
 		if (!this.pages.length) throw new Error('There must be at least 1 page to start the paginator.');
-		const message = await this.channel.send(typeof this.startPage === 'number' ? this.pages[this.startPage] : this.startPage || this.pages[0]);
+		const message = await this.channel.send(typeof this.startPage === 'number'
+			? this.pages[this.startPage]
+			: this.startPage || this.pages[0]);
 		this.message = message;
 		for (const emoji of Object.values(this.emojis)) await message.react(emoji);
 		const collector = message.createReactionCollector(this.filter, { time: this.timeout });

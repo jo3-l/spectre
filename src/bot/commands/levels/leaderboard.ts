@@ -2,6 +2,7 @@ import { Command, Argument } from 'discord-akairo';
 import { Member } from '../../models/Member';
 import { MessageEmbed, Message } from 'discord.js';
 import { calculateLevel } from '../../../util/Util';
+import { oneLineTrim } from 'common-tags';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {
@@ -40,7 +41,8 @@ export default class LeaderboardCommand extends Command {
 		if (!result.length) return message.util!.reply(`there are no ranked members on page ${page / 10}!`);
 		const mapped = await Promise.all(result.map(async (member, i) => {
 			const { id, xp } = member;
-			return `• **${i + 1}.** [${(await this.client.users.fetch(id)).tag}](https://discordapp.com) :: Level ${calculateLevel(xp)} (${xp} XP)`;
+			return oneLineTrim`• **${i + 1}.** [${(await this.client.users.fetch(id)).tag}](https://discordapp.com)
+				:: Level ${calculateLevel(xp)} (${xp} XP)`;
 		}));
 		return message.util!.send(new MessageEmbed()
 			.setAuthor(`${message.guild!.name}'s Leaderboard`)

@@ -4,6 +4,7 @@ import { join } from 'path';
 import Timer from '../../../../util/Timer';
 import { inspect } from 'util';
 import fetch from 'node-fetch';
+import { stripIndents } from 'common-tags';
 import * as Util from '../../../../util/Util';
 
 const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
@@ -15,7 +16,13 @@ export default class EvalCommand extends Command {
 			aliases: ['eval', 'evaluate', 'ev'],
 			category: 'Owner',
 			description: {
-				content: 'Evalutes arbitrary JavaScript code. Run as async with `--async`, silent with `--silent`, or stack errors with `--stack`.',
+				content: stripIndents`Evalutes arbitrary JavaScript code. 
+					
+					**Flags**
+					• \`async\` - Runs code in an async scope
+					• \`silent\` - Silently runs code
+					• \`stack\` - If there is an error, a stack trace will be shown
+					• \`insert-from\` - Insert prewritten code from a hastebin source.`,
 				usage: '<code> [...flags]',
 				examples: ['message.channel.send(\'Hello there!\')'],
 			},
@@ -64,7 +71,7 @@ export default class EvalCommand extends Command {
 		return { code, ...flags };
 	}
 
-	public async exec(message: Message, { code, silent, async, stack }: { code: string; silent: boolean; async: boolean; stack: boolean }) {
+	public async exec(message: Message, { code, silent, async, stack }: ExecArgs) {
 		if (async) code = `(async () => {\n${code}\n})()`;
 		const embed = new MessageEmbed().setAuthor('Eval', 'https://image.flaticon.com/icons/png/512/919/919832.png');
 		try {
@@ -106,3 +113,5 @@ export default class EvalCommand extends Command {
 		return text;
 	}
 }
+
+interface ExecArgs { code: string; silent: boolean; async: boolean; stack: boolean }
