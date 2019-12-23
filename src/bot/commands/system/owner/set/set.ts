@@ -31,6 +31,7 @@ export default class SetCommand extends Command {
 				['set-listening', 'listening'],
 				['set-status', 'status'],
 			],
+			// eslint-disable-next-line max-len
 			otherwise: (msg: Message) => `${msg.author}, that's not a valid method. Try the \`help set\` command for more information.`,
 		};
 

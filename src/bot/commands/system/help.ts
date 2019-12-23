@@ -63,8 +63,8 @@ export default class HelpCommand extends Command {
 			.setTitle(`\`${aliases[0]}${usage ? ` ${usage}` : ''}\``)
 			.addField('Aliases', aliases.map(a => `\`${a}\``).join(' '))
 			.addField('Description', content)
-			.addField('Examples', examples.map((example?: string) =>
-				`\`${prefix}${aliases[0]}${example ? ` ${example}` : ''}\``).join('\n'))
+			// eslint-disable-next-line max-len
+			.addField('Examples', examples.map((example?: string) => `\`${prefix}${aliases[0]}${example ? ` ${example}` : ''}\``).join('\n'))
 			.setFooter(`Cooldown: ${ratelimit || 1}/${cooldown ? cooldown : 3}s | Category: ${category}`));
 	}
 }

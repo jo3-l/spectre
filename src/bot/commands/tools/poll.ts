@@ -27,7 +27,8 @@ export default class PollCommand extends Command {
 					id: 'answers',
 					match: 'none',
 					prompt: {
-						start: 'What answers should be possible for the poll?\nType them in separate messages and type `stop` when finished.',
+						start: stripIndents`What answers should be possible for the poll?
+						Type them in separate messages and type \`stop\` when finished.`,
 						infinite: true,
 					},
 				},

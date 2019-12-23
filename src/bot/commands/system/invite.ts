@@ -17,9 +17,11 @@ export default class InviteCommand extends Command {
 	}
 
 	public exec(message: Message) {
+		// eslint-disable-next-line max-len
+		const inviteLink = `https://discordapp.com/api/oauth2/authorize?client_id=${this.client.user!.id}&permissions=8&scope=bot`;
 		return message.util!.send(new MessageEmbed()
 			.setAuthor('Spectre Invite Link', this.client.user!.displayAvatarURL())
-			.setDescription(`Click [here](https://discordapp.com/api/oauth2/authorize?client_id=${this.client.user!.id}&permissions=8&scope=bot) to invite Spectre to your server!`)
+			.setDescription(`Click [here](${inviteLink}) to invite Spectre to your server!`)
 			.setColor(this.client.config.color));
 	}
 }

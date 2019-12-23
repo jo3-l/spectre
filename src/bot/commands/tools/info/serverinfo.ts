@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
 import { emojify } from '../../../../util/Util';
-import { commaListsAnd } from 'common-tags';
+import { commaListsAnd, oneLine } from 'common-tags';
 
 const HUMAN_REGIONS: Regions = {
 	'brazil': `${emojify('br')} Brazil`,
@@ -66,7 +66,9 @@ export default class ServerInfoCommand extends Command {
 			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() ?? '')
 			.setThumbnail(guild.iconURL() ?? '')
 			.addField('ID', guild.id)
-			.addField('Channels', commaListsAnd`• ${[textAmt, storeAmt, voiceAmt, categoryAmt].map((v, i) => `${v} ${suffixes[i]}`)}\n• AFK: ${guild.afkChannel?.toString() ?? 'None'}`)
+			// eslint-disable-next-line max-len
+			.addField('Channels', commaListsAnd`• ${[textAmt, storeAmt, voiceAmt, categoryAmt].map((v, i) => oneLine`${v} ${suffixes[i]}`)}
+				• AFK: ${guild.afkChannel?.toString() ?? 'None'}`)
 			.addField('Membercount', `${guild.memberCount}`)
 			.addField('Owner', `${(await guild.members.fetch(guild.ownerID)).user.tag} (${guild.ownerID})`)
 			.addField('Roles', guild.roles.size)

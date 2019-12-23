@@ -44,9 +44,11 @@ export default class ReloadAllCommand extends Command {
 		return { handler, name, loadNew };
 	}
 
-	public async exec(message: Message, { handler, loadNew, name }: { handler: ListenerHandler | InhibitorHandler | CommandHandler; loadNew?: boolean; name: string }) {
+	public async exec(message: Message, { handler, loadNew, name }: ReloadAllArgs) {
 		if (loadNew) await handler.removeAll().loadAll();
 		else await handler.reloadAll();
 		return message.util!.send(`${this.client.emojis.success} All ${name} were reloaded.`);
 	}
 }
+
+interface ReloadAllArgs { handler: ListenerHandler | InhibitorHandler | CommandHandler; loadNew?: boolean; name: string }

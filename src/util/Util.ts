@@ -13,7 +13,9 @@ export function ordinal(cardinal: number) {
 	}
 }
 
-export async function hastebin(content: string, { url = 'https://hasteb.in', extension = 'js' }: HastebinOptions = { url: 'https://hasteb.in', extension: 'js' }) {
+export async function hastebin(content: string, {
+	url = 'https://hasteb.in', extension = 'js',
+}: HastebinOptions = { url: 'https://hasteb.in', extension: 'js' }) {
 	const res = await fetch(`${url}/documents`, {
 		method: 'POST',
 		body: content,

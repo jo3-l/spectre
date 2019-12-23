@@ -13,7 +13,8 @@ export enum Responses {
 export default class Confirmation {
 	public constructor(public readonly message: Message, public readonly embed: MessageEmbed, public readonly timeout = 15000) { }
 	public async run() {
-		const filter = (m: Message) => m.author.id === this.message.author.id && Object.values(RESPONSES).flat().includes(m.content);
+		const filter = (m: Message) => m.author.id === this.message.author.id &&
+			Object.values(RESPONSES).flat().includes(m.content);
 		const message = await this.message.channel.send(this.embed);
 		let response: Message;
 		try {

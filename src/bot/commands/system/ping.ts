@@ -21,7 +21,8 @@ export default class PingCommand extends Command {
 		const msg = await message.util!.send(new MessageEmbed().setTitle('Pinging...').setColor(this.client.config.color));
 		return message.util!.send(new MessageEmbed()
 			.setTitle('🏓 Pong!')
-			.setDescription(stripIndents`• Latency: \`${((msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp)).toString()}\`ms
+			.setDescription(stripIndents`• Latency: \`${
+				((msg.editedTimestamp || msg.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp))}\`ms
 				• API Latency: \`${this.client.ws.ping.toFixed(2)}\`ms`)
 			.setColor(this.client.config.color));
 	}

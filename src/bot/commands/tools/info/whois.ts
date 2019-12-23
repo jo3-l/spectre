@@ -28,7 +28,9 @@ export default class WhoisCommand extends Command {
 
 	public *args(message: Message) {
 		let member = message.member;
-		if (message.util!.parsed!.alias !== 'whoami') member = yield { 'type': 'member', 'default': (msg: Message) => msg.member };
+		if (message.util!.parsed!.alias !== 'whoami') {
+			member = yield { 'type': 'member', 'default': (msg: Message) => msg.member };
+		}
 		return { member };
 	}
 

@@ -12,8 +12,12 @@ export default class ActivityHandler {
 	private current = 0;
 	private _interval: NodeJS.Timeout | null = null;
 	public readonly activities: StaticActivity[];
-	public constructor(private readonly client: AkairoClient, activities: Activity[], private readonly interval: number = 5 * 60000) {
-		this.activities = activities.map((activity: Activity) => Object.assign({ type: 'PLAYING' }, typeof activity === 'function' ? activity(this.client) : activity));
+	public constructor(
+		private readonly client: AkairoClient, activities: Activity[], private readonly interval: number = 5 * 60000,
+	) {
+		this.activities = activities.map((activity: Activity) => Object.assign({ type: 'PLAYING' }, typeof activity === 'function'
+			? activity(this.client)
+			: activity));
 	}
 
 	private get next(): StaticActivity {
