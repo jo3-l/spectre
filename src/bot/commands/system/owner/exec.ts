@@ -51,12 +51,13 @@ export default class ExecCommand extends Command {
 		const { stdout, stderr } = result;
 		const ms = timer.stop();
 		if (!stdout && !stderr) return message.util!.send(`⏱ ${ms}ms\n\nThere was no output.`);
-		message.util!.send(new MessageEmbed()
+		const embed = new MessageEmbed()
 			.setAuthor('Exec', 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png')
-			.addField('Output', stdout ? await this.clean(stdout, 'Output') : 'n/a')
-			.addField('Error', stderr ? await this.clean(stderr, 'Error') : 'n/a')
 			.setColor(stderr ? this.client.config.color : 6398041)
-			.setFooter(`⏱ ${ms}ms`));
+			.setFooter(`⏱ ${ms}ms`);
+		if (stdout) embed.addField('Output', await this.clean(stdout, 'Output') || 'n/a');
+		if (stderr) embed.addField('Error', await this.clean(stderr, 'Error') || 'n/a');
+		message.util!.send(embed);
 	}
 
 	public async clean(text: any, name?: string) {
