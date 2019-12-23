@@ -1,6 +1,8 @@
 import { Command, Argument, Category, Listener, Inhibitor } from 'discord-akairo';
 import { Message } from 'discord.js';
 
+const Reloadable = ['commandAlias', 'command', 'inhibitor', 'listener'];
+
 export default class ReloadCommand extends Command {
 	public constructor() {
 		super('reload', {
@@ -17,7 +19,7 @@ export default class ReloadCommand extends Command {
 			args: [
 				{
 					id: 'module',
-					type: Argument.union('commandAlias', 'command', 'inhibitor', 'listener', (_, phrase) => this.client.commandHandler.findCategory(phrase)),
+					type: Argument.union(...Reloadable, (_, phrase) => this.client.commandHandler.findCategory(phrase)),
 					prompt: {
 						start: 'which command/inhibitor/listener/module should be reloaded?',
 						retry: 'that wasn\'t a valid command/inhibitor/listener/module!',
@@ -30,7 +32,9 @@ export default class ReloadCommand extends Command {
 	public async exec(message: Message, { module }: { module: Module | Category<string, Module> }) {
 		if (module instanceof Category) {
 			module.reloadAll();
-			return message.util!.send(`${this.client.emojis.success} Successfully reloaded all modules in category \`${module}\`!`);
+			return message.util!.send(
+				`${this.client.emojis.success} Successfully reloaded all modules in category \`${module}\`!`,
+			);
 		}
 		module.reload();
 		return message.util!.send(`${this.client.emojis.success} Successfully reloaded the module \`${module}\`!`);

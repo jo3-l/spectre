@@ -1,13 +1,15 @@
 import { Command, Argument } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
+import { oneLineTrim } from 'common-tags';
 
 export default class XkcdCommand extends Command {
 	public constructor() {
 		super('xkcd', {
 			aliases: ['xkcd'],
 			description: {
-				content: 'Fetches an XKCD comic of your choice. Random if no arguments are given, `-l` for latest, or choose a specific comic.',
+				content: oneLineTrim`Fetches an XKCD comic of your choice. If no arguments are given, a random comic is selected. 
+					Use \`-l\` for latest, or choose a specific comic (by it's number).`,
 				usage: '[comic #] [-l|--latest]',
 				examples: ['1234', '-l', ''],
 			},
@@ -37,7 +39,9 @@ export default class XkcdCommand extends Command {
 				`https://xkcd.com/${Math.floor(Math.random() * latestComicNumber)}/info.0.json`,
 			).then(res => res.json());
 		}
-		if (number && number > latestComicNumber) return message.util!.reply(`there's no comic numbered ${number}, the current range is 1-${latestComicNumber}!`);
+		if (number && number > latestComicNumber) {
+			return message.util!.reply(`there's no comic numbered ${number}, the current range is 1-${latestComicNumber}!`);
+		}
 		if (number && !latest) comic = await fetch(`https://xkcd.com/${number}/info.0.json`).then(res => res.json());
 
 		const { num, title, alt, img } = comic;
