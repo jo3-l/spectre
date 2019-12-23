@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import fetch from 'node-fetch';
-import * as cheerio from 'cheerio';
+import cheerio from 'cheerio';
 import { MessageEmbed, Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 

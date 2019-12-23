@@ -5,7 +5,7 @@ import Timer from '../../../../util/Timer';
 import { inspect } from 'util';
 import fetch from 'node-fetch';
 import { stripIndents } from 'common-tags';
-import * as Util from '../../../../util/Util';
+import { hastebin, escapedCodeblock } from '../../../../util/Util';
 
 const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
 const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)(\..+)?$/;
@@ -102,10 +102,10 @@ export default class EvalCommand extends Command {
 		const raw = text
 			.replace(new RegExp(join(__dirname, '..', '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g'), '~')
 			.replace(this.client.token, '<token>');
-		text = Util.escapedCodeblock(raw, 'js');
+		text = escapedCodeblock(raw, 'js');
 		if ((8 + (text as string).length) > 1024) {
 			try {
-				text = `[${name}](${(await Util.hastebin(raw))})`;
+				text = `[${name}](${(await hastebin(raw))})`;
 			} catch {
 				text = '*An error occured while generating Hastebin link.*';
 			}

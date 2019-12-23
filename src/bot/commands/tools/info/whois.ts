@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed, GuildMember } from 'discord.js';
-import * as moment from 'moment';
+import moment from 'moment';
 import { oneLineCommaListsAnd } from 'common-tags';
 
 enum HUMAN_STATUSES {
