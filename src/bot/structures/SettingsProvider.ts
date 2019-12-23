@@ -9,8 +9,10 @@ import { Guild as DiscordGuild, Snowflake } from 'discord.js';
 import { Repository } from 'typeorm';
 import { Guild } from '../models/Guild';
 
+type Log = 'messages' | 'members' | 'join' | 'server' | 'voice';
+
 interface Settings {
-	logs: { [key: string]: boolean | Snowflake };
+	logs: { [key in Log]: boolean | Snowflake };
 	rewardType: 'stack' | 'highest';
 	roleRewards: { [level: string]: Snowflake };
 	backgrounds: {

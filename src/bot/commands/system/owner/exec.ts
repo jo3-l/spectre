@@ -2,7 +2,7 @@ import { Command, Argument } from 'discord-akairo';
 import { promisify, inspect } from 'util';
 import { exec as _exec } from 'child_process';
 import { MessageEmbed, Message } from 'discord.js';
-import * as Util from '../../../../util/Util';
+import { hastebin, escapedCodeblock } from '../../../../util/Util';
 import Timer from '../../../../util/Timer';
 const exec = promisify(_exec);
 
@@ -62,10 +62,10 @@ export default class ExecCommand extends Command {
 	public async clean(text: any, name?: string) {
 		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
 		const raw = text;
-		text = Util.escapedCodeblock(text, 'prolog');
+		text = escapedCodeblock(text, 'prolog');
 		if ((8 + (text as string).length) > 1024) {
 			try {
-				text = `[${name}](${(await Util.hastebin(raw, { extension: 'prolog' }))})`;
+				text = `[${name}](${(await hastebin(raw, { extension: 'prolog' }))})`;
 			} catch {
 				text = '*An error occured while generating Hastebin link.*';
 			}

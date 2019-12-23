@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
-import * as cheerio from 'cheerio';
+import cheerio from 'cheerio';
 
 export default class TopicCommand extends Command {
 	public constructor() {

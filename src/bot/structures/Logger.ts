@@ -1,5 +1,5 @@
 import { format, createLogger, transports } from 'winston';
-import * as moment from 'moment';
+import moment from 'moment';
 import { hex, red, yellow, green, blue } from 'chalk';
 import { inspect } from 'util';
 import { oneLine } from 'common-tags';
