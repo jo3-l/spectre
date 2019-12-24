@@ -65,6 +65,7 @@ export default class HelpCommand extends Command {
 			.addField('Description', content)
 			// eslint-disable-next-line max-len
 			.addField('Examples', examples.map((example?: string) => `\`${prefix}${aliases[0]}${example ? ` ${example}` : ''}\``).join('\n'))
-			.setFooter(`Cooldown: ${ratelimit || 1}/${cooldown ? cooldown : 3}s | Category: ${category}`));
+			.setFooter(`Cooldown: ${ratelimit || 1}/${cooldown ? cooldown : 3}s | Category: ${category}`)
+			.setThumbnail(this.client.config.categoryImages[category.id.toLowerCase()]));
 	}
 }

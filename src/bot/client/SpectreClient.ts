@@ -1,6 +1,6 @@
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, AkairoModule } from 'discord-akairo';
 import { join } from 'path';
-import { token, prefix, activities, owner, version, color, db, emojis } from '../../../config';
+import { token, prefix, activities, owner, version, color, db, emojis, categoryImages } from '../../../config';
 import ActivityHandler, { Activity } from '../structures/ActivityHandler';
 import SpectreLogger from '../structures/Logger';
 import Database from '../structures/Database';
@@ -50,6 +50,7 @@ export interface SpectreConfig {
 	db: string;
 	owner: string;
 	activities?: Activity[];
+	categoryImages: { [key: string]: string };
 }
 
 export default class SpectreClient extends AkairoClient {
@@ -89,7 +90,7 @@ export default class SpectreClient extends AkairoClient {
 	public logger = SpectreLogger;
 	public db = Database.get('spectre');
 	public settings!: TypeORMProvider;
-	public config = { token, prefix, color, owner, db, activities, version, emojis };
+	public config = { token, prefix, color, owner, db, activities, version, categoryImages, emojis };
 	public activityHandler: ActivityHandler = new ActivityHandler(this, activities);
 
 	public constructor() {
