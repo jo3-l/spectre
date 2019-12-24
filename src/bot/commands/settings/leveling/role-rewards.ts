@@ -5,7 +5,7 @@ import { stripIndent } from 'common-tags';
 export default class RoleRewardsCommand extends Command {
 	public constructor() {
 		super('role-rewards', {
-			aliases: ['role-rewards'],
+			aliases: ['role-rewards', 'rr'],
 			category: 'Settings',
 			description: {
 				content: stripIndent`Command to help manage role rewards / level settings on the server.
