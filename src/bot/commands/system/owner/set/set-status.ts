@@ -5,12 +5,6 @@ export default class SetStatusCommand extends Command {
 	public constructor() {
 		super('set-status', {
 			category: 'Owner',
-			description: {
-				content: 'Sets the status (DND, Idle, Invisible, Online) for Spectre.',
-				usage: '[status]',
-				examples: ['dnd', 'invisible', 'invis'],
-			},
-			clientPermissions: ['SEND_MESSAGES'],
 			args: [
 				{
 					'id': 'status',

@@ -5,11 +5,6 @@ export default class SetListeningCommand extends Command {
 	public constructor() {
 		super('set-listening', {
 			category: 'Owner',
-			description: {
-				content: 'Sets the listening status for Spectre.',
-				usage: '<status>',
-			},
-			clientPermissions: ['SEND_MESSAGES'],
 			args: [{ id: 'status', match: 'content' }],
 		});
 	}

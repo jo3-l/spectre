@@ -1,12 +1,18 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { stripIndents } from 'common-tags';
 
 export default class SetCommand extends Command {
 	public constructor() {
 		super('set', {
 			aliases: ['set'],
 			description: {
-				content: 'Owner-only command to set some bot properties such as activity, status, etc.',
+				content: stripIndents`Owner-only command to set some bot properties such as activity, status, etc.
+				
+				**Avaliable Methods**
+				• \`streaming <activity> [--url: Twitch URL]\` - Sets the streaming activity for Spectre with optional URL.
+				• \`watching|playing|listening [activity]\` - Sets the corresponding activity for Spectre.
+				• \`status [status]\` - Sets the status for Spectre (dnd, invisible, etc.)`,
 				usage: '<method> <...arguments>',
 				examples: [
 					'playing Hello there',
@@ -18,6 +24,7 @@ export default class SetCommand extends Command {
 				],
 			},
 			category: 'Owner',
+			clientPermissions: ['SEND_MESSAGES'],
 			ownerOnly: true,
 		});
 	}

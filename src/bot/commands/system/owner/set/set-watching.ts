@@ -5,11 +5,6 @@ export default class SetWatchingCommand extends Command {
 	public constructor() {
 		super('set-watching', {
 			category: 'Owner',
-			description: {
-				content: 'Sets the watching status for Spectre.',
-				usage: '<status>',
-			},
-			clientPermissions: ['SEND_MESSAGES'],
 			args: [{ id: 'status', match: 'content' }],
 		});
 	}

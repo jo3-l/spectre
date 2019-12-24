@@ -5,11 +5,6 @@ export default class SetPlayingCommand extends Command {
 	public constructor() {
 		super('set-playing', {
 			category: 'Owner',
-			description: {
-				content: 'Sets the playing status for Spectre.',
-				usage: '<status>',
-			},
-			clientPermissions: ['SEND_MESSAGES'],
 			args: [{ id: 'status', match: 'content' }],
 		});
 	}

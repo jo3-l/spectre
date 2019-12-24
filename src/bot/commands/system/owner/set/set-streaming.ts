@@ -6,11 +6,6 @@ export default class SetStreamingCommand extends Command {
 	public constructor() {
 		super('set-streaming', {
 			category: 'Owner',
-			description: {
-				content: 'Sets the streaming status for Spectre.',
-				usage: '<status>',
-			},
-			clientPermissions: ['SEND_MESSAGES'],
 			optionFlags: ['--url', '-u'],
 		});
 	}
