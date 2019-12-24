@@ -1,0 +1,78 @@
+import { Listener } from 'discord-akairo';
+import fetch from 'node-fetch';
+import { Canvas } from 'canvas-constructor';
+import { readFile } from 'fs';
+import { promisify } from 'util';
+import { GuildMember, MessageAttachment, TextChannel } from 'discord.js';
+import { join } from 'path';
+
+const loadImage = promisify(readFile);
+const IMAGE_DIRECTORY = join(__dirname, '..', '..', '..', 'assets', 'social', 'levelup');
+
+export default class LevelUpListener extends Listener {
+	public constructor() {
+		super('level-up', {
+			emitter: 'client',
+			event: 'levelUp',
+			category: 'Levels',
+		});
+	}
+
+	public async exec(channel: TextChannel, { member, background = 'Clouds', level }: ImgenOptions) {
+		level = level.toString();
+		const { guild, user } = member;
+		const roleData = { add: [] as string[], remove: [] as string[] };
+		const roleRewards = this.client.settings.get(guild, 'roleRewards');
+		const roleRewardsType = this.client.settings.get(guild, 'rewardType');
+
+		if (roleRewards?.[level]) {
+			const ids = Object.values(roleRewards);
+			switch (roleRewardsType) {
+				case 'highest':
+					roleData.add = [roleRewards[level]];
+					ids.splice(ids.indexOf(level), 1);
+					roleData.remove = ids;
+					break;
+				default:
+					roleData.add.push(...Object.entries(roleRewards)
+						.filter(([key]) => Number(key) <= level)
+						.map(([, id]) => id));
+					break;
+			}
+		}
+
+		const _background = await loadImage(join(IMAGE_DIRECTORY, `${background}.png`));
+		const avatar = await fetch(user.displayAvatarURL({ format: 'png', size: 1024 })).then(res => res.buffer());
+
+		const generatedImg = await new Canvas(210, 80)
+			.addImage(_background, 0, 0, 210, 80)
+			.beginPath()
+			.setLineWidth(1)
+			.setColor('rgba(0, 0, 0, 0.7)')
+			.addRect(38.5, 8, 160, 62)
+			.setColor('#FFFFFF')
+			.addCircle(38.5, 38, 31)
+			.addCircularImage(avatar, 38.5, 38, 30)
+			.setTextFont('25px Lucida Sans')
+			.addText('LEVEL UP', 75, 40)
+			.setTextSize(15)
+			.addText(`LEVEL ${level}`, 75, 58)
+			.toBufferAsync();
+
+		channel.send(`🎉 GG ${user}, you advanced to level ${level}!`, new MessageAttachment(generatedImg));
+		this.logger.debug(roleData);
+		if (!guild.me!.permissions.has('MANAGE_ROLES')) return;
+		const toAdd = roleData.add.filter(id => guild.roles.has(id));
+		const toRemove = roleData.remove.filter(id => guild.roles.has(id));
+		member.roles.set(
+			[...member.roles.keyArray(), ...toAdd].filter(role => !toRemove.includes(role)),
+			'Spectre leveled roles settings',
+		);
+	}
+}
+
+interface ImgenOptions {
+	member: GuildMember;
+	background?: string;
+	level: number | string;
+}

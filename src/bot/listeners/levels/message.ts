@@ -1,15 +1,7 @@
 import { Listener } from 'discord-akairo';
-import { MessageAttachment, Message, User, Snowflake } from 'discord.js';
-import { Canvas } from 'canvas-constructor';
-import { join } from 'path';
+import { Message, Snowflake } from 'discord.js';
 import { calculateLevel } from '../../../util/Util';
-import fetch from 'node-fetch';
 import { Member } from '../../models/Member';
-import { promisify } from 'util';
-import { readFile } from 'fs';
-
-const loadImage = promisify(readFile);
-const IMAGE_DIRECTORY = join(__dirname, '..', '..', '..', 'assets', 'social', 'levelup');
 
 export default class MessageListener extends Listener {
 	private readonly cooldowns: Map<Snowflake, Set<Snowflake>> = new Map();
@@ -50,37 +42,10 @@ export default class MessageListener extends Listener {
 			.where(data)
 			.execute();
 		const newLevel = calculateLevel(newXp);
-		if (newLevel !== 0 && newLevel !== oldLevel) {
-			message.channel.send(`GG ${message.author}, you advanced to **level ${newLevel}**!`,
-				new MessageAttachment(await this.generate({ user: message.author, level: newLevel })));
+		if (newLevel !== 0 && newLevel !== oldLevel && message.guild.me!.permissions.has(['SEND_MESSAGES', 'ATTACH_FILES'])) {
+			this.client.emit('levelUp', message.channel, { member: message.member, level: newLevel });
 		}
 		cooldowns.add(message.author.id);
 		setTimeout(() => cooldowns.delete(message.author.id), 60000);
 	}
-
-	private async generate({ user, background = 'Clouds', level }: ImgenOptions) {
-		const _background = await loadImage(join(IMAGE_DIRECTORY, `${background}.png`));
-		const avatar = await fetch(user.displayAvatarURL({ format: 'png', size: 1024 })).then(res => res.buffer());
-
-		return new Canvas(210, 80)
-			.addImage(_background, 0, 0, 210, 80)
-			.beginPath()
-			.setLineWidth(1)
-			.setColor('rgba(35, 39, 42, 0.7)')
-			.addRect(38.5, 8, 160, 62)
-			.setColor('#FFFFFF')
-			.addCircle(38.5, 38, 31)
-			.addCircularImage(avatar, 38.5, 38, 30)
-			.setTextFont('25px Lucida Sans')
-			.addText('LEVEL UP', 75, 40)
-			.setTextSize(15)
-			.addText(`LEVEL ${level}`, 75, 58)
-			.toBufferAsync();
-	}
-}
-
-interface ImgenOptions {
-	user: User;
-	background?: string;
-	level: number;
 }

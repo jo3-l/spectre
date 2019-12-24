@@ -13,6 +13,8 @@ export function ordinal(cardinal: number) {
 	}
 }
 
+export const escapeAllMentions = (str: string) => str.replace(/@/g, `@${String.fromCharCode(8203)}`);
+
 export async function hastebin(content: string, {
 	url = 'https://hasteb.in', extension = 'js',
 }: HastebinOptions = { url: 'https://hasteb.in', extension: 'js' }) {

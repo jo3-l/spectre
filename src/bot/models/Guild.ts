@@ -5,6 +5,6 @@ export class Guild {
 	@PrimaryColumn({ type: 'bigint' })
 	public id!: string;
 
-	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'" })
+	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'", 'nullable': true })
 	public settings!: any;
 }
