@@ -11,7 +11,7 @@ export default class InviteCommand extends Command {
 				content: 'Sends a link to invite Spectre to your server.',
 				examples: [''],
 			},
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 		});
 	}

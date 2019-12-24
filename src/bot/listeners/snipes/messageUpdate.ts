@@ -1,6 +1,17 @@
 import { Listener } from 'discord-akairo';
 import { Message, User } from 'discord.js';
 
+declare module 'discord.js' {
+	interface TextChannel { editSnipe: EditSnipe }
+	interface DMChannel { editSnipe: EditSnipe }
+}
+
+interface EditSnipe {
+	author: User;
+	timestamp: Date;
+	content: string;
+}
+
 export default class MessageUpdateListener extends Listener {
 	public constructor() {
 		super('messageUpdate', {
@@ -18,15 +29,4 @@ export default class MessageUpdateListener extends Listener {
 			content: oldMessage.content,
 		};
 	}
-}
-
-declare module 'discord.js' {
-	interface TextChannel { editSnipe: EditSnipe }
-	interface DMChannel { editSnipe: EditSnipe }
-}
-
-interface EditSnipe {
-	author: User;
-	timestamp: Date;
-	content: string;
 }

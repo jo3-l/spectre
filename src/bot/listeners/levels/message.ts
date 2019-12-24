@@ -42,7 +42,7 @@ export default class MessageListener extends Listener {
 			.where(data)
 			.execute();
 		const newLevel = calculateLevel(newXp);
-		if (newLevel !== 0 && newLevel !== oldLevel && message.guild.me!.permissions.has(['SEND_MESSAGES', 'ATTACH_FILES'])) {
+		if (newLevel && newLevel !== oldLevel && message.guild.me!.permissions.has(['SEND_MESSAGES', 'ATTACH_FILES'])) {
 			this.client.emit('levelUp', message.channel, { member: message.member, level: newLevel });
 		}
 		cooldowns.add(message.author.id);

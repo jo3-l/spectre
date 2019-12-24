@@ -21,7 +21,7 @@ export default class ViewPermsCommand extends Command {
 				examples: ['@Joe', ''],
 			},
 			channel: 'guild',
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			args: [{ 'id': 'member', 'type': 'member', 'default': (msg: Message) => msg.member }],
 		});
 	}

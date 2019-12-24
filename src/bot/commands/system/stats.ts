@@ -13,7 +13,7 @@ export default class StatCommands extends Command {
 				examples: [''],
 				usage: '',
 			},
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 		});
 	}

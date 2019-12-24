@@ -22,7 +22,7 @@ export default class WhoisCommand extends Command {
 			},
 			ratelimit: 2,
 			channel: 'guild',
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 		});
 	}
 

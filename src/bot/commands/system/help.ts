@@ -20,7 +20,7 @@ export default class HelpCommand extends Command {
 				usage: '[command|module]',
 				examples: ['ping', 'General'],
 			},
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 		});
 	}

@@ -11,7 +11,7 @@ export default class AvatarCommand extends Command {
 				usage: '[user]',
 				examples: ['', '@Joe'],
 			},
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			args: [
 				{
 					'id': 'user',

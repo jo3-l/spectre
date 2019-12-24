@@ -16,7 +16,7 @@ export default class WouldYouRatherCommand extends Command {
 				examples: [''],
 			},
 			category: 'Fun',
-			clientPermissions: ['SEND_MESSAGES'],
+			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
 		});
 	}
 

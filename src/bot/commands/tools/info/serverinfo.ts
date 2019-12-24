@@ -33,7 +33,7 @@ export default class ServerInfoCommand extends Command {
 				examples: [''],
 			},
 			channel: 'guild',
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 		});
 	}
 

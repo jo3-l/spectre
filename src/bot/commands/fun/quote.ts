@@ -8,7 +8,7 @@ export default class QuoteCommand extends Command {
 		super('quote', {
 			aliases: ['quote'],
 			category: 'Fun',
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			regex: MESSAGE_LINK_REGEX,
 			description: {
 				content: 'Quote someone!',

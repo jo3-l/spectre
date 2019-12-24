@@ -14,7 +14,7 @@ export default class TriviaCommand extends Command {
 				examples: [''],
 			},
 			category: 'Fun',
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 		});
 	}
 

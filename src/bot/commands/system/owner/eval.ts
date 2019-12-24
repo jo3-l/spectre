@@ -27,7 +27,7 @@ export default class EvalCommand extends Command {
 				examples: ['message.channel.send(\'Hello there!\')'],
 			},
 			ownerOnly: true,
-			clientPermissions: ['EMBED_LINKS'],
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 			flags: ['--async', '-a', '--silent', '-s', '--stack', '-st'],
 			optionFlags: ['-f', '--insert-from'],

@@ -7,7 +7,7 @@ export default class ShowerThoughtsCommand extends Command {
 		super('shower-thoughts', {
 			aliases: ['shower-thoughts', 'shower-thought'],
 			category: 'Reddit',
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			clientPermissions: ['SEND_MESSAGES'],
 			description: {
 				content: 'Things to think about in the shower.',
 				usage: '',
