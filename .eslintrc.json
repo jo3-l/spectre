@@ -17,8 +17,5 @@
 				"code": 130
 			}
 		]
-	},
-	"parserOptions": {
-		"createDefaultProgram": true
 	}
 }
