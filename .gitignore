@@ -1,3 +1,5 @@
 node_modules/
 dist/
 config.ts
+application.yml
+Lavalink.jar
