@@ -18,7 +18,7 @@ export default class LevelUpListener extends Listener {
 		});
 	}
 
-	public async exec(channel: TextChannel, { member, background = 'Clouds', level }: ImgenOptions) {
+	public async exec(channel: TextChannel, { member, background = '1', level }: ImgenOptions) {
 		level = level.toString();
 		const { guild, user } = member;
 		const roleData = { add: [] as string[], remove: [] as string[] };

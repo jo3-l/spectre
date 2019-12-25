@@ -8,6 +8,6 @@ export class Member {
 	@PrimaryColumn({ type: 'bigint' })
 	public guildId!: string;
 
-	@Column({ 'type': 'int', 'default': () => '0' })
+	@Column({ 'type': 'int', 'default': () => 0 })
 	public xp!: number;
 }
