@@ -31,7 +31,8 @@ export default class RichDisplay {
 
 	public setStart(page: MessageEmbed | number) {
 		if (typeof page === 'number' && this.pages[page]) {
-			this.page = page;
+			this.startPage = page - 1;
+			this.page = page - 1;
 			return this;
 		}
 		this.startPage = page;

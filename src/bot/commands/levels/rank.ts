@@ -3,14 +3,10 @@ import { Canvas } from 'canvas-constructor';
 import { MessageAttachment, Message, User } from 'discord.js';
 import { calculateLevel, calculateXp } from '../../../util/Util';
 import fetch from 'node-fetch';
-import { promisify } from 'util';
-import { readFile } from 'fs';
-import { join } from 'path';
 import { Member } from '../../models/Member';
-import d3 from 'd3-format';
+import { format as d3format } from 'd3-format';
 
-const loadImage = promisify(readFile);
-const format = (number: number) => number > 999 ? d3.format('.3s')(number) : number;
+const format = (number: number) => number > 999 ? d3format('.3s')(number) : number;
 const toPercentage = (current: number, total: number) => Math.round(current / total * 640);
 
 enum STATUS_COLORS {
@@ -24,7 +20,6 @@ enum FONTS {
 	CENTURY_GOTHIC = '50px Century Gothic',
 }
 
-const IMAGE_DIRECTORY = join(__dirname, '..', '..', '..', 'assets', 'social', 'rank');
 
 export default class RankCommand extends Command {
 	public constructor() {
@@ -68,19 +63,18 @@ export default class RankCommand extends Command {
 		})));
 	}
 
-	private async generate({ background = 'default', current, total, rank, level, user, color = 'ff0000' }: ImgenOptions) {
+	private async generate({ background = 9, current, total, rank, level, user, color = 'ff0000' }: ImgenOptions) {
 		current = current.toString();
 		total = total.toString();
 		rank = rank.toString();
 		level = level.toString();
-		const _bg = background.toLowerCase();
 		color = color.toString().length === 6 ? color : color.toString().padStart(6, '0');
 		const avatar = await fetch(user.displayAvatarURL({ format: 'png', size: 1024 })).then(res => res.buffer());
-		const _background = await loadImage(join(IMAGE_DIRECTORY, `${_bg}.png`));
+		const { buffer: _background } = this.client.assetHandler.fetch({ id: background, type: 'rank' });
 
 		let correctX = 0;
 		const canvas = new Canvas(934, 282).addImage(_background, 0, 0, 934, 282);
-		if (_bg !== 'default') {
+		if (background !== 9) {
 			canvas
 				.setColor('rgba(35, 39, 42, 0.5)')
 				.addRect(0, 0, canvas.width, canvas.height)
@@ -147,7 +141,7 @@ export default class RankCommand extends Command {
 }
 
 interface ImgenOptions {
-	background?: string;
+	background?: number;
 	current: number | string;
 	total: number | string;
 	rank: number | string;

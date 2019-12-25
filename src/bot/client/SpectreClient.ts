@@ -9,6 +9,7 @@ import { Logger } from 'winston';
 import { GuildEmojiStore } from 'discord.js';
 import { Connection } from 'typeorm';
 import { Guild } from '../models/Guild';
+import AssetHandler from '../structures/AssetHandler';
 
 Reflect.defineProperty(AkairoModule.prototype, 'logger', { value: SpectreLogger });
 Reflect.defineProperty(GuildEmojiStore.prototype, 'loading', { value: emojis.loading });
@@ -26,6 +27,7 @@ declare module 'discord-akairo' {
 		inhibitorHandler: InhibitorHandler;
 		listenerHandler: ListenerHandler;
 		activityHandler: ActivityHandler;
+		assetHandler: AssetHandler;
 	}
 
 	interface AkairoModule {
@@ -92,6 +94,7 @@ export default class SpectreClient extends AkairoClient {
 	public settings!: TypeORMProvider;
 	public config = { token, prefix, color, owner, db, activities, version, categoryImages, emojis };
 	public activityHandler: ActivityHandler = new ActivityHandler(this, activities);
+	public assetHandler: AssetHandler = new AssetHandler(join(__dirname, '..', '..', 'assets'));
 
 	public constructor() {
 		super({
@@ -120,6 +123,8 @@ export default class SpectreClient extends AkairoClient {
 		this.logger.info('Connected to database.');
 		this.settings = new TypeORMProvider(this.db.getRepository(Guild));
 		this.logger.info('Initialized the Settings provider.');
+		await this.assetHandler.init();
+		this.logger.info('Loaded all assets.');
 	}
 
 	public async start() {

@@ -1,13 +1,7 @@
 import { Listener } from 'discord-akairo';
 import fetch from 'node-fetch';
 import { Canvas } from 'canvas-constructor';
-import { readFile } from 'fs';
-import { promisify } from 'util';
 import { GuildMember, MessageAttachment, TextChannel } from 'discord.js';
-import { join } from 'path';
-
-const loadImage = promisify(readFile);
-const IMAGE_DIRECTORY = join(__dirname, '..', '..', '..', 'assets', 'social', 'levelup');
 
 export default class LevelUpListener extends Listener {
 	public constructor() {
@@ -18,7 +12,7 @@ export default class LevelUpListener extends Listener {
 		});
 	}
 
-	public async exec(channel: TextChannel, { member, background = '1', level }: ImgenOptions) {
+	public async exec(channel: TextChannel, { member, background = 1, level }: ImgenOptions) {
 		level = level.toString();
 		const { guild, user } = member;
 		const roleData = { add: [] as string[], remove: [] as string[] };
@@ -41,7 +35,7 @@ export default class LevelUpListener extends Listener {
 			}
 		}
 
-		const _background = await loadImage(join(IMAGE_DIRECTORY, `${background}.png`));
+		const { buffer: _background } = this.client.assetHandler.fetch({ id: background, type: 'levelup' });
 		const avatar = await fetch(user.displayAvatarURL({ format: 'png', size: 1024 })).then(res => res.buffer());
 
 		const generatedImg = await new Canvas(210, 80)
@@ -72,6 +66,6 @@ export default class LevelUpListener extends Listener {
 
 interface ImgenOptions {
 	member: GuildMember;
-	background?: string;
+	background?: number;
 	level: number | string;
 }
