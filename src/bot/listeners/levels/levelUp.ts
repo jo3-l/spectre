@@ -60,7 +60,6 @@ export default class LevelUpListener extends Listener {
 			.toBufferAsync();
 
 		channel.send(`🎉 GG ${user}, you advanced to level ${level}!`, new MessageAttachment(generatedImg));
-		this.logger.debug(roleData);
 		if (!guild.me!.permissions.has('MANAGE_ROLES')) return;
 		const toAdd = roleData.add.filter(id => guild.roles.has(id));
 		const toRemove = roleData.remove.filter(id => guild.roles.has(id));
