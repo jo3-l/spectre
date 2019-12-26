@@ -12,7 +12,7 @@ export default class RichDisplay {
 	private message!: Message;
 
 	public constructor({ filter, timeout = 5 * 6e4, pages = [], channel }: RichDisplayOptions = {}) {
-		if (!channel) throw new Error('A channel must be provided.');
+		if (!channel) throw new TypeError('A channel must be provided.');
 		this.channel = channel;
 		if (filter) this.filter = filter;
 		this.timeout = timeout;
