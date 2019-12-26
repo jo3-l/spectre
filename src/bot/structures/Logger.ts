@@ -1,4 +1,4 @@
-import { format, createLogger, transports } from 'winston';
+import { format, createLogger, transports, Logger } from 'winston';
 import moment from 'moment';
 import { hex, red, yellow, green, blue } from 'chalk';
 import { inspect } from 'util';
@@ -28,4 +28,4 @@ export default createLogger({
 	),
 	levels: { error: 0, warn: 1, info: 2, debug: 3 },
 	transports: [new transports.Console({ level: 'debug' })],
-});
+}) as Logger & { debug: (message: any) => Logger };
