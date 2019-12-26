@@ -44,11 +44,12 @@ export default class BackgroundsCommand extends Command {
 		return { type, number };
 	}
 
-	public async exec(message: Message, { type, number }: { type: 'levelup' | 'rank'; number: number }) {
+	public async exec(message: Message, { type, number }: { type: 'levelup' | 'rank'; number?: number }) {
 		const display = new RichDisplay({
 			filter: (_, user) => user.id === message.author.id,
 			channel: message.channel as TextChannel,
 		});
+
 		const images = this.client.assetHandler
 			.filter(img => img.type === type)
 			.sort((a, b) => a.id - b.id);
@@ -60,8 +61,9 @@ export default class BackgroundsCommand extends Command {
 				.setColor(this.client.config.color)
 				.setTimestamp());
 		}
-		display.transformAll((page, index, length) => page.setFooter(`Background ${index + 1} of ${length} total`));
-		if (number) display.setStart(number);
-		display.build();
+		display
+			.transformAll((page, index, length) => page.setFooter(`Background ${index + 1} of ${length} total`))
+			.setStart(number ?? 1)
+			.build();
 	}
 }
