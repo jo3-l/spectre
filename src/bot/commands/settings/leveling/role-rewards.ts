@@ -1,6 +1,6 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { stripIndent } from 'common-tags';
+import { stripIndents } from 'common-tags';
 
 export default class RoleRewardsCommand extends Command {
 	public constructor() {
@@ -8,7 +8,7 @@ export default class RoleRewardsCommand extends Command {
 			aliases: ['role-rewards', 'rr'],
 			category: 'Settings',
 			description: {
-				content: stripIndent`Command to help manage role rewards / level settings on the server.
+				content: stripIndents`Command to help manage role rewards / level settings on the server.
 
 					**Avaliable Methods**
 					• \`set-type [stack|highest]\` - This toggles the type of role-giving (or sets it). The two types are:
