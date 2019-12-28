@@ -47,6 +47,7 @@ interface RedditScrapeOptions {
 	t?: 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 	sort?: 'hot' | 'new' | 'controversial' | 'top' | 'rising';
 }
+
 interface RedditApiResponse {
 	kind: 'Listing';
 	data: {
@@ -55,10 +56,12 @@ interface RedditApiResponse {
 		children: RedditPostRaw[];
 	};
 }
+
 interface RedditPostRaw {
 	kind: string;
 	data: RedditPostPartial;
 }
+
 interface RedditPostPartial {
 	over_18: boolean;
 	title: string;
