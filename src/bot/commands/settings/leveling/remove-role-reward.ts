@@ -9,7 +9,7 @@ export default class RemoveRoleRewardCommand extends Command {
 				{
 					id: 'levelToRemove',
 					type: (message, level) => {
-						if (!/^\d+$/.test(level)) return Flag.fail('NAN');
+						if (!/^\d+$/.test(level)) return;
 						const current = this.client.settings.get(message.guild!, 'roleRewards', {} as { [key: string]: string });
 						if (!(level in current)) return Flag.fail('NOT_PRESENT');
 						return level;
@@ -17,10 +17,8 @@ export default class RemoveRoleRewardCommand extends Command {
 					prompt: {
 						start: 'please provide a level to remove the role reward from.',
 						retry: (_: Message, { failure }: { failure: { value: string } }) => {
-							switch (failure.value) {
-								case 'NOT_PRESENT': return 'please provide a level that has an existing role reward.';
-								default: return 'please provide a valid level to remove the role reward from.';
-							}
+							if (failure.value) return 'please provide a level that has an existing role reward.';
+							return 'please provide a valid level to remove the role reward from.';
 						},
 					},
 				},

@@ -9,7 +9,7 @@ export default class AddRoleRewardCommand extends Command {
 				{
 					id: 'level',
 					type: (message, level) => {
-						if (!/^\d+$/.test(level)) return Flag.fail('NAN');
+						if (!/^\d+$/.test(level)) return;
 						if (Number(level) > 300 || Number(level) <= 0) return Flag.fail('RANGE_ERROR');
 						const current = this.client.settings.get(message.guild!, 'roleRewards', {});
 						if (level in current) return Flag.fail('ALREADY_PRESENT');
