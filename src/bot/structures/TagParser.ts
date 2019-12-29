@@ -41,10 +41,12 @@ export function createTemplates({ user, guild, member, level, image, channel }: 
 export function parseOne(template: string, templates: Templates): string | undefined {
 	const [struct, prop] = template
 		.replace(/ +/g, '')
-		.split('.').map(item => item.toLowerCase());
+		.split('.')
+		.map(item => item.toLowerCase());
 	if (!templates || !(struct in templates)) return;
 	const data = templates[struct as keyof Templates];
 	if (isObject(data) && prop in (data as object)) return (data as { [key: string]: string })[prop];
+
 	return data.toString();
 }
 
@@ -56,6 +58,7 @@ export function parse(expr: string, templates: Templates) {
 }
 
 export function parseEmbed(resolvable: string, templates: Templates): MessageEmbed | EmbedParseErrors {
+	const ignoredParts = ['timestamp', 'type', 'video', 'provider', 'length', 'hexColor', 'createdAt', 'color'];
 	let parsed: object;
 	let embed: MessageEmbed;
 	try {
@@ -64,12 +67,10 @@ export function parseEmbed(resolvable: string, templates: Templates): MessageEmb
 	} catch {
 		return EmbedParseErrors.Invalid;
 	}
-	for (const part of Object.keys(embed)) {
-		// eslint-disable-next-line max-len
-		if (['timestamp', 'type', 'url', 'video', 'thumbnail', 'provider', 'length', 'hexColor', 'image', 'createdAt', 'color'].includes(part)) continue;
+	for (const [part, value] of Object.entries(embed)) {
+		if (ignoredParts.includes(part)) continue;
 		if (part === 'author') {
-			const cur = embed[part]?.name;
-			if (cur) embed[part]!.name = parse(cur, templates);
+			if (value?.name) embed[part]!.name = parse(value.name, templates);
 		} else if (part === 'fields') {
 			embed[part] = embed[part].map(field => ({
 				name: parse(field.name, templates),
@@ -77,13 +78,11 @@ export function parseEmbed(resolvable: string, templates: Templates): MessageEmb
 				inline: field.inline,
 			}));
 		} else if (part === 'footer') {
-			if (!embed[part]?.text) continue;
-			embed[part]!.text = parse(embed[part]!.text!, templates);
-		} else {
-			// @ts-ignore sigh...
-			if (typeof embed[part] !== 'string') continue;
-			// @ts-ignore sigh...
-			embed[part] = parse(embed[part], templates);
+			if (value?.text) embed[part]!.text = parse(value.text, templates);
+		} else if (['image', 'thumbnail'].includes(part)) {
+			if (value?.url) embed[part as 'image' | 'thumbnail']!.url = parse(value.url, templates);
+		} else if (typeof value === 'string') {
+			(embed as unknown as { [key: string]: string })[part] = parse(value, templates);
 		}
 	}
 	return embed.length ? embed : EmbedParseErrors.NoContent;
