@@ -63,10 +63,9 @@ export function parse(expr: string, templates: Templates) {
 
 export function parseEmbed(resolvable: string, templates: Templates): MessageEmbed | EmbedParseErrors {
 	const ignoredParts = ['timestamp', 'type', 'video', 'provider', 'length', 'hexColor', 'createdAt', 'color'];
-	let parsed: object;
 	let embed: MessageEmbed;
 	try {
-		parsed = JSON.parse(resolvable);
+		const parsed = JSON.parse(resolvable);
 		embed = new MessageEmbed(parsed);
 	} catch {
 		return EmbedParseErrors.Invalid;
