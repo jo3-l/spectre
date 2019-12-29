@@ -1,4 +1,5 @@
 import { User, Guild, GuildMember, TextChannel, MessageEmbed } from 'discord.js';
+import { ordinal } from '../../util/Util';
 
 enum EmbedParseErrors {
 	Invalid = 0, NoContent
@@ -26,6 +27,8 @@ export function createTemplates({ user, guild, member, level, image, channel }: 
 			icon: guild.iconURL() || '',
 			name: guild.name,
 			id: guild.id,
+			membercount: guild.memberCount.toString(),
+			membercountordinal: ordinal(guild.memberCount),
 		},
 		channel: {
 			name: channel.name,
@@ -45,19 +48,20 @@ export function parseOne(template: string, templates: Templates): string | undef
 		.map(item => item.toLowerCase());
 	if (!templates || !(struct in templates)) return;
 	const data = templates[struct as keyof Templates];
+	if (!data) return;
 	if (isObject(data) && prop in (data as object)) return (data as { [key: string]: string })[prop];
 
 	return data.toString();
 }
 
-export function parse(expr: string, templates: Templates) {
+export function compile(expr: string, templates: Templates) {
 	return expr.replace(
 		/({{(.*?)}})/g,
 		(_, all: string, expression: string) => parseOne(expression, templates) ?? all,
 	);
 }
 
-export function parseEmbed(resolvable: string, templates: Templates): MessageEmbed | EmbedParseErrors {
+export function compileEmbed(resolvable: string, templates: Templates): MessageEmbed | EmbedParseErrors {
 	const ignoredParts = ['timestamp', 'type', 'video', 'provider', 'length', 'hexColor', 'createdAt', 'color'];
 	let parsed: object;
 	let embed: MessageEmbed;
@@ -70,19 +74,19 @@ export function parseEmbed(resolvable: string, templates: Templates): MessageEmb
 	for (const [part, value] of Object.entries(embed)) {
 		if (ignoredParts.includes(part)) continue;
 		if (part === 'author') {
-			if (value?.name) embed[part]!.name = parse(value.name, templates);
+			if (value?.name) embed[part]!.name = compile(value.name, templates);
 		} else if (part === 'fields') {
 			embed[part] = embed[part].map(field => ({
-				name: parse(field.name, templates),
-				value: parse(field.value, templates),
+				name: compile(field.name, templates),
+				value: compile(field.value, templates),
 				inline: field.inline,
 			}));
 		} else if (part === 'footer') {
-			if (value?.text) embed[part]!.text = parse(value.text, templates);
+			if (value?.text) embed[part]!.text = compile(value.text, templates);
 		} else if (['image', 'thumbnail'].includes(part)) {
-			if (value?.url) embed[part as 'image' | 'thumbnail']!.url = parse(value.url, templates);
+			if (value?.url) embed[part as 'image' | 'thumbnail']!.url = compile(value.url, templates);
 		} else if (typeof value === 'string') {
-			(embed as unknown as { [key: string]: string })[part] = parse(value, templates);
+			(embed as unknown as { [key: string]: string })[part] = compile(value, templates);
 		}
 	}
 	return embed.length ? embed : EmbedParseErrors.NoContent;
@@ -93,8 +97,8 @@ interface Context {
 	guild: Guild;
 	member: GuildMember;
 	channel: TextChannel;
-	level: number;
-	image: string;
+	level?: number;
+	image?: string;
 }
 
 interface Templates {
@@ -115,9 +119,11 @@ interface Templates {
 		icon: string;
 		name: string;
 		id: string;
+		membercount: string;
+		membercountordinal: string;
 	};
-	level: number;
-	image: string;
+	level?: number;
+	image?: string;
 	rb: '{';
 	lb: '}';
 }
