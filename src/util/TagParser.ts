@@ -1,5 +1,5 @@
 import { User, Guild, GuildMember, TextChannel, MessageEmbed } from 'discord.js';
-import { ordinal } from '../../util/Util';
+import { ordinal } from './Util';
 
 enum EmbedParseErrors {
 	Invalid = 0, NoContent
@@ -54,14 +54,14 @@ export function parseOne(template: string, templates: Templates): string | undef
 	return data.toString();
 }
 
-export function compile(expr: string, templates: Templates) {
+export function parse(expr: string, templates: Templates) {
 	return expr.replace(
 		/({{(.*?)}})/g,
 		(_, all: string, expression: string) => parseOne(expression, templates) ?? all,
 	);
 }
 
-export function compileEmbed(resolvable: string, templates: Templates): MessageEmbed | EmbedParseErrors {
+export function parseEmbed(resolvable: string, templates: Templates): MessageEmbed | EmbedParseErrors {
 	const ignoredParts = ['timestamp', 'type', 'video', 'provider', 'length', 'hexColor', 'createdAt', 'color'];
 	let parsed: object;
 	let embed: MessageEmbed;
@@ -74,19 +74,19 @@ export function compileEmbed(resolvable: string, templates: Templates): MessageE
 	for (const [part, value] of Object.entries(embed)) {
 		if (ignoredParts.includes(part)) continue;
 		if (part === 'author') {
-			if (value?.name) embed[part]!.name = compile(value.name, templates);
+			if (value?.name) embed[part]!.name = parse(value.name, templates);
 		} else if (part === 'fields') {
 			embed[part] = embed[part].map(field => ({
-				name: compile(field.name, templates),
-				value: compile(field.value, templates),
+				name: parse(field.name, templates),
+				value: parse(field.value, templates),
 				inline: field.inline,
 			}));
 		} else if (part === 'footer') {
-			if (value?.text) embed[part]!.text = compile(value.text, templates);
+			if (value?.text) embed[part]!.text = parse(value.text, templates);
 		} else if (['image', 'thumbnail'].includes(part)) {
-			if (value?.url) embed[part as 'image' | 'thumbnail']!.url = compile(value.url, templates);
+			if (value?.url) embed[part as 'image' | 'thumbnail']!.url = parse(value.url, templates);
 		} else if (typeof value === 'string') {
-			(embed as unknown as { [key: string]: string })[part] = compile(value, templates);
+			(embed as unknown as { [key: string]: string })[part] = parse(value, templates);
 		}
 	}
 	return embed.length ? embed : EmbedParseErrors.NoContent;
