@@ -5,7 +5,7 @@ import { GuildMember, MessageAttachment, TextChannel } from 'discord.js';
 
 export default class LevelUpListener extends Listener {
 	public constructor() {
-		super('level-up', {
+		super('levelUp', {
 			emitter: 'client',
 			event: 'levelUp',
 			category: 'Levels',
