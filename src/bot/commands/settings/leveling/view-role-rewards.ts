@@ -16,14 +16,14 @@ export default class ViewRoleRewardsCommand extends Command {
 		if (!roleRewards) return message.util!.reply('there are no role rewards set for this server.');
 		const data = Object.entries(roleRewards)
 			.sort(([a], [b]) => Number(a) - Number(b))
-			// eslint-disable-next-line max-len
-			.reduce((prev, [level, reward]) => prev += `\n• **Level ${level}.** \`${guild.roles.get(reward)?.name ?? 'Unknown role'}\``, '');
+			.map(([level, reward]) => `\n• **Level ${level}.** \`${guild.roles.get(reward)?.name ?? 'Unknown role'}\``)
+			.join('\n');
 		const embed = new MessageEmbed()
 			.setTitle('📋 Role Rewards')
 			.setColor(this.client.config.color)
 			.setThumbnail(this.client.config.categoryImages.levels)
-			// eslint-disable-next-line max-len
-			.setDescription(`${data}\n\n\`Role Rewards Type:\` ${capitalize(this.client.settings.get(guild, 'rewardType', 'stack'))}`)
+			.setDescription(data)
+			.addField('Reward-giving Type', capitalize(this.client.settings.get(guild, 'rewardType', 'stack')))
 			.setFooter(guild.name);
 		return message.util!.send(embed);
 	}
