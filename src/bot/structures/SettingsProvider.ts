@@ -24,7 +24,7 @@ interface Settings {
 	disabledModules: string[];
 }
 
-type GuildResolvable = DiscordGuild | Snowflake;
+export type GuildResolvable = DiscordGuild | Snowflake;
 
 export default class TypeORMProvider extends Provider {
 	public ['constructor']: typeof TypeORMProvider;
