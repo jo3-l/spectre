@@ -63,8 +63,8 @@ export default class ServerInfoCommand extends Command {
 		}
 		const embed = new MessageEmbed()
 			.setColor(this.client.config.color)
-			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() ?? '')
-			.setThumbnail(guild.iconURL() ?? '')
+			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() || '')
+			.setThumbnail(guild.iconURL() || '')
 			.addField('ID', guild.id)
 			// eslint-disable-next-line max-len
 			.addField('Channels', commaListsAnd`• ${[textAmt, storeAmt, voiceAmt, categoryAmt].map((v, i) => oneLine`${v} ${suffixes[i]}`)}
