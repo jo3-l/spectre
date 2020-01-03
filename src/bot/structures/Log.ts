@@ -1,4 +1,5 @@
-import { MessageEmbed, GuildAuditLogsActions, Invite, TextChannel, User, Guild, PermissionString } from 'discord.js';
+// eslint-disable-next-line max-len
+import { MessageEmbed, GuildAuditLogsActions, Invite, TextChannel, User, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
 import { Log } from './SettingsProvider';
 import SpectreClient from '../client/SpectreClient';
 import moment from 'moment';
@@ -20,19 +21,23 @@ export default {
 	async send(channel: TextChannel, embed: MessageEmbed) {
 		const webhooks = await channel.fetchWebhooks();
 		const webhook = webhooks.find(w => (w.owner as PartialUser | undefined)?.id === w.client.user!.id) ||
-			await channel.createWebhook('Spectre Logging', { avatar: channel.client.user!.displayAvatarURL({ size: 1024 }) });
+			await channel.createWebhook('Spectre', { avatar: channel.client.user!.displayAvatarURL({ size: 1024 }) });
 		webhook.send({ embeds: [embed] }).catch(() => null);
 	},
 
-	async fetchEntry(guild: Guild, auditType: keyof GuildAuditLogsActions) {
+	async getEntry(guild: Guild, auditType: keyof GuildAuditLogsActions) {
 		return guild.fetchAuditLogs({ type: auditType, limit: 1 })
 			// eslint-disable-next-line promise/prefer-await-to-then
 			.then(audit => audit.entries.first())
-			.catch(() => null);
+			.catch(() => undefined);
 	},
 
-	async getExecutor({ guild, id }: { guild: Guild; id: string | null }, type: keyof GuildAuditLogsActions) {
-		const entry = await this.fetchEntry(guild, type);
+	async getExecutor(
+		{ guild, id }: { guild: Guild; id: string | null },
+		type: keyof GuildAuditLogsActions,
+		_entry?: GuildAuditLogsEntry,
+	) {
+		const entry = _entry ?? await this.getEntry(guild, type);
 		if (!entry || !entry.target || Math.abs(Date.now() - entry.createdTimestamp) > 5000 ||
 			(!(entry.target instanceof Invite) && entry.target.id !== id)) return;
 		return entry.executor;
