@@ -46,7 +46,7 @@ export default class WhoisCommand extends Command {
 			.addField('Playing', user.presence?.activity?.name ?? 'None')
 			.addField('Joined at', moment.utc(member.joinedAt!).format('YYYY/MM/DD hh:mm:ss'))
 			.addField('Registered', moment.utc(user.createdAt).format('YYYY/MM/DD hh:mm:ss'))
-			.addField(`Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(' ') || 'None');
+			.addField(`Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(', ') || 'None');
 
 		if (user.presence.clientStatus) {
 			embed.setFooter(oneLineCommaListsAnd`${user.username} is active on ${Object.keys(user.presence.clientStatus)}`);
