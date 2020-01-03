@@ -10,7 +10,7 @@ class RedditPost {
 	public readonly image: string;
 	public readonly url: string;
 
-	public constructor({ over_18, title, ups, num_comments, permalink, url }: RedditPostPartial) {
+	public constructor({ over_18, title, ups, num_comments, permalink, url }: RedditPost['data']) {
 		this.nsfw = over_18;
 		this.title = title;
 		this.upvotes = ups;
@@ -53,21 +53,19 @@ interface RedditApiResponse {
 	data: {
 		modhash: string;
 		dist: number;
-		children: RedditPostRaw[];
+		children: RedditPost[];
 	};
 }
 
-interface RedditPostRaw {
+interface RedditPost {
 	kind: string;
-	data: RedditPostPartial;
-}
-
-interface RedditPostPartial {
-	over_18: boolean;
-	title: string;
-	created: number;
-	ups: number;
-	num_comments: number;
-	permalink: string;
-	url: string;
+	data: {
+		over_18: boolean;
+		title: string;
+		created: number;
+		ups: number;
+		num_comments: number;
+		permalink: string;
+		url: string;
+	};
 }
