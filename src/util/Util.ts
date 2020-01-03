@@ -1,4 +1,6 @@
 import fetch from 'node-fetch';
+import { PermissionString } from 'discord.js';
+import { TemplateTag, replaceResultTransformer } from 'common-tags';
 
 export function ordinal(cardinal: number) {
 	const cent = cardinal % 100;
@@ -36,6 +38,17 @@ export const codeblock = (content: string, lang = '') =>
 
 export const escapedCodeblock = (content: string, lang = '') =>
 	codeblock(content.replace(/`/g, `\`${String.fromCharCode(8203)}`), lang);
+
+export function humanizePermissionName(permission: PermissionString) {
+	return permission
+		.replace(/_/g, ' ')
+		.split(' ')
+		.map(word => ['VAD', 'TTS'].includes(word) ? word : `${word[0]}${word.substr(1).toLowerCase()}`)
+		.join(' ');
+}
+
+export const removeBlankLines = new TemplateTag(replaceResultTransformer(/^\s*[\r\n]/gm, ''));
+
 /* eslint-disable */
 export const emojis = {
 	a: '🇦', b: '🇧', c: '🇨', d: '🇩',

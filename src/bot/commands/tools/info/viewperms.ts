@@ -1,14 +1,8 @@
 import { Command } from 'discord-akairo';
 import { Message, GuildMember, PermissionString, MessageEmbed, Permissions } from 'discord.js';
+import { humanizePermissionName } from '../../../../util/Util';
 import { oneLineTrim } from 'common-tags';
 
-function transformPermission(permission: PermissionString) {
-	return permission
-		.replace(/_/g, ' ')
-		.split(' ')
-		.map(word => (['VAD', 'TTS'].includes(word) && word) || `${word[0]}${word.substr(1).toLowerCase()}`)
-		.join(' ');
-}
 
 export default class ViewPermsCommand extends Command {
 	public constructor() {
@@ -32,7 +26,7 @@ export default class ViewPermsCommand extends Command {
 		for (const FLAG of (Object.keys(Permissions.FLAGS) as PermissionString[])) {
 			humanReadable.push(oneLineTrim`${permissions.has(FLAG)
 				? this.client.emojis.success
-				: this.client.emojis.error} ${transformPermission(FLAG)}`);
+				: this.client.emojis.error} ${humanizePermissionName(FLAG)}`);
 		}
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag}'s permissions`, member.user.displayAvatarURL())
