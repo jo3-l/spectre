@@ -17,6 +17,7 @@ export const emojis = {
 	loading: '',
 	success: '',
 	error: '',
+	neutral: '',
 };
 // Array of activities
 export const activities = [

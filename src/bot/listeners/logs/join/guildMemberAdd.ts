@@ -19,8 +19,8 @@ export default class GuildMemberAddListener extends Listener {
 			.setAuthor(`${user.tag} joined`, user.displayAvatarURL())
 			.setColor('GREEN')
 			.setDescription(`
-				**Account created at:** ${Log.formatTime(user.createdAt)}
-				**Membercount:** ${guild.memberCount}
+				▫️ **Account created at:** ${Log.formatTime(user.createdAt)}
+				▫️ **Membercount:** ${guild.memberCount}
 			`)
 			.setFooter(`User ID: ${user.id}`)
 			.setTimestamp();

@@ -27,6 +27,9 @@ Any pull requests made must be linted with `npm run lint` to catch any stylistic
 ## Installation
 *It is not recommended to selfhost Spectre at this point in time.*
 
+## Credits
+1. [Havoc](https://github.com/izexi/Havoc) by izexi - Logs
+
 ## License
 Spectre is licensed under the [MIT License](https://github.com/Jo3-L/spectre/blob/master/LICENSE).
 

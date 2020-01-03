@@ -15,6 +15,7 @@ Reflect.defineProperty(AkairoModule.prototype, 'logger', { value: SpectreLogger 
 Reflect.defineProperty(GuildEmojiStore.prototype, 'loading', { value: emojis.loading });
 Reflect.defineProperty(GuildEmojiStore.prototype, 'success', { value: emojis.success });
 Reflect.defineProperty(GuildEmojiStore.prototype, 'error', { value: emojis.error });
+Reflect.defineProperty(GuildEmojiStore.prototype, 'neutral', { value: emojis.neutral });
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -40,6 +41,7 @@ declare module 'discord.js' {
 		loading: string;
 		success: string;
 		error: string;
+		neutral: string;
 	}
 }
 
@@ -48,7 +50,7 @@ export interface SpectreConfig {
 	token: string;
 	color: number;
 	version: string;
-	emojis: { success: string; loading: string; error: string };
+	emojis: { success: string; loading: string; error: string; neutral: string };
 	db: string;
 	owner: string;
 	activities?: Activity[];
@@ -98,7 +100,7 @@ export default class SpectreClient extends AkairoClient {
 
 	public constructor() {
 		super({
-			ownerID: owner, disableEveryone: true, disabledEvents: ['TYPING_START'],
+			ownerID: owner, disableEveryone: true, disabledEvents: ['TYPING_START', 'PRESENCE_UPDATE'],
 		});
 	}
 
@@ -122,6 +124,7 @@ export default class SpectreClient extends AkairoClient {
 		await this.db.connect();
 		this.logger.info('Connected to database.');
 		this.settings = new TypeORMProvider(this.db.getRepository(Guild));
+		await this.settings.init();
 		this.logger.info('Initialized the Settings provider.');
 		await this.assetHandler.init();
 		this.logger.info('Loaded all assets.');

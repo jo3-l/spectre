@@ -14,12 +14,14 @@ export default class GuildBanAddListener extends Listener {
 	public async exec(guild: Guild, user: User) {
 		const channel = Log.fetchChannel(guild, 'members');
 		if (!channel) return;
+		const entry = await Log.getEntry(guild, 'MEMBER_BAN_ADD');
+		const executor = await Log.getExecutor({ guild, id: user.id }, 'MEMBER_BAN_ADD', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`${user.tag} joined`, user.displayAvatarURL())
-			.setColor('GREEN')
+			.setAuthor(`${user.tag} was banned`, user.displayAvatarURL())
+			.setColor('RED')
 			.setDescription(`
-				**Account created at:** ${Log.formatTime(user.createdAt)}
-				**Membercount:** ${guild.memberCount}
+				▫️ **Banned by:** ${executor ? Log.formatUser(executor) : 'Unknown#????'}
+				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
 			.setFooter(`User ID: ${user.id}`)
 			.setTimestamp();
