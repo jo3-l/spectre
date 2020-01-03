@@ -33,7 +33,7 @@ export default class ExecCommand extends Command {
 				{
 					id: 'expr',
 					prompt: {
-						start: 'What would you like to execute?',
+						start: 'what would you like to execute?',
 					},
 					match: 'rest',
 					unordered: true,
