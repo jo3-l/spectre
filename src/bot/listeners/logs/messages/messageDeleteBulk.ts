@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { Message, MessageEmbed, Collection, Snowflake, TextChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
@@ -18,8 +18,8 @@ export default class MessageDeleteBulkListener extends Listener {
 		const channel = Log.fetchChannel(guild, 'messages');
 		if (!channel) return;
 		const embed = new MessageEmbed()
-			.setAuthor(`Messages were bulk deleted in channel #${(messages.first()!.channel as TextChannel).name}`,
-				guild.iconURL() || '')
+			.setAuthor(`Messages were bulk deleted in #${(messages.first()!.channel as TextChannel).name}`,
+				emojis.deleteMessage)
 			.setColor('RED')
 			.setTimestamp()
 			.setFooter(`Channel ID: ${messages.first()!.channel.id}`)

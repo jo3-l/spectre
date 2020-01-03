@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { GuildMember, MessageEmbed } from 'discord.js';
 
@@ -16,10 +16,11 @@ export default class GuildMemberAddListener extends Listener {
 		if (!channel) return;
 		const { user, guild } = member;
 		const embed = new MessageEmbed()
-			.setAuthor(`${user.tag} joined`, user.displayAvatarURL())
+			.setAuthor(`${user.tag} joined`, emojis.addMember)
 			.setColor('GREEN')
 			.setDescription(`
 				▫️ **Account created at:** ${Log.formatTime(user.createdAt)}
+				▫️ **Avatar URL:** [View here](${user.displayAvatarURL()})
 				▫️ **Membercount:** ${guild.memberCount}
 			`)
 			.setFooter(`User ID: ${user.id}`)

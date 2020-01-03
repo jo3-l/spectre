@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { removeBlankLines } from '../../../../util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildChannel, MessageEmbed, DMChannel } from 'discord.js';
@@ -20,7 +20,7 @@ export default class ChannelCreateListener extends Listener {
 		const entry = await Log.getEntry(guild, 'CHANNEL_CREATE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_CREATE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`Channel #${channel.name} was created`, guild.iconURL() || '')
+			.setAuthor(`Channel #${channel.name} was created`, emojis.addChannel)
 			.setColor('GREEN')
 			.setDescription(removeBlankLines`
 				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (ID ${channel.parentID})` : 'n/a'}

@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { removeBlankLines, humanizePermissionName } from '../../../../util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildMember, MessageEmbed, PermissionString } from 'discord.js';
@@ -58,7 +58,7 @@ export default class GuildMemberUpdateListener extends Listener {
 				${adminChanged ? '• `Administrator` (All other permissions are granted)' : permissionsAdded || permissionsRemoved || 'n/a'}`;
 			/* eslint-enable */
 			const embed = new MessageEmbed()
-				.setAuthor(`Role was ${roleRemoved ? 'removed from' : 'added to'} ${user.tag}`, user.displayAvatarURL())
+				.setAuthor(`Role was ${roleRemoved ? 'removed from' : 'added to'} ${user.tag}`, emojis.updateMember)
 				.setColor(roleRemoved ? 'RED' : 'GREEN')
 				.setFooter(`Member ID: ${user.id}`)
 				.setTimestamp()

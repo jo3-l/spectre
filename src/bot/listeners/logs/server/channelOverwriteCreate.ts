@@ -1,7 +1,7 @@
 import { Listener } from 'discord-akairo';
 import { ChannelPermission } from './channelUpdate';
 import { MessageEmbed, GuildChannel } from 'discord.js';
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { humanizePermissionName, removeBlankLines } from '../../../../util/Util';
 
 export default class ChannelOverwriteCreateListener extends Listener {
@@ -26,7 +26,7 @@ export default class ChannelOverwriteCreateListener extends Listener {
 		const entry = await Log.getEntry(guild, 'CHANNEL_OVERWRITE_CREATE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_OVERWRITE_CREATE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`Channel permissions in #${channel.name} were created`, guild.iconURL() || '')
+			.setAuthor(`Channel permissions in #${channel.name} were created`, emojis.updateChannel)
 			.setColor('GREEN')
 			.setTimestamp()
 			.setFooter(`Channel ID: ${channel.id}`)

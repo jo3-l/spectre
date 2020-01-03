@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { escapedCodeblock } from '../../../../util/Util';
 import { Listener } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
@@ -21,7 +21,7 @@ export default class MessageUpdateListener extends Listener {
 		const newContentDisplay = escapedCodeblock(newMessage.content);
 		const embed = new MessageEmbed()
 			.setColor('ORANGE')
-			.setAuthor(`${newMessage.author.tag}'s message was edited`, newMessage.author.displayAvatarURL())
+			.setAuthor(`${newMessage.author.tag}'s message was edited`, emojis.updateMessage)
 			.setFooter(`Message ID: ${newMessage.id}`)
 			.setTimestamp()
 			.setDescription(`

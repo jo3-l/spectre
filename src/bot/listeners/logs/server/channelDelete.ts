@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { removeBlankLines } from '../../../../util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildChannel, MessageEmbed, DMChannel } from 'discord.js';
@@ -20,7 +20,7 @@ export default class ChannelDeleteListener extends Listener {
 		const entry = await Log.getEntry(guild, 'CHANNEL_DELETE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_DELETE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`Channel #${channel.name} was deleted`, guild.iconURL() || '')
+			.setAuthor(`Channel #${channel.name} was deleted`, emojis.deleteChannel)
 			.setColor('RED')
 			.setDescription(removeBlankLines`
 				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (ID ${channel.parentID})` : 'n/a'}

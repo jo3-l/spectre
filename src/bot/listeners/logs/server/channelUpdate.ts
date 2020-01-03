@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { removeBlankLines } from '../../../../util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildChannel, MessageEmbed, DMChannel, PermissionString, Guild, TextChannel, Permissions, User, Role } from 'discord.js';
@@ -72,7 +72,7 @@ export default class ChannelUpdateListener extends Listener {
 				▫️ **New topic:** ${newChannel.topic || 'n/a'}`;
 		}
 		const embed = new MessageEmbed()
-			.setAuthor(`Channel #${newChannel.name} was updated`, guild.iconURL() || '')
+			.setAuthor(`Channel #${newChannel.name} was updated`, emojis.updateChannel)
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setFooter(`Channel ID: ${newChannel.id}`)

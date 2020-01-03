@@ -3,7 +3,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import { emojify } from '../../../../util/Util';
 import { commaListsAnd, oneLine } from 'common-tags';
 
-const HUMAN_REGIONS: Regions = {
+export const HUMAN_REGIONS: Regions = {
 	'brazil': `${emojify('br')} Brazil`,
 	'eu-central': `${emojify('eu')} Central Europe`,
 	'singapore': `${emojify('sg')} Singapore`,

@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { Guild, User, MessageEmbed } from 'discord.js';
 
@@ -17,7 +17,7 @@ export default class GuildBanRemoveListener extends Listener {
 		const entry = await Log.getEntry(guild, 'MEMBER_BAN_REMOVE');
 		const executor = await Log.getExecutor({ guild, id: user.id }, 'MEMBER_BAN_REMOVE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`${user.tag} was unbanned`, user.displayAvatarURL())
+			.setAuthor(`${user.tag} was unbanned`, emojis.all)
 			.setColor('GREEN')
 			.setDescription(`
 				▫️ **Unbanned by:** ${executor ? Log.formatUser(executor) : 'Unknown#????'}

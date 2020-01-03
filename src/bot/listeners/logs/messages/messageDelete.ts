@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { escapedCodeblock } from '../../../../util/Util';
 import { Listener } from 'discord-akairo';
 import { Message, MessageEmbed, User } from 'discord.js';
@@ -27,7 +27,7 @@ export default class MessageDeleteListener extends Listener {
 		}
 		const content = escapedCodeblock(message.content);
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.tag}'s message was deleted`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author.tag}'s message was deleted`, emojis.deleteMessage)
 			.setColor('RED')
 			.setTimestamp()
 			.setFooter(`Message ID: ${message.id}`)

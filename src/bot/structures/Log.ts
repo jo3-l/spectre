@@ -52,4 +52,22 @@ export default {
 	},
 };
 
+export const emojis = {
+	all: 'https://i.imgur.com/MQsYYLB.png',
+	updateRole: 'https://i.imgur.com/tqXKABH.png',
+	updateMember: 'https://i.imgur.com/1pXc6BA.png',
+	updateEmoji: 'https://i.imgur.com/bsuD40F.png',
+	updateChannel: 'https://i.imgur.com/5XPVC8s.png',
+	updateMessage: 'https://i.imgur.com/ZswKOog.png',
+	removeMember: 'https://i.imgur.com/TJ9zdIN.png',
+	deleteRole: 'https://i.imgur.com/2utRE50.png',
+	deleteMessage: 'https://i.imgur.com/BHKe4S9.png',
+	deleteEmoji: 'https://i.imgur.com/LMdyD3P.png',
+	deleteChannel: 'https://i.imgur.com/KstZBdw.png',
+	addChannel: 'https://i.imgur.com/jqsDvX7.png',
+	addMember: 'https://i.imgur.com/FqpvZcA.png',
+	createEmoji: 'https://i.imgur.com/WQtVx5l.png',
+	createRole: 'https://i.imgur.com/cbq66lt.png',
+};
+
 interface PartialUser { id: string }

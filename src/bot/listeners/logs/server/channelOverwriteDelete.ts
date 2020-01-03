@@ -1,7 +1,7 @@
 import { Listener } from 'discord-akairo';
 import { ChannelPermission } from './channelUpdate';
 import { MessageEmbed, GuildChannel } from 'discord.js';
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { humanizePermissionName, removeBlankLines } from '../../../../util/Util';
 
 export default class ChannelOverwriteDeleteListener extends Listener {
@@ -26,7 +26,7 @@ export default class ChannelOverwriteDeleteListener extends Listener {
 		const entry = await Log.getEntry(guild, 'CHANNEL_OVERWRITE_DELETE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_OVERWRITE_DELETE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`Channel permissions in #${channel.name} were deleted`, guild.iconURL() || '')
+			.setAuthor(`Channel permissions in #${channel.name} were deleted`, emojis.updateChannel)
 			.setColor('RED')
 			.setTimestamp()
 			.setFooter(`Channel ID: ${channel.id}`)

@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { Guild, User, MessageEmbed } from 'discord.js';
 
@@ -17,7 +17,7 @@ export default class GuildBanAddListener extends Listener {
 		const entry = await Log.getEntry(guild, 'MEMBER_BAN_ADD');
 		const executor = await Log.getExecutor({ guild, id: user.id }, 'MEMBER_BAN_ADD', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`${user.tag} was banned`, user.displayAvatarURL())
+			.setAuthor(`${user.tag} was banned`, emojis.all)
 			.setColor('RED')
 			.setDescription(`
 				▫️ **Banned by:** ${executor ? Log.formatUser(executor) : 'Unknown#????'}
