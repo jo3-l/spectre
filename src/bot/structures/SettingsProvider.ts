@@ -47,7 +47,7 @@ export default class TypeORMProvider extends Provider {
 	): Settings[K] | T {
 		const id = this.constructor.resolveId(guild);
 		if (this.items.has(id)) {
-			const value = this.items.get(id)[key];
+			const value = this.items.get(id)?.[key];
 			return value ?? defaultValue;
 		}
 
@@ -88,7 +88,7 @@ export default class TypeORMProvider extends Provider {
 			.into(Guild)
 			.values({ id, settings: data })
 			.onConflict('("id") DO UPDATE SET "settings" = :settings')
-			.setParameter('settings', null)
+			.setParameter('settings', data)
 			.execute();
 	}
 
