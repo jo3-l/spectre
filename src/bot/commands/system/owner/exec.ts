@@ -23,7 +23,6 @@ export default class ExecCommand extends Command {
 					'id': 'timeout',
 					'match': 'option',
 					'type': Argument.compose('number', (_, int: unknown) => {
-						/** @todo Find a more elegant implementation for this */
 						if (typeof int !== 'number') return;
 						return int >= 1 && int <= 60 ? int * 1000 : null;
 					}),
@@ -53,10 +52,11 @@ export default class ExecCommand extends Command {
 		if (!stdout && !stderr) return message.util!.send(`⏱ ${ms}ms\n\nThere was no output.`);
 		const embed = new MessageEmbed()
 			.setAuthor('Exec', 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png')
+			.setDescription('')
 			.setColor(stderr ? this.client.config.color : 6398041)
 			.setFooter(`⏱ ${ms}ms`);
-		if (stdout) embed.addField('Output', await this.clean(stdout, 'Output') || 'n/a');
-		if (stderr) embed.addField('Error', await this.clean(stderr, 'Error') || 'n/a');
+		if (stdout) embed.description += `**OUTPUT**\n${await this.clean(stdout)}`;
+		if (stderr) embed.description += `**ERROR**\n${await this.clean(stderr)}`;
 		message.util!.send(embed);
 	}
 
@@ -64,7 +64,7 @@ export default class ExecCommand extends Command {
 		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
 		const raw = text;
 		text = escapedCodeblock(text, 'prolog');
-		if ((8 + (text as string).length) > 1024) {
+		if ((8 + (text as string).length) > 900) {
 			try {
 				text = `[${name}](${(await hastebin(raw, { extension: 'prolog' }))})`;
 			} catch {
