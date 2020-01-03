@@ -2,6 +2,8 @@ import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 
+const base = 'logs';
+
 export default class LoggingCommand extends Command {
 	public constructor() {
 		super('logging', {
@@ -10,7 +12,7 @@ export default class LoggingCommand extends Command {
 			description: {
 				content: stripIndents`Command to help manage logging settings on the server.
 
-					**Avaliable Methods**
+					__Avaliable Methods__
 					• \`add <type> <channel>\` - Adds the type of log specified to the appropriate channel. Valid types are:
 
 					1. \`joinlog\` - Join and leave logs
@@ -35,15 +37,15 @@ export default class LoggingCommand extends Command {
 	public *args() {
 		const method = yield {
 			type: [
-				['add-log', 'add', 'set', 'create'],
-				['remove-log', 'remove', 'rm'],
-				['reset-logs', 'reset', 'clear'],
-				['view-logs', 'view'],
+				['add', 'set', 'create'],
+				['remove', 'rm'],
+				['reset', 'clear'],
+				['view'],
 			],
 			// eslint-disable-next-line max-len
 			otherwise: (msg: Message) => `${msg.author}, that's not a valid method. Try the \`help logging\` command for more information.`,
 		};
 
-		return Flag.continue(method);
+		return Flag.continue(`${base}-${method}`);
 	}
 }

@@ -4,7 +4,7 @@ import { Message, Snowflake } from 'discord.js';
 
 export default class RemoveLogcommand extends Command {
 	public constructor() {
-		super('remove-log', {
+		super('logs-remove', {
 			category: 'Settings',
 			args: [
 				{

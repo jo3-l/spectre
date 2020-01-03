@@ -4,7 +4,7 @@ import Confirmation, { Responses } from '../../../../util/Confirm';
 
 export default class ResetRoleRewardsCommand extends Command {
 	public constructor() {
-		super('reset-role-rewards', {
+		super('role-rewards-reset', {
 			category: 'Settings',
 		});
 	}

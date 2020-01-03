@@ -5,7 +5,7 @@ const capitalize = (word: string) => `${word[0].toUpperCase()}${word.substr(1)}`
 
 export default class ViewRoleRewardsCommand extends Command {
 	public constructor() {
-		super('view-role-rewards', {
+		super('role-rewards-view', {
 			category: 'Settings',
 		});
 	}
@@ -18,12 +18,12 @@ export default class ViewRoleRewardsCommand extends Command {
 			.sort(([a], [b]) => Number(a) - Number(b))
 			.map(([level, reward]) => `\n• **Level ${level}.** \`${guild.roles.get(reward)?.name ?? 'Unknown role'}\``)
 			.join('\n');
+		const type = capitalize(this.client.settings.get(guild, 'rewardType', 'stack'));
 		const embed = new MessageEmbed()
-			.setTitle('📋 Role Rewards')
+			.setTitle('⚙️ Role Rewards')
 			.setColor(this.client.config.color)
 			.setThumbnail(this.client.config.categoryImages.levels)
-			.setDescription(data)
-			.addField('Reward-giving Type', capitalize(this.client.settings.get(guild, 'rewardType', 'stack')))
+			.setDescription(`${data}\n\n**Role giving configuration:**\n${type}`)
 			.setFooter(guild.name);
 		return message.util!.send(embed);
 	}

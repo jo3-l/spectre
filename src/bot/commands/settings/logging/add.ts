@@ -5,7 +5,7 @@ import { Message, TextChannel, Snowflake } from 'discord.js';
 
 export default class AddLogCommand extends Command {
 	public constructor() {
-		super('add-log', {
+		super('logs-add', {
 			category: 'Settings',
 			args: [
 				{

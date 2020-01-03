@@ -3,7 +3,7 @@ import { Message, Role } from 'discord.js';
 
 export default class AddRoleRewardCommand extends Command {
 	public constructor() {
-		super('add-role-reward', {
+		super('role-rewards-add', {
 			category: 'Settings',
 			args: [
 				{

@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 
 export default class RemoveRoleRewardCommand extends Command {
 	public constructor() {
-		super('remove-role-reward', {
+		super('role-rewards-remove', {
 			category: 'Settings',
 			args: [
 				{

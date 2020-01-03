@@ -4,7 +4,7 @@ import { stripIndents } from 'common-tags';
 
 export default class SetTypeRoleRewardsCommand extends Command {
 	public constructor() {
-		super('set-type-role-rewards', {
+		super('role-rewards-set-type', {
 			category: 'Settings',
 			args: [
 				{

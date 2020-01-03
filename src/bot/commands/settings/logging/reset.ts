@@ -4,7 +4,7 @@ import Confirmation, { Responses } from '../../../../util/Confirm';
 
 export default class ResetLogsCommand extends Command {
 	public constructor() {
-		super('reset-logs', {
+		super('logs-reset', {
 			category: 'Settings',
 		});
 	}
