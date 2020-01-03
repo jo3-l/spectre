@@ -30,7 +30,7 @@
 		"pg": "^7.14.0",
 		"pg-hstore": "^2.3.3",
 		"reflect-metadata": "^0.1.13",
-		"typeorm": "^0.2.21",
+		"typeorm": "0.2.22",
 		"typescript": "^3.7.2",
 		"winston": "^3.2.1"
 	},
