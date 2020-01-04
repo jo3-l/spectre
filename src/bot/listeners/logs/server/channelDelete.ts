@@ -23,7 +23,7 @@ export default class ChannelDeleteListener extends Listener {
 			.setAuthor(`Channel #${channel.name} was deleted`, emojis.deleteChannel)
 			.setColor('RED')
 			.setDescription(removeBlankLines`
-				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (ID ${channel.parentID})` : 'n/a'}
+				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (${channel.parentID})` : 'n/a'}
 				▫️ **Created at:** ${Log.formatTime(channel.createdAt)}
 				${executor ? `▫️ **Deleted by:** ${Log.formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}

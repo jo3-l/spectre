@@ -23,7 +23,7 @@ export default class ChannelCreateListener extends Listener {
 			.setAuthor(`Channel #${channel.name} was created`, emojis.addChannel)
 			.setColor('GREEN')
 			.setDescription(removeBlankLines`
-				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (ID ${channel.parentID})` : 'n/a'}
+				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (${channel.parentID})` : 'n/a'}
 				▫️ **Created at:** ${Log.formatTime(channel.createdAt)}
 				${executor ? `▫️ **Created by:** ${Log.formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}

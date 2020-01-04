@@ -44,7 +44,7 @@ export default {
 	},
 
 	formatUser(user: User) {
-		return `${user.tag} (ID ${user.id})`;
+		return `${user.tag} (${user.id})`;
 	},
 
 	formatTime(time: Date = new Date()) {

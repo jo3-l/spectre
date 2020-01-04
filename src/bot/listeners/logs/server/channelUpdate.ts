@@ -77,7 +77,7 @@ export default class ChannelUpdateListener extends Listener {
 			.setTimestamp()
 			.setFooter(`Channel ID: ${newChannel.id}`)
 			.setDescription(removeBlankLines`
-					▫️ **Parent channel:** ${newChannel.parent ? `${newChannel.parent} (ID ${newChannel.parentID})` : 'n/a'}
+					▫️ **Parent channel:** ${newChannel.parent ? `${newChannel.parent} (${newChannel.parentID})` : 'n/a'}
 					▫️ **Created at:** ${Log.formatTime(newChannel.createdAt)}
 					${executor ? `▫️ **Updated by:** ${Log.formatUser(executor)}` : ''}
 					${nameChange}

@@ -40,14 +40,14 @@ export default class ChannelOverwriteUpdateListener extends Listener {
 			.setTimestamp()
 			.setFooter(`Channel ID: ${channel.id}`)
 			.setDescription(removeBlankLines`
-					▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (ID ${channel.parentID})` : 'n/a'}
+					▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (${channel.parentID})` : 'n/a'}
 					▫️ **Created at:** ${Log.formatTime(channel.createdAt)}
 					${executor ? `▫️ **Overwrites updated by:** ${Log.formatUser(executor)}` : ''}
 					${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 					▫️ **Type:** \`${channel.type}\`
 					▫️ **Permission overwrites updated:**
 					${changes}
-					${target ? `▫️ **Target:** ${'tag' in target ? target.tag : target.name} (ID ${target.id})` : ''}
+					${target ? `▫️ **Target:** ${'tag' in target ? target.tag : target.name} (${target.id})` : ''}
 				`);
 		return Log.send(logChannel, embed);
 	}

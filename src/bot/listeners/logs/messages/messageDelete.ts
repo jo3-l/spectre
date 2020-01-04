@@ -34,7 +34,7 @@ export default class MessageDeleteListener extends Listener {
 			.setDescription(`
 				▫️ **Deleted by:** ${Log.formatUser(executor)}
 				▫️ **Timestamp of message:** ${Log.formatTime(message.createdAt)}
-				▫️ **Channel:** ${message.channel} (ID ${message.channel.id})
+				▫️ **Channel:** ${message.channel} (${message.channel.id})
 				▫️ **Message author:** ${Log.formatUser(message.author)}
 				▫️ **Message content:** ${content.length < 1800 ? content : ''}
 			`);

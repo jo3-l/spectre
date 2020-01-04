@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { GuildEmoji, MessageEmbed } from 'discord.js';
 
@@ -20,7 +20,7 @@ export default class EmojiUpdateListener extends Listener {
 		const entry = await Log.getEntry(guild, 'EMOJI_UPDATE');
 		const executor = await Log.getExecutor({ guild, id: newEmoji.id }, 'EMOJI_UPDATE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`An emoji was renamed`, guild.iconURL() || '')
+			.setAuthor(`An emoji was renamed`, emojis.updateEmoji)
 			.setTimestamp()
 			.setFooter(`Emoji ID: ${newEmoji.id}`)
 			.setColor('ORANGE')

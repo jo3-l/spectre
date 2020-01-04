@@ -25,7 +25,7 @@ export default class MessageDeleteBulkListener extends Listener {
 			.setFooter(`Channel ID: ${messages.first()!.channel.id}`)
 			.setDescription(`
 				▫️ **Amounted deleted:** ${messages.size}
-				▫️ **Channel:** ${messages.first()!.channel} (ID ${messages.first()!.channel.id})
+				▫️ **Channel:** ${messages.first()!.channel} (${messages.first()!.channel.id})
 			`)
 			.attachFiles([{
 				attachment: Buffer.from(

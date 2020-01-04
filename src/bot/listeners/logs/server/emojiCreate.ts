@@ -1,4 +1,4 @@
-import Log from '../../../structures/Log';
+import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { GuildEmoji, MessageEmbed } from 'discord.js';
 
@@ -18,7 +18,7 @@ export default class EmojiCreateListener extends Listener {
 		const entry = await Log.getEntry(guild, 'EMOJI_CREATE');
 		const executor = await Log.getExecutor({ guild, id: emoji.id }, 'EMOJI_CREATE', entry);
 		const embed = new MessageEmbed()
-			.setAuthor(`A new emoji was created`, guild.iconURL() || '')
+			.setAuthor(`A new emoji was created`, emojis.createEmoji)
 			.setTimestamp()
 			.setFooter(`Emoji ID: ${emoji.id}`)
 			.setColor('GREEN')
@@ -26,7 +26,7 @@ export default class EmojiCreateListener extends Listener {
 				▫️ **Emoji:** ${emoji}
 				▫️ **Emoji name:** \`${emoji.name}\`
 				▫️ **Animated:** ${emoji.animated ? 'yes' : 'no'}
-				▫️ **URL:** [Emoji URL](${emoji.url!})
+				▫️ **URL:** [View here](${emoji.url!})
 				▫️ **Timestamp of creation:** ${Log.formatTime(emoji.createdAt!)}
 				${executor ? `▫️ **Created by:** ${Log.formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}

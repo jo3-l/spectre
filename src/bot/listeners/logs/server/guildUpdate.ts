@@ -33,8 +33,8 @@ export default class GuildUpdateListener extends Listener {
 			after = `[View here](${newGuild.iconURL() ?? ''})`;
 			change = 'icon';
 		} else if (oldGuild.afkChannel !== newGuild.afkChannel) {
-			before = oldGuild.afkChannel ? `${oldGuild.afkChannel} (ID ${oldGuild.afkChannelID})` : 'None';
-			after = newGuild.afkChannel ? `${newGuild.afkChannel} (ID ${newGuild.afkChannelID})` : 'None';
+			before = oldGuild.afkChannel ? `${oldGuild.afkChannel} (${oldGuild.afkChannelID})` : 'None';
+			after = newGuild.afkChannel ? `${newGuild.afkChannel} (${newGuild.afkChannelID})` : 'None';
 			change = 'AFK channel';
 		} else if (oldGuild.verificationLevel !== newGuild.verificationLevel) {
 			const arr = [
