@@ -20,6 +20,7 @@ export default class LoggingCommand extends Command {
 					3. \`messagelog\` - Message-related logs (edits, deletions, bulk deletes)
 					4. \`serverlog\` - Changes to the server itself.
 					5. \`voicelog\` - Voice-related logs (leaving voice channel, switching, joining, etc.)
+					6. \`all\` - All logs.
 
 					• \`remove <type>\` - Removes the log specified from the channel set.
 					• \`reset\` - Resets all the settings to default.
