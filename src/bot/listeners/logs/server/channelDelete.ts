@@ -31,6 +31,6 @@ export default class ChannelDeleteListener extends Listener {
 			`)
 			.setFooter(`Channel ID: ${channel.id}`)
 			.setTimestamp();
-		await Log.send(logChannel, embed);
+		logChannel.send(embed);
 	}
 }

@@ -70,6 +70,6 @@ export default class GuildUpdateListener extends Listener {
 				▫️ **Old ${change}:** ${before}
 				▫️ **New ${change}:** ${after}
 			`);
-		Log.send(channel, embed);
+		channel.send(embed);
 	}
 }

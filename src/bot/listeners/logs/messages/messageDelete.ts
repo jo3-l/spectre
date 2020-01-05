@@ -25,7 +25,7 @@ export default class MessageDeleteListener extends Listener {
 		} else {
 			executor = message.author;
 		}
-		const content = escapedCodeblock(message.content);
+		const content = this.getContentDisplay(message);
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.author.tag}'s message was deleted`, emojis.deleteMessage)
 			.setColor('RED')
@@ -52,6 +52,11 @@ export default class MessageDeleteListener extends Listener {
 				name: 'deleted_content.txt',
 			}]);
 		}
-		Log.send(channel, embed);
+		channel.send(embed);
+	}
+
+	private getContentDisplay(message: Message) {
+		if (message.embeds.length && !message.content) return `*${message.embeds.length} embeds not shown.*`;
+		return escapedCodeblock(message.content);
 	}
 }

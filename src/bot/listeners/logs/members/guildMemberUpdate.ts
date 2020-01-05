@@ -31,7 +31,7 @@ export default class GuildMemberUpdateListener extends Listener {
 				`)
 				.setFooter(`User ID: ${user.id}`)
 				.setTimestamp();
-			Log.send(channel, embed);
+			channel.send(embed);
 		}
 
 		if (oldMember.roles.size !== newMember.roles.size) {
@@ -69,7 +69,7 @@ export default class GuildMemberUpdateListener extends Listener {
 					▫️ **Member:** ${Log.formatUser(user)}
 					${perms}
 				`);
-			Log.send(channel, embed);
+			channel.send(embed);
 		}
 	}
 }

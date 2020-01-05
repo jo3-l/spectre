@@ -28,7 +28,7 @@ export default class VoiceStateUpdateListener extends Listener {
 						▫️ **Member:** ${Log.formatUser(user)}
 						▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 					`);
-				return Log.send(channel, embed);
+				return channel.send(embed);
 			}
 			const embed = new MessageEmbed()
 				.setAuthor(`${user.tag} left #${oldState.channel!.name}`, emojis.all)
@@ -39,7 +39,7 @@ export default class VoiceStateUpdateListener extends Listener {
 						▫️ **Member:** ${Log.formatUser(user)}
 						▫️ **Old voice channel:** ${oldState.channel!} (${oldState.channel!.id})
 					`);
-			return Log.send(channel, embed);
+			return channel.send(embed);
 		}
 		if (oldState.deaf !== newState.deaf) {
 			const type = !oldState.deaf && newState.deaf ? 1 : 0;
@@ -52,7 +52,7 @@ export default class VoiceStateUpdateListener extends Listener {
 					▫️ **Member:** ${Log.formatUser(user)}
 					▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 				`);
-			return Log.send(channel, embed);
+			return channel.send(embed);
 		}
 		if (oldState.mute !== newState.mute) {
 			const type = !oldState.mute && newState.mute ? 1 : 0;
@@ -65,7 +65,7 @@ export default class VoiceStateUpdateListener extends Listener {
 					▫️ **Member:** ${Log.formatUser(user)}
 					▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 				`);
-			return Log.send(channel, embed);
+			return channel.send(embed);
 		}
 		if (oldState.streaming !== newState.streaming) {
 			const embed = new MessageEmbed()
@@ -77,7 +77,7 @@ export default class VoiceStateUpdateListener extends Listener {
 					▫️ **Member:** ${Log.formatUser(user)}
 					▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 				`);
-			return Log.send(channel, embed);
+			return channel.send(embed);
 		}
 	}
 }

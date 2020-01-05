@@ -38,6 +38,6 @@ export default class MessageDeleteBulkListener extends Listener {
 				),
 				name: 'deleted_messages.txt',
 			}]);
-		Log.send(channel, embed);
+		channel.send(embed);
 	}
 }

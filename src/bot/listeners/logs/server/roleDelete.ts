@@ -34,6 +34,6 @@ export default class RoleDeleteListener extends Listener {
 				▫️ **Timestamp of creation:** ${Log.formatTime(role.createdAt)}
 			`)
 			.setImage(`https://dummyimage.com/400/${role.hexColor.substr(1)}/ffffff/&${stringify({ text: 'Role color' })}`);
-		Log.send(channel, embed);
+		channel.send(embed);
 	}
 }

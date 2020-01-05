@@ -30,7 +30,7 @@ export default class ChannelOverwriteUpdateListener extends Listener {
 				const current = updated.allow.has(perm)
 					? this.client.emojis.success
 					: updated.deny.has(perm) ? this.client.emojis.error : this.client.emojis.neutral;
-				return `\`${humanizePermissionName(perm)}\` - ${old} 🡆 ${current}`;
+				return `• \`${humanizePermissionName(perm)}\` ${old} ⇒ ${current}`;
 			});
 		const entry = await Log.getEntry(guild, 'CHANNEL_OVERWRITE_UPDATE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_OVERWRITE_UPDATE', entry);
@@ -49,6 +49,6 @@ export default class ChannelOverwriteUpdateListener extends Listener {
 					${changes}
 					${target ? `▫️ **Target:** ${'tag' in target ? target.tag : target.name} (${target.id})` : ''}
 				`);
-		return Log.send(logChannel, embed);
+		logChannel.send(embed);
 	}
 }

@@ -25,6 +25,6 @@ export default class GuildMemberAddListener extends Listener {
 			`)
 			.setFooter(`User ID: ${user.id}`)
 			.setTimestamp();
-		await Log.send(channel, embed);
+		channel.send(embed);
 	}
 }

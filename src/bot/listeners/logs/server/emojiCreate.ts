@@ -32,6 +32,6 @@ export default class EmojiCreateListener extends Listener {
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
 			.setThumbnail(emoji.url!);
-		Log.send(channel, embed);
+		channel.send(embed);
 	}
 }

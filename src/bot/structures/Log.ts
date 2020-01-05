@@ -1,5 +1,4 @@
-// eslint-disable-next-line max-len
-import { MessageEmbed, GuildAuditLogsActions, Invite, TextChannel, User, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
+import { GuildAuditLogsActions, Invite, TextChannel, User, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
 import { Log } from './SettingsProvider';
 import SpectreClient from '../client/SpectreClient';
 import moment from 'moment';
@@ -16,13 +15,6 @@ export default {
 			channel.guild.me!.permissions.has(requiredPermissions);
 		if (!permChecks) return;
 		return channel;
-	},
-
-	async send(channel: TextChannel, embed: MessageEmbed) {
-		const webhooks = await channel.fetchWebhooks();
-		const webhook = webhooks.find(w => (w.owner as PartialUser | undefined)?.id === w.client.user!.id) ||
-			await channel.createWebhook('Spectre', { avatar: channel.client.user!.displayAvatarURL({ size: 1024 }) });
-		webhook.send({ embeds: [embed] }).catch(() => null);
 	},
 
 	async getEntry(guild: Guild, auditType: keyof GuildAuditLogsActions) {
@@ -69,5 +61,3 @@ export const emojis = {
 	createEmoji: 'https://i.imgur.com/WQtVx5l.png',
 	createRole: 'https://i.imgur.com/cbq66lt.png',
 };
-
-interface PartialUser { id: string }

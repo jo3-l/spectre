@@ -95,6 +95,6 @@ export default class RoleUpdateListener extends Listener {
 			`;
 		embed.author!.iconURL = emojis.updateRole;
 		if (!embed.color) embed.setColor('ORANGE');
-		Log.send(channel, embed.setFooter(`Role ID: ${newRole.id}`));
+		channel.send(embed.setFooter(`Role ID: ${newRole.id}`));
 	}
 }

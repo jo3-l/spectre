@@ -85,7 +85,7 @@ export default class ChannelUpdateListener extends Listener {
 					${topicChange}
 					▫️ **Type:** \`${newChannel.type}\`
 				`);
-		return Log.send(logChannel, embed);
+		logChannel.send(embed);
 	}
 
 	private async resolve(id: string, guild: Guild) {

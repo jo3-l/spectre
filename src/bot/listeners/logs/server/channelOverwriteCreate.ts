@@ -40,6 +40,6 @@ export default class ChannelOverwriteCreateListener extends Listener {
 				${changes || 'n/a'}
 				${target ? `▫️ **Target:** ${'tag' in target ? target.tag : target.name} (${target.id})` : ''}
 			`);
-		return Log.send(logChannel, embed);
+		logChannel.send(embed);
 	}
 }

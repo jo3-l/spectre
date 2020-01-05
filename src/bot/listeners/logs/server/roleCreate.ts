@@ -35,6 +35,6 @@ export default class RoleCreateListener extends Listener {
 				▫️ **Timestamp of creation:** ${Log.formatTime(role.createdAt)}
 			`)
 			.setThumbnail(`https://dummyimage.com/500/${role.hexColor.substr(1)}/ffffff/&${stringify({ text: 'Role color' })}`);
-		Log.send(channel, embed);
+		channel.send(embed);
 	}
 }

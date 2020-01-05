@@ -17,8 +17,8 @@ export default class MessageUpdateListener extends Listener {
 		const channel = Log.fetchChannel(newMessage.guild, 'messages');
 		if (!channel) return;
 		if (oldMessage.content === newMessage.content) return;
-		const oldContentDisplay = escapedCodeblock(oldMessage.content);
-		const newContentDisplay = escapedCodeblock(newMessage.content);
+		const oldContentDisplay = this.getContentDisplay(oldMessage);
+		const newContentDisplay = this.getContentDisplay(newMessage);
 		const embed = new MessageEmbed()
 			.setColor('ORANGE')
 			.setAuthor(`${newMessage.author.tag}'s message was edited`, emojis.updateMessage)
@@ -35,6 +35,11 @@ export default class MessageUpdateListener extends Listener {
 		if (oldContentDisplay.length >= 900) txt += `BEFORE:\r\n${oldMessage.content}`;
 		if (newContentDisplay.length >= 900) txt += `\nAFTER:\r\n${newMessage.content}`;
 		if (txt.length) embed.attachFiles([{ attachment: Buffer.from(txt, 'utf8'), name: 'edited_content.txt' }]);
-		Log.send(channel, embed);
+		channel.send(embed);
+	}
+
+	private getContentDisplay(message: Message) {
+		if (message.embeds.length && !message.content) return `*${message.embeds.length} embeds not shown.*`;
+		return escapedCodeblock(message.content);
 	}
 }
