@@ -49,8 +49,8 @@ export function parseOne(template: string, templates: Templates): string | undef
 	if (!templates || !(struct in templates)) return;
 	const data = templates[struct as keyof Templates];
 	if (!data) return;
-	if (isObject(data) && prop in (data as { [key: string]: string })) {
-		return (data as { [key: string]: string })[prop];
+	if (isObject(data) && prop in (data as object)) {
+		return data[prop as keyof typeof data];
 	}
 
 	return data.toString();
