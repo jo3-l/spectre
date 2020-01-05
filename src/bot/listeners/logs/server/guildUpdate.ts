@@ -2,7 +2,7 @@ import Log, { emojis } from '../../../structures/Log';
 import { Listener } from 'discord-akairo';
 import { Guild, MessageEmbed } from 'discord.js';
 import ms from 'ms';
-import { HUMAN_REGIONS } from '../../../commands/tools/info/serverinfo';
+import { HUMAN_REGIONS, verificationLevels } from '../../../commands/tools/info/serverinfo';
 
 export default class GuildUpdateListener extends Listener {
 	public constructor() {
@@ -37,15 +37,8 @@ export default class GuildUpdateListener extends Listener {
 			after = newGuild.afkChannel ? `${newGuild.afkChannel} (${newGuild.afkChannelID})` : 'None';
 			change = 'AFK channel';
 		} else if (oldGuild.verificationLevel !== newGuild.verificationLevel) {
-			const arr = [
-				'None: Unrestricted',
-				'Low: Must have a verified email on their Discord account.',
-				'Medium: Must also be a member of this server for longer than 10 minutes.',
-				'(╯°□°）╯︵ ┻━┻: Must also be a member of this server for longer than 10 minutes.',
-				'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻: Must have a verified phone on their Discord account.',
-			];
-			before = arr[oldGuild.verificationLevel];
-			after = arr[newGuild.verificationLevel];
+			before = verificationLevels[oldGuild.verificationLevel];
+			after = verificationLevels[newGuild.verificationLevel];
 			change = 'verification level';
 		} else if (oldGuild.explicitContentFilter !== newGuild.explicitContentFilter) {
 			const arr = [
@@ -63,8 +56,8 @@ export default class GuildUpdateListener extends Listener {
 			change = 'owner';
 			// eslint-disable-next-line no-negated-condition
 		} else if (oldGuild.region !== newGuild.region) {
-			before = HUMAN_REGIONS[oldGuild.region];
-			after = HUMAN_REGIONS[newGuild.region];
+			before = HUMAN_REGIONS[oldGuild.region as keyof typeof HUMAN_REGIONS];
+			after = HUMAN_REGIONS[newGuild.region as keyof typeof HUMAN_REGIONS];
 			change = 'region';
 		} else { return; }
 		const embed = new MessageEmbed()
