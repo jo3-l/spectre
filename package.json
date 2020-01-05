@@ -4,7 +4,6 @@
 	"description": "An utility bot for Discord.",
 	"scripts": {
 		"start": "ts-node --files src/Spectre",
-		"lavalink:start": "java -jar Lavalink.jar",
 		"build": "rimraf dist && tsc",
 		"lint": "eslint . --ext .ts",
 		"lint:fix": "eslint . --ext .ts --fix"
