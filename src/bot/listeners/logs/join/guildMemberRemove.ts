@@ -27,6 +27,7 @@ export default class GuildMemberRemoveListener extends Listener {
 					▫️ **Account created at:** ${Log.formatTime(user.createdAt)}
 					▫️ **Joined guild at:** ${Log.formatTime(member.joinedAt!)}
 					▫️ **Avatar URL:** [View here](${user.displayAvatarURL()})
+					▫️ **Bot account:** ${user.bot ? 'yes' : 'no'}
 					▫️ **Membercount:** ${guild.memberCount}
 				`)
 			.setFooter(`User ID: ${user.id}`)
