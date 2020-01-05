@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed, GuildMember } from 'discord.js';
 import moment from 'moment';
-import { oneLineCommaListsAnd } from 'common-tags';
+import { commaListsAnd } from 'common-tags';
 
 enum HUMAN_STATUSES {
 	online = 'Online',
@@ -37,7 +37,7 @@ export default class WhoisCommand extends Command {
 	public exec(message: Message, { member }: { member: GuildMember }) {
 		const { user } = member;
 		const embed = new MessageEmbed()
-			.setAuthor(user.tag, user.displayAvatarURL())
+			.setAuthor(`${user.tag}${member.nickname ? ` (${member.nickname})` : ''}`, user.displayAvatarURL())
 			.setThumbnail(user.displayAvatarURL())
 			.setColor(member.displayColor || this.client.config.color)
 			.addField('ID', user.id)
@@ -49,7 +49,7 @@ export default class WhoisCommand extends Command {
 			.addField(`Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(', ') || 'None');
 
 		if (user.presence.clientStatus) {
-			embed.setFooter(oneLineCommaListsAnd`${user.username} is active on ${Object.keys(user.presence.clientStatus)}`);
+			embed.setFooter(commaListsAnd`${user.username} is active on ${Object.keys(user.presence.clientStatus)}`);
 		}
 		return message.util!.send(embed);
 	}
