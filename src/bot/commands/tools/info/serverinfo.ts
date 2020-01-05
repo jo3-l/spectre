@@ -5,19 +5,18 @@ import { commaListsAnd, oneLine } from 'common-tags';
 
 export const HUMAN_REGIONS: Regions = {
 	'brazil': `${emojify('br')} Brazil`,
-	'eu-central': `${emojify('eu')} Central Europe`,
+	'europe': `${emojify('eu')} Europe`,
 	'singapore': `${emojify('sg')} Singapore`,
 	'us-central': `${emojify('us')} U.S. Central`,
 	'us-east': `${emojify('us')} U.S. East`,
 	'us-south': `${emojify('us')} U.S. South`,
 	'us-west': `${emojify('us')} U.S. West`,
-	'eu-west': `${emojify('eu')} Western Europe`,
-	'syndney': `${emojify('au')} Sydney`,
-	'london': `${emojify('gb')} London`,
-	'amsterdam': `${emojify('nl')} Amsterdam`,
+	'sydney': `${emojify('au')} Sydney`,
 	'hongkong': `${emojify('hk')} Hong Kong`,
 	'russia': `${emojify('ru')} Russia`,
 	'southafrica': `${emojify('za')} South Africa`,
+	'india': `${emojify('in')} India`,
+	'japan': `${emojify('jp')} Japan`,
 };
 
 const verificationLevels = ['None', 'Low', 'Medium', '(╯°□°）╯︵  ┻━┻', '┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻'];
