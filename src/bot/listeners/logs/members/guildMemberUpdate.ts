@@ -41,6 +41,7 @@ export default class GuildMemberUpdateListener extends Listener {
 			const role = roleRemoved
 				? oldMember.roles.find(({ id }) => !newMember.roles.has(id))!
 				: newMember.roles.find(({ id }) => !oldMember.roles.has(id))!;
+			if (!role) return;
 			let permissionsAdded: string | PermissionString[] = oldMember.permissions.missing(newMember.permissions);
 			let permissionsRemoved: string | PermissionString[] = newMember.permissions.missing(oldMember.permissions);
 			const adminChanged = newMember.permissions.bitfield === 8 && oldMember.permissions.bitfield !== 8;
