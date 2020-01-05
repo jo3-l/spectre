@@ -19,7 +19,7 @@ export default class EvaluateCommand extends Command {
 	}
 
 	public exec(message: Message, { expr }: { expr: string }) {
-		const trim = (v: any, t = 1018) => {
+		const trim = (v: any, t = 1950) => {
 			v = v.toString().replace(/`/g, `\`${String.fromCharCode(8203)}`);
 			return v.length > t ? `${v.slice(0, t - 3)}...` : v;
 		};
@@ -28,14 +28,14 @@ export default class EvaluateCommand extends Command {
 			message.util!.send(new MessageEmbed()
 				.setColor('GREEN')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
-				.addField('Input', codeblock(trim(expr)))
-				.addField('Output', codeblock(trim(res))));
+				.setTitle('`Output`')
+				.setDescription(codeblock(trim(res))));
 		} catch (err) {
 			message.util!.send(new MessageEmbed()
 				.setColor('RED')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
-				.addField('Input', codeblock(trim(expr)))
-				.addField('Error', codeblock(trim(err))));
+				.setTitle('`Error`')
+				.setDescription(codeblock(trim(err))));
 		}
 	}
 }
