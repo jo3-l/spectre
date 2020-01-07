@@ -87,7 +87,7 @@ export function parseEmbed(resolvable: string, templates: Templates): MessageEmb
 		} else if (['image', 'thumbnail'].includes(part)) {
 			if (value?.url) embed[part as 'image' | 'thumbnail']!.url = parse(value.url, templates);
 		} else if (typeof value === 'string') {
-			(embed as unknown as { [key: string]: string })[part] = parse(value, templates);
+			(embed as unknown as Record<string, string>)[part] = parse(value, templates);
 		}
 	}
 	return embed.length ? embed : EmbedParseErrors.NoContent;

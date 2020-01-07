@@ -65,7 +65,7 @@ export const emojis = {
 };
 /* eslint-enable */
 export function emojify(str: string) {
-	return [...str].map(v => (emojis as { [key: string]: string })[v.toLowerCase()]).join('');
+	return [...str].map(v => v in emojis ? emojis[v as keyof typeof emojis] : ' ').join('');
 }
 export const emotify = emojify;
 

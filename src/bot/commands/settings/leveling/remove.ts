@@ -10,7 +10,7 @@ export default class RemoveRoleRewardCommand extends Command {
 					id: 'levelToRemove',
 					type: (message, level) => {
 						if (!/^\d+$/.test(level)) return;
-						const current = this.client.settings.get(message.guild!, 'roleRewards', {} as { [key: string]: string });
+						const current = this.client.settings.get(message.guild!, 'roleRewards', {} as Record<string, string>);
 						if (!(level in current)) return Flag.fail('NOT_PRESENT');
 						return level;
 					},
@@ -27,7 +27,7 @@ export default class RemoveRoleRewardCommand extends Command {
 	}
 
 	public async exec(message: Message, { levelToRemove }: { levelToRemove: string }) {
-		const data = this.client.settings.get(message.guild!, 'roleRewards', {} as { [key: string]: string });
+		const data = this.client.settings.get(message.guild!, 'roleRewards', {} as Record<string, string>);
 		delete data[levelToRemove];
 		await this.client.settings.set(message.guild!, 'roleRewards', data);
 		message.util!.send(`${this.client.emojis.success} Successfully removed 1 role reward for the level ${levelToRemove}!`);

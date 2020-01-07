@@ -54,7 +54,7 @@ export interface SpectreConfig {
 	db: string;
 	owner: string;
 	activities?: Activity[];
-	categoryImages: { [key: string]: string };
+	categoryImages: Record<string, string>;
 }
 
 export default class SpectreClient extends AkairoClient {
