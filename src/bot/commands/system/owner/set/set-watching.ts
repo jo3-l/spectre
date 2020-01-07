@@ -14,7 +14,7 @@ export default class SetWatchingCommand extends Command {
 			this.client.activityHandler.start();
 			return message.util!.send(`${this.client.emojis.success} Set status to default.`);
 		}
-		this.client.activityHandler.set(status, { type: 'LISTENING' });
+		this.client.activityHandler.set(status, { type: 'WATCHING' });
 		message.util!.send(`${this.client.emojis.success} Set status to \`${status}\`.`);
 	}
 }

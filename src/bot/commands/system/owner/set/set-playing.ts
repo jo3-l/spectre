@@ -14,7 +14,7 @@ export default class SetPlayingCommand extends Command {
 			this.client.activityHandler.start();
 			return message.util!.send(`${this.client.emojis.success} Set status to default.`);
 		}
-		this.client.activityHandler.set(status, { type: 'LISTENING' });
+		this.client.activityHandler.set(status);
 		message.util!.send(`${this.client.emojis.success} Set status to \`${status}\`.`);
 	}
 }
