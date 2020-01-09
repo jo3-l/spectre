@@ -9,7 +9,7 @@ type ActivityCastor = (client: AkairoClient) => StaticActivity;
 export type Activity = StaticActivity | ActivityCastor;
 
 export default class ActivityHandler {
-	private current = 0;
+	private _current = 0;
 	private _interval: NodeJS.Timeout | null = null;
 	public readonly activities: StaticActivity[];
 	public constructor(
@@ -20,14 +20,14 @@ export default class ActivityHandler {
 			: activity));
 	}
 
-	private get next(): StaticActivity {
-		return this.activities[++this.current % this.activities.length];
+	private get _next(): StaticActivity {
+		return this.activities[++this._current % this.activities.length];
 	}
 
 	public start() {
 		if (this._interval !== null) return;
 		const setActivity = () => {
-			const { activity, ...options } = this.next;
+			const { activity, ...options } = this._next;
 			this.client.user!.setActivity(activity, options as ActivityOptions);
 		};
 		this._interval = setInterval(setActivity, this.interval);

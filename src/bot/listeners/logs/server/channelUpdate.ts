@@ -36,7 +36,7 @@ export default class ChannelUpdateListener extends Listener {
 			const data = {
 				allow: removedOverwrite.allow.toArray(),
 				deny: removedOverwrite.deny.toArray(),
-				target: await this.resolve(removedOverwrite.id, guild),
+				target: await this._resolve(removedOverwrite.id, guild),
 			};
 			return this.client.emit('channelOverwriteRemove', newChannel, data);
 		}
@@ -47,7 +47,7 @@ export default class ChannelUpdateListener extends Listener {
 				const data = {
 					allow: perm.allow.toArray(),
 					deny: perm.deny.toArray(),
-					target: await this.resolve(perm.id, guild),
+					target: await this._resolve(perm.id, guild),
 				};
 				return this.client.emit('channelOverwriteCreate', newChannel, data);
 			}
@@ -55,7 +55,7 @@ export default class ChannelUpdateListener extends Listener {
 				const data = {
 					outdated: { allow: corresponding.allow, deny: corresponding.deny },
 					updated: { allow: perm.allow, deny: perm.deny },
-					target: await this.resolve(perm.id, guild),
+					target: await this._resolve(perm.id, guild),
 				};
 				return this.client.emit('channelOverwriteUpdate', newChannel, data);
 			}
@@ -88,7 +88,7 @@ export default class ChannelUpdateListener extends Listener {
 		logChannel.send(embed);
 	}
 
-	private async resolve(id: string, guild: Guild) {
+	private async _resolve(id: string, guild: Guild) {
 		if (guild.roles.has(id)) return guild.roles.get(id)!;
 		return this.client.users.fetch(id).catch(() => undefined);
 	}

@@ -57,13 +57,13 @@ export default class RankCommand extends Command {
 		const userXp = await memberInfo.xp;
 		const current = userXp >= 100 ? userXp - calculateXp(calculateLevel(userXp)) : userXp;
 		const total = calculateXp(calculateLevel(userXp) + 1);
-		return message.util!.send(new MessageAttachment(await this.generate({
+		return message.util!.send(new MessageAttachment(await this._generate({
 			current, total, rank, user,
 			level: calculateLevel(userXp),
 		})));
 	}
 
-	private async generate({ background = 9, current, total, rank, level, user, color = 'ff0000' }: ImgenOptions) {
+	private async _generate({ background = 9, current, total, rank, level, user, color = 'ff0000' }: ImgenOptions) {
 		current = current.toString();
 		total = total.toString();
 		rank = rank.toString();

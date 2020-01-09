@@ -79,7 +79,7 @@ export default class EvalCommand extends Command {
 			// eslint-disable-next-line
 			let res = eval(code);
 			const ms = timer.stop();
-			res = await this.clean(res, 'Output');
+			res = await this._clean(res, 'Output');
 			if (silent) return;
 
 			return message.util!.send(embed
@@ -91,11 +91,11 @@ export default class EvalCommand extends Command {
 			return message.util!.send(embed
 				.setColor(this.client.config.color)
 				.setTitle('`Error`')
-				.setDescription(await this.clean(stack ? err.stack : err, 'Error')));
+				.setDescription(await this._clean(stack ? err.stack : err, 'Error')));
 		}
 	}
 
-	private async clean(text: any, name?: string) {
+	private async _clean(text: any, name?: string) {
 		if (text && text.constructor.name === 'Promise') text = await text;
 		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
 

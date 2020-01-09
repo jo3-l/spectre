@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 import { MessageEmbed, Message } from 'discord.js';
 
 export default class BirdCommand extends Command {
-	private readonly url = 'https://some-random-api.ml/img/birb';
 	public constructor() {
 		super('bird', {
 			aliases: ['bird', 'birb'],
@@ -19,7 +18,7 @@ export default class BirdCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const { link } = await fetch(this.url).then(res => res.json()) as ApiResponse;
+		const { link } = await fetch('https://some-random-api.ml/img/birb').then(res => res.json()) as ApiResponse;
 		const embed = new MessageEmbed()
 			.setTitle('🐦 Chirp, chirp')
 			.setImage(link)

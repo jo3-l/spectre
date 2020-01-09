@@ -16,13 +16,13 @@ interface Image {
 const GITHUB_CDN = 'https://raw.githubusercontent.com/Jo3-L/spectre/master/src/assets/social';
 
 export default class AssetHandler extends Collection<string, Image> {
-	public constructor(private readonly directory: string) {
+	public constructor(private readonly _directory: string) {
 		super();
 	}
 
 	public async init() {
-		const levelUpDir = join(this.directory, 'social', 'levelup');
-		const rankDir = join(this.directory, 'social', 'rank');
+		const levelUpDir = join(this._directory, 'social', 'levelup');
+		const rankDir = join(this._directory, 'social', 'rank');
 
 		const levelUpFiles = await readdirAsync(levelUpDir);
 		const rankFiles = await readdirAsync(rankDir);

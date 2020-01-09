@@ -45,7 +45,7 @@ export default class TypeORMProvider extends Provider {
 		key: K,
 		defaultValue?: T,
 	): Settings[K] | T {
-		const id = this.constructor.resolveId(guild);
+		const id = this.constructor._resolveId(guild);
 		if (this.items.has(id)) {
 			const value = this.items.get(id)?.[key];
 			return value ?? defaultValue;
@@ -59,7 +59,7 @@ export default class TypeORMProvider extends Provider {
 		key: K,
 		value: Settings[K],
 	) {
-		const id = this.constructor.resolveId(guild);
+		const id = this.constructor._resolveId(guild);
 		const data = this.items.get(id) ?? {};
 		data[key] = value;
 		this.items.set(id, data);
@@ -78,7 +78,7 @@ export default class TypeORMProvider extends Provider {
 		guild: GuildResolvable,
 		key: K,
 	) {
-		const id = this.constructor.resolveId(guild);
+		const id = this.constructor._resolveId(guild);
 		const data = this.items.get(id) ?? {};
 		delete data[key];
 
@@ -93,13 +93,13 @@ export default class TypeORMProvider extends Provider {
 	}
 
 	public async clear(guild: GuildResolvable) {
-		const id = this.constructor.resolveId(guild);
+		const id = this.constructor._resolveId(guild);
 		this.items.delete(id);
 
 		return this.repo.delete(id);
 	}
 
-	private static resolveId(guild: GuildResolvable) {
+	private static _resolveId(guild: GuildResolvable) {
 		if (guild instanceof DiscordGuild) return guild.id;
 		if (typeof guild === 'string' && /^\d+$/.test(guild)) return guild;
 		throw new TypeError('Unable to resolve ID based on the guild or ID provided.');

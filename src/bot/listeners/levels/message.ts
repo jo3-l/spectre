@@ -4,7 +4,7 @@ import { calculateLevel } from '../../../util/Util';
 import { Member } from '../../models/Member';
 
 export default class MessageListener extends Listener {
-	private readonly cooldowns: Map<Snowflake, Set<Snowflake>> = new Map();
+	private readonly _cooldowns: Map<Snowflake, Set<Snowflake>> = new Map();
 	public constructor() {
 		super('message', {
 			emitter: 'client',
@@ -16,8 +16,8 @@ export default class MessageListener extends Listener {
 	public async exec(message: Message) {
 		if (!message.guild || message.author.bot) return;
 		const data = { guildId: message.guild.id, id: message.author.id };
-		const cooldowns = this.cooldowns.get(message.guild.id) ??
-			this.cooldowns.set(message.guild.id, new Set()).get(message.guild.id);
+		const cooldowns = this._cooldowns.get(message.guild.id) ??
+			this._cooldowns.set(message.guild.id, new Set()).get(message.guild.id);
 		if (!cooldowns) return;
 		if (cooldowns.has(message.author.id)) return;
 		const xpAmount = Math.floor(Math.random() * 10) + 15;

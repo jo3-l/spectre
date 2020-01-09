@@ -47,13 +47,13 @@ export default class UrbanDictionaryCommand extends Command {
 			filter: (_, user) => user.id === message.author.id,
 			channel: message.channel as TextChannel,
 		});
-		for (const definition of result) display.add(this.buildEmbed(definition));
+		for (const definition of result) display.add(this._buildEmbed(definition));
 		display
 			.transformAll((page, i, total) => page.setTitle(`${page.title} | ${i + 1} of ${total}`))
 			.build();
 	}
 
-	private buildEmbed({ definition, permalink, thumbs_up, thumbs_down, example, word, author }: Definition) {
+	private _buildEmbed({ definition, permalink, thumbs_up, thumbs_down, example, word, author }: Definition) {
 		return new MessageEmbed()
 			.setTitle(`Definition for ${word}`)
 			.setAuthor(author, '', `https://www.urbandictionary.com/author.php?${stringify({ author })}`)

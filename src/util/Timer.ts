@@ -1,12 +1,12 @@
 export default class Timer {
-	private readonly start = process.hrtime.bigint();
-	private stopped = false;
+	private readonly _createdAt = process.hrtime.bigint();
+	private _finished = false;
 	public constructor(private readonly precision: number = 2) { }
 
 	public stop() {
-		if (this.stopped) throw new Error('Timer has already ended.');
-		this.stopped = true;
+		if (this._finished) throw new Error('Timer has already ended.');
+		this._finished = true;
 		const end = process.hrtime.bigint();
-		return (Number(end - this.start) / 1e6).toFixed(this.precision);
+		return (Number(end - this._createdAt) / 1e6).toFixed(this.precision);
 	}
 }
