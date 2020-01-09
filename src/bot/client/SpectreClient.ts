@@ -11,11 +11,13 @@ import { Connection } from 'typeorm';
 import { Guild } from '../models/Guild';
 import AssetHandler from '../structures/AssetHandler';
 
-Reflect.defineProperty(AkairoModule.prototype, 'logger', { value: SpectreLogger });
-Reflect.defineProperty(GuildEmojiStore.prototype, 'loading', { value: emojis.loading });
-Reflect.defineProperty(GuildEmojiStore.prototype, 'success', { value: emojis.success });
-Reflect.defineProperty(GuildEmojiStore.prototype, 'error', { value: emojis.error });
-Reflect.defineProperty(GuildEmojiStore.prototype, 'neutral', { value: emojis.neutral });
+Object.defineProperty(AkairoModule.prototype, 'logger', { value: SpectreLogger });
+Object.defineProperties(GuildEmojiStore.prototype, {
+	loading: { value: emojis.loading },
+	success: { value: emojis.success },
+	error: { value: emojis.error },
+	neutral: { value: emojis.neutral },
+});
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -92,7 +94,7 @@ export default class SpectreClient extends AkairoClient {
 	});
 
 	public logger = SpectreLogger;
-	public db = Database.get('spectre');
+	public db!: Connection;
 	public settings!: TypeORMProvider;
 	public config = { token, prefix, color, owner, db, activities, version, categoryImages, emojis };
 	public activityHandler: ActivityHandler = new ActivityHandler(this, activities);
@@ -104,34 +106,43 @@ export default class SpectreClient extends AkairoClient {
 		});
 	}
 
-	private async init() {
-		this.commandHandler.useInhibitorHandler(this.inhibitorHandler)
+	private async _init() {
+		this.logger.info('Spectre is starting up...');
+		// Load handlers
+		this.commandHandler
+			.useInhibitorHandler(this.inhibitorHandler)
 			.useListenerHandler(this.listenerHandler);
-		this.logger.info('Set handlers for the commandHandler.');
+		// Load commands
 		this.commandHandler.loadAll();
-		this.logger.info('Loaded all commands.');
+		this.logger.info(`Loaded ${this.commandHandler.modules.size} commands.`);
+		// Set emitters
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
 			inhibitorHandler: this.inhibitorHandler,
 			process,
 		});
-		this.logger.info('Set emitters for the listenerHandler.');
+		// Load inhibitors
 		this.inhibitorHandler.loadAll();
-		this.logger.info('Loaded all inhibitors.');
+		this.logger.info(`Loaded ${this.inhibitorHandler.modules.size} inhibitors.`);
+		// Load listeners
 		this.listenerHandler.loadAll();
-		this.logger.info('Loaded all listeners.');
+		this.logger.info(`Loaded ${this.listenerHandler.modules.size} listeners.`);
+		// Connect to database
+		this.db = Database.get('spectre');
 		await this.db.connect();
 		this.logger.info('Connected to database.');
+		// Initialize the Settings Provider
 		this.settings = new TypeORMProvider(this.db.getRepository(Guild));
 		await this.settings.init();
-		this.logger.info('Initialized the Settings provider.');
+		this.logger.info('Initialized the Settings Provider.');
+		// Load assets
 		await this.assetHandler.init();
-		this.logger.info('Loaded all assets.');
+		this.logger.info(`Loaded ${this.assetHandler.size} assets.`);
 	}
 
 	public async start() {
-		await this.init();
+		await this._init();
 		this.login(token);
 	}
 }
