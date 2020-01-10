@@ -1,4 +1,4 @@
 import 'reflect-metadata';
-import SpectreClient from './bot/client/SpectreClient';
+import SpectreClient from './client/SpectreClient';
 
 new SpectreClient().start();
