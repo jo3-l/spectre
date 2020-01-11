@@ -1,5 +1,7 @@
-declare module 'google-translate-api' {
-	export default function translate(text: string, options: { from: string; to: string }): Response;
+interface TranslateOptions { from?: string; to?: string; raw?: boolean }
+
+declare module '@vitalets/google-translate-api' {
+	export default function translate(text: string, options?: TranslateOptions): Promise<Response>;
 	export const languages: Record<string, string> & {
 		isSupported: (desiredLang: string) => boolean;
 		getCode: (desiredLang: string) => string | boolean;

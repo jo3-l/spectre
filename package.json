@@ -11,6 +11,7 @@
 	"author": "Joe",
 	"license": "MIT",
 	"dependencies": {
+		"@vitalets/google-translate-api": "^3.0.0",
 		"canvas": "^2.6.1",
 		"canvas-constructor": "^3.1.0",
 		"chalk": "^3.0.0",
@@ -19,7 +20,6 @@
 		"d3-format": "^1.4.2",
 		"discord-akairo": "github:discord-akairo/discord-akairo",
 		"discord.js": "github:discordjs/discord.js",
-		"google-translate-api": "^2.3.0",
 		"mathjs": "^6.2.5",
 		"module-alias": "^2.2.2",
 		"moment": "^2.24.0",
