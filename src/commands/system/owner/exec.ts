@@ -56,16 +56,16 @@ export default class ExecCommand extends Command {
 			.setDescription('')
 			.setColor(stderr ? this.client.config.color : 6398041)
 			.setFooter(`⏱ ${ms}ms`);
-		if (stdout) embed.description += `**OUTPUT**\n${await this.clean(stdout)}`;
-		if (stderr) embed.description += `**ERROR**\n${await this.clean(stderr)}`;
-		message.util!.send(embed);
+		if (stdout) embed.addField('OUTPUT', await this._clean(stdout, 'Output'));
+		if (stderr) embed.addField('ERROR', await this._clean(stderr, 'Error'));
+		message.util!.send(embed.boldFields());
 	}
 
-	public async clean(text: any, name?: string) {
+	private async _clean(text: any, name?: string) {
 		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
 		const raw = text;
 		text = escapedCodeblock(text, 'prolog');
-		if ((8 + (text as string).length) > 900) {
+		if ((8 + (text as string).length) > 1024) {
 			try {
 				text = `[${name}](${(await hastebin(raw, { extension: 'prolog' }))})`;
 			} catch {

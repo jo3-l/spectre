@@ -54,7 +54,7 @@ export default class RankCommand extends Command {
 		const rank = members.findIndex(member => member.id === user.id) + 1;
 		if (!rank) return message.util!.reply(`**${user.tag}** is not ranked yet.`);
 		const memberInfo = members[rank - 1];
-		const userXp = await memberInfo.xp;
+		const userXp = memberInfo.xp;
 		const current = userXp >= 100 ? userXp - calculateXp(calculateLevel(userXp)) : userXp;
 		const total = calculateXp(calculateLevel(userXp) + 1);
 		return message.util!.send(new MessageAttachment(await this._generate({

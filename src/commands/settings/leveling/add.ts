@@ -29,7 +29,7 @@ export default class AddRoleRewardCommand extends Command {
 				},
 				{
 					id: 'reward',
-					match: 'restContent',
+					match: 'rest',
 					type: 'role',
 					prompt: { start: 'please provide a valid role.', retry: 'that was not a valid role. Try again.' },
 				},

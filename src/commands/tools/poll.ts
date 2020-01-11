@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
+import { trim } from '@util/Util';
 const EMOJIS = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
 
 export default class PollCommand extends Command {
@@ -40,8 +41,7 @@ export default class PollCommand extends Command {
 	public async exec(message: Message, { question, answers }: { question: string; answers: string[] }) {
 		answers = answers.slice(0, 10);
 		message.channel.bulkDelete(message.util!.messages!);
-		const trim = (str: string, t = 150) => str.length > t ? `${str.slice(0, t - 3)}...` : str;
-		const front = answers.reduce((res, cur, index) => res += `\n${EMOJIS[index]} ${trim(cur)}`);
+		const front = answers.reduce((res, cur, index) => res += `\n${EMOJIS[index]} ${trim(cur, 150)}`);
 		const embed = new SpectreEmbed()
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setTitle(`Poll: ${trim(question, 240)}`)

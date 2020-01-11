@@ -1,8 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-
-const capitalize = (word: string) => `${word[0].toUpperCase()}${word.substr(1)}`;
+import { capitalize } from '@util/Util';
 
 export default class ViewRoleRewardsCommand extends Command {
 	public constructor() {

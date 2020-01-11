@@ -2,10 +2,10 @@ import { Command } from 'discord-akairo';
 import { Message, TextChannel } from 'discord.js';
 import fetch from 'node-fetch';
 import { stringify } from 'querystring';
-import RichDisplay from '@util/RichDisplay';
+import RichDisplay from '@structures/RichDisplay';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { trim, EmbedLimits } from '@util/Util';
 
-const trim = (str: string, max: number) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
 const addLinks = (str: string) => str
 	// eslint-disable-next-line max-len
 	.replace(/\[(.*?)\]/g, (_, word: string) => `[${word}](https://www.urbandictionary.com/define.php?${stringify({ term: word })})`);
@@ -60,8 +60,9 @@ export default class UrbanDictionaryCommand extends Command {
 			.setAuthor(author, '', `https://www.urbandictionary.com/author.php?${stringify({ author })}`)
 			.setURL(permalink)
 			.setFooter(`👍 ${thumbs_up} | 👎 ${thumbs_down}`)
-			.setDescription(trim(addLinks(definition), 2048) || '*No definition was provided.*')
-			.addField('Example', trim(addLinks(example), 1024) || '*No example was provided.*');
+			.setDescription(trim(addLinks(definition), EmbedLimits.Description) || '*No definition was provided.*')
+			.addField('Example', trim(addLinks(example), EmbedLimits.FieldValue) || '*No example was provided.*')
+			.boldFields();
 	}
 }
 

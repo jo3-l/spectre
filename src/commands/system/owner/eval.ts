@@ -98,7 +98,7 @@ export default class EvalCommand extends Command {
 
 	private async _clean(text: any, name?: string) {
 		if (text && text.constructor.name === 'Promise') text = await text;
-		if (typeof text !== 'string') text = inspect(text, { depth: 1 });
+		if (typeof text !== 'string') text = inspect(text);
 
 		const raw = text
 			.replace(new RegExp(join(__dirname, '..', '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g'), '~')

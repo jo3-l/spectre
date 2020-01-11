@@ -23,7 +23,7 @@ export default class DmCommands extends Command {
 					type: 'user',
 				}, {
 					id: 'content',
-					type: 'restContent',
+					type: 'rest',
 					prompt: { start: 'what would you like to DM the user?' },
 				},
 			],

@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import Confirmation, { Responses } from '@util/Confirmation';
+import Confirmation, { Responses } from '@structures/Confirmation';
 
 export default class ResetRoleRewardsCommand extends Command {
 	public constructor() {

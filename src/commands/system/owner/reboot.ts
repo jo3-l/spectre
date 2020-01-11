@@ -1,5 +1,5 @@
 import { Command } from 'discord-akairo';
-import Confirmation, { Responses } from '@util/Confirmation';
+import Confirmation, { Responses } from '@structures/Confirmation';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { Message } from 'discord.js';
 

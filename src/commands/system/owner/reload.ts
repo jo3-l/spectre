@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import { promisify } from 'util';
 import { stat } from 'fs';
 import { join } from 'path';
+
 const statAsync = promisify(stat);
 
 export default class ReloadCommand extends Command {
@@ -72,7 +73,7 @@ export default class ReloadCommand extends Command {
 			return message.util!.send(`${this.client.emojis.success} Reloaded all commands in the category \`${many}\`!`);
 		} else if (file) {
 			const baseDirRegex = new RegExp(join(__dirname, '..', '..', '..').replace(/\\/g, '\\\\'), 'g');
-			// eslint-disable-next-line max-len
+			delete require.cache[require.resolve(file)];
 			message.util!.send(`${this.client.emojis.success} Reloaded the file \`${file.replace(baseDirRegex, '~')}\`.`);
 		} else if (module) {
 			if (module instanceof Category) {

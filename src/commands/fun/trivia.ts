@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stringify } from 'querystring';
 import fetch from 'node-fetch';
+import { capitalize } from '@util/Util';
 import { stripIndents } from 'common-tags';
 
 export default class TriviaCommand extends Command {
@@ -40,7 +41,7 @@ export default class TriviaCommand extends Command {
 				*Please choose an answer within ${time / 1000}s.*
 				
 				${front}`)
-			.addField('Difficulty', `\`${trivia.difficulty[0].toUpperCase()}${trivia.difficulty.substr(1)}\``, true)
+			.addField('Difficulty', `\`${capitalize(trivia.difficulty)}\``, true)
 			.addField('Category', `\`${trivia.category}\``, true)
 			.setFooter('💡 Tip: You can use either the number or the word to answer!')
 			.boldFields());

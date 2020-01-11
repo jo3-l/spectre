@@ -47,6 +47,20 @@ export function humanizePermissionName(permission: PermissionString) {
 		.join(' ');
 }
 
+export const capitalize = (word: string) => `${word[0].toUpperCase()}${word.substr(1).toLowerCase()}`;
+export const trim = (str: string, length: number | EmbedLimits, cutoff = '...') => str.length > length
+	? `${str.slice(0, length - 3)}${cutoff}`
+	: str;
+
+export enum EmbedLimits {
+	Title = 256,
+	Author = 256,
+	Description = 2048,
+	FieldTitle = 256,
+	FieldValue = 1024,
+	EmbedFooter = 2048,
+}
+
 export const removeBlankLines = new TemplateTag(replaceResultTransformer(/^\s*[\r\n]/gm, ''));
 
 /* eslint-disable */
@@ -67,7 +81,6 @@ export const emojis = {
 export function emojify(str: string) {
 	return [...str].map(v => v in emojis ? emojis[v as keyof typeof emojis] : ' ').join('');
 }
-export const emotify = emojify;
 
 interface HastebinOptions {
 	url?: string;
