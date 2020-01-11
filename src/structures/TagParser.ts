@@ -1,5 +1,5 @@
 import { User, Guild, GuildMember, TextChannel, MessageEmbed } from 'discord.js';
-import { ordinal } from './Util';
+import { ordinal } from '../util/Util';
 
 enum EmbedParseErrors {
 	Invalid = 0, NoContent

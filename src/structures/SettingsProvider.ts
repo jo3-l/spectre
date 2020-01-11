@@ -22,6 +22,7 @@ interface Settings {
 	prefix: string;
 	disabledCommands: string[];
 	disabledModules: string[];
+	blacklist: string[];
 }
 
 export type GuildResolvable = DiscordGuild | Snowflake;
@@ -101,6 +102,7 @@ export default class TypeORMProvider extends Provider {
 
 	private static _resolveId(guild: GuildResolvable) {
 		if (guild instanceof DiscordGuild) return guild.id;
+		if (guild === 'global') return '0';
 		if (typeof guild === 'string' && /^\d+$/.test(guild)) return guild;
 		throw new TypeError('Unable to resolve ID based on the guild or ID provided.');
 	}
