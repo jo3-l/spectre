@@ -10,11 +10,11 @@ export default function paginate<T>(
 	page?: number,
 ) {
 	const maxPage = Math.ceil(data.length / pageLength);
-	if (page && page > maxPage) page = maxPage;
+	if (typeof page !== 'undefined' && page > maxPage) page = maxPage;
 	if (page) {
 		return {
 			items: data.length > pageLength
-				? data.slice(page * pageLength, (page + 1) * pageLength)
+				? data.slice((page - 1) * pageLength, page * pageLength)
 				: data,
 			page,
 			maxPage,
