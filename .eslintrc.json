@@ -8,6 +8,7 @@
 			"error",
 			"always-multiline"
 		],
+		"no-extend-native": "off",
 		"comma-spacing": "error",
 		"comma-style": "error",
 		"eol-last": "off",

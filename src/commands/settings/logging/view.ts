@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 const capitalize = (word: string) => `${word[0].toUpperCase()}${word.substr(1)}`;
 
@@ -18,9 +19,8 @@ export default class ViewRoleRewardsCommand extends Command {
 		}
 		const data = Object.entries(logSettings)
 			.map(([type, channel]) => `• **${capitalize(type)}:** ${guild.channels.get(channel as string) ?? 'Unknown channel'}`);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setTitle('⚙️ Log Settings')
-			.setColor(this.client.config.color)
 			.setThumbnail(this.client.config.categoryImages.settings)
 			.setDescription(data)
 			.setFooter(guild.name);

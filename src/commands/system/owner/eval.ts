@@ -1,11 +1,12 @@
 import { Command } from 'discord-akairo';
-import { MessageEmbed, Message } from 'discord.js';
+import { Message } from 'discord.js';
 import { join } from 'path';
-import Timer from '../../../util/Timer';
+import Timer from '@util/Timer';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { inspect } from 'util';
 import fetch from 'node-fetch';
 import { stripIndents } from 'common-tags';
-import { hastebin, escapedCodeblock } from '../../../util/Util';
+import { hastebin, escapedCodeblock } from '@util/Util';
 
 const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
 const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)(\..+)?$/;
@@ -73,7 +74,7 @@ export default class EvalCommand extends Command {
 
 	public async exec(message: Message, { code, silent, async, stack }: ExecArgs) {
 		if (async) code = `(async () => {\n${code}\n})()`;
-		const embed = new MessageEmbed().setAuthor('Eval', 'https://image.flaticon.com/icons/png/512/919/919832.png');
+		const embed = new SpectreEmbed().setAuthor('Eval', 'https://image.flaticon.com/icons/png/512/919/919832.png');
 		try {
 			const timer = new Timer();
 			// eslint-disable-next-line

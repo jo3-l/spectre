@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { MessageEmbed, Message, User } from 'discord.js';
+import { Message, User } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class AvatarCommand extends Command {
 	public constructor() {
@@ -24,11 +25,9 @@ export default class AvatarCommand extends Command {
 
 	public exec(message: Message, { user }: { user: User }) {
 		const avatar = user.displayAvatarURL({ size: 1024 });
-		message.util!.send(new MessageEmbed()
-			.setAuthor(`${user.username}`, avatar)
+		message.util!.send(new SpectreEmbed()
+			.setAuthor(user.tag, avatar)
 			.setImage(avatar)
-			.setFooter(`Requested by ${message.author.tag}`)
-			.setColor(this.client.config.color)
-			.setDescription(`[Link](${avatar})`));
+			.setFooter(`Requested by ${message.author.tag}`));
 	}
 }

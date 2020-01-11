@@ -1,5 +1,5 @@
 import { Command, Argument, Flag } from 'discord-akairo';
-import { Log } from '../../../structures/SettingsProvider';
+import { Log } from '@structures/SettingsProvider';
 import { Message, Snowflake } from 'discord.js';
 
 export default class RemoveLogcommand extends Command {

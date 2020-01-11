@@ -1,8 +1,9 @@
-import Log, { emojis } from '../../../structures/Log';
+import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
-import { Guild, MessageEmbed } from 'discord.js';
+import { Guild } from 'discord.js';
 import ms from 'ms';
 import { humanizedRegions, verificationLevels } from '../../../commands/tools/info/serverinfo';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class GuildUpdateListener extends Listener {
 	public constructor() {
@@ -60,7 +61,7 @@ export default class GuildUpdateListener extends Listener {
 			after = humanizedRegions[newGuild.region as keyof typeof humanizedRegions];
 			change = 'region';
 		} else { return; }
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`Server ${change} was changed`, emojis.all)
 			.setFooter(`Server ID: ${newGuild.id}`)
 			.setTimestamp()

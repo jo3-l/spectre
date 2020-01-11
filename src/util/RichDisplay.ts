@@ -1,13 +1,14 @@
-import { MessageEmbed, TextChannel, MessageReaction, User, Message } from 'discord.js';
+import { TextChannel, MessageReaction, User, Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RichDisplay {
 	private readonly _emojis = { first: '⏪', prev: '◀️', stop: '⏹️', next: '▶️', last: '⏩' };
 	private readonly _filter: (reaction: MessageReaction, user: User) => boolean = () => true;
 	private readonly _timeout: number;
-	private _pages: MessageEmbed[];
+	private _pages: SpectreEmbed[];
 	private _page = 0;
-	private _start: MessageEmbed | number | null = null;
-	private _end: MessageEmbed | number | null = null;
+	private _start: SpectreEmbed | number | null = null;
+	private _end: SpectreEmbed | number | null = null;
 	private readonly _channel: TextChannel;
 	private _message!: Message;
 
@@ -19,7 +20,7 @@ export default class RichDisplay {
 		this._pages = pages;
 	}
 
-	public add(page: MessageEmbed) {
+	public add(page: SpectreEmbed) {
 		this._pages.push(page);
 		return this;
 	}
@@ -29,7 +30,7 @@ export default class RichDisplay {
 		this._message.edit(this._pages[index]);
 	}
 
-	public setStart(page: MessageEmbed | number) {
+	public setStart(page: SpectreEmbed | number) {
 		if (typeof page === 'number' && this._pages[page]) {
 			this._start = page - 1;
 			this._page = page - 1;
@@ -39,7 +40,7 @@ export default class RichDisplay {
 		return this;
 	}
 
-	public setEnd(page: MessageEmbed | number) {
+	public setEnd(page: SpectreEmbed | number) {
 		if (typeof page === 'number' && this._pages[page]) {
 			this._end = page;
 			return this;
@@ -48,7 +49,7 @@ export default class RichDisplay {
 		return this;
 	}
 
-	public transformAll(fn: (page: MessageEmbed, i: number, length: number) => MessageEmbed) {
+	public transformAll(fn: (page: SpectreEmbed, i: number, length: number) => SpectreEmbed) {
 		const { length } = this._pages;
 		this._pages = this._pages.map((page, i) => fn(page, i, length));
 		return this;
@@ -96,6 +97,6 @@ export default class RichDisplay {
 interface RichDisplayOptions {
 	filter?: (reaction: MessageReaction, user: User) => boolean;
 	timeout?: number;
-	pages?: MessageEmbed[];
+	pages?: SpectreEmbed[];
 	channel?: TextChannel;
 }

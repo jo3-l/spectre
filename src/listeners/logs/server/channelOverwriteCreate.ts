@@ -1,8 +1,9 @@
 import { Listener } from 'discord-akairo';
 import { ChannelPermission } from './channelUpdate';
-import { MessageEmbed, GuildChannel } from 'discord.js';
-import Log, { emojis } from '../../../structures/Log';
-import { humanizePermissionName, removeBlankLines } from '../../../util/Util';
+import { GuildChannel } from 'discord.js';
+import Log, { emojis } from '@structures/Log';
+import { humanizePermissionName, removeBlankLines } from '@util/Util';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class ChannelOverwriteCreateListener extends Listener {
 	public constructor() {
@@ -25,7 +26,7 @@ export default class ChannelOverwriteCreateListener extends Listener {
 			}).join('\n');
 		const entry = await Log.getEntry(guild, 'CHANNEL_OVERWRITE_CREATE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_OVERWRITE_CREATE', entry);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`Channel permissions in #${channel.name} were created`, emojis.updateChannel)
 			.setColor('GREEN')
 			.setTimestamp()

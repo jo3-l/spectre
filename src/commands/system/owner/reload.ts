@@ -1,14 +1,14 @@
 import { Command, Argument, Category, Listener, Inhibitor } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { promisify } from 'util';
-import { stat as _stat } from 'fs';
+import { stat } from 'fs';
 import { join } from 'path';
-const stat = promisify(_stat);
+const statAsync = promisify(stat);
 
 export default class ReloadCommand extends Command {
 	public constructor() {
 		super('reload', {
-			aliases: ['reload', 'r'],
+			aliases: ['reload', 'r', 'reload-all'],
 			category: 'Owner',
 			description: {
 				// eslint-disable-next-line max-len
@@ -22,19 +22,21 @@ export default class ReloadCommand extends Command {
 		});
 	}
 
-	public *args() {
-		const categoryTypeCastor = (_: Message, phrase: string) => this.client.commandHandler.findCategory(phrase);
+	public *args(message: Message) {
+		const categoryTypeCastor = (_: Message, phrase: string) => this.handler.findCategory(phrase);
 		const moduleTypeCastor = Argument.union(['commands', 'inhibitors', 'listeners'],
 			categoryTypeCastor);
 		const fileTypeCastor = async (_: Message, phrase: string) => {
-			const BASE_URL = join(__dirname, '..', '..', '..', '..');
+			const BASE_URL = join(__dirname, '..', '..', '..');
 			const ext = __filename.endsWith('.ts') ? '.ts' : '.js';
 			const dir = join(BASE_URL, phrase.endsWith(ext) ? phrase : `${phrase}${ext}`);
 			try {
-				if (!(await stat(dir)).isDirectory()) return dir;
+				if (!(await statAsync(dir)).isDirectory()) return dir;
 			} catch { }
 		};
-		const all = yield { match: 'flag', flag: ['--all', '-a'], unordered: true };
+		const all = ['reload-all', 'reloadall'].includes(message.util!.parsed!.alias!)
+			? true
+			: yield { match: 'flag', flag: ['--all', '-a'], unordered: true };
 		if (all) {
 			const module = yield { type: moduleTypeCastor, unordered: true };
 			return { many: module };
@@ -56,7 +58,7 @@ export default class ReloadCommand extends Command {
 		if (many) {
 			if (typeof many === 'string') {
 				const handlers = {
-					commands: this.client.commandHandler,
+					commands: this.handler,
 					inhibitors: this.client.inhibitorHandler,
 					listeners: this.client.listenerHandler,
 				};
@@ -69,14 +71,13 @@ export default class ReloadCommand extends Command {
 			many.reloadAll();
 			return message.util!.send(`${this.client.emojis.success} Reloaded all commands in the category \`${many}\`!`);
 		} else if (file) {
-			const baseDirRegex = new RegExp(join(__dirname, '..', '..', '..', '..', '..').replace(/\\/g, '\\\\'), 'g');
-			delete require.cache[file];
+			const baseDirRegex = new RegExp(join(__dirname, '..', '..', '..').replace(/\\/g, '\\\\'), 'g');
 			// eslint-disable-next-line max-len
 			message.util!.send(`${this.client.emojis.success} Reloaded the file \`${file.replace(baseDirRegex, '~')}\`.`);
 		} else if (module) {
 			if (module instanceof Category) {
 				module.reloadAll();
-				return message.util!.send(`${this.client.emojis.success} Reloaded all commands in the category \`${many}\`!`);
+				return message.util!.send(`${this.client.emojis.success} Reloaded all commands in the category \`${module}\`!`);
 			}
 			module.reload();
 			return message.util!.send(`${this.client.emojis.success} Reloaded the module \`${module}\` successfully!`);

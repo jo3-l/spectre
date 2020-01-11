@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { VoiceState, MessageEmbed } from 'discord.js';
+import Log, { emojis } from '@structures/Log';
+import { VoiceState } from 'discord.js';
 import { Listener } from 'discord-akairo';
-import { removeBlankLines } from '../../../util/Util';
+import { removeBlankLines } from '@util/Util';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class VoiceStateUpdateListener extends Listener {
 	public constructor() {
@@ -19,7 +20,7 @@ export default class VoiceStateUpdateListener extends Listener {
 		const user = await this.client.users.fetch(newState.id);
 		if (oldState.channelID !== newState.channelID) {
 			if (newState.channelID) {
-				const embed = new MessageEmbed()
+				const embed = new SpectreEmbed()
 					.setAuthor(`${user.tag} joined #${newState.channel!.name}`, emojis.all)
 					.setFooter(`User ID: ${user.id}`)
 					.setColor('GREEN')
@@ -30,7 +31,7 @@ export default class VoiceStateUpdateListener extends Listener {
 					`);
 				return channel.send(embed);
 			}
-			const embed = new MessageEmbed()
+			const embed = new SpectreEmbed()
 				.setAuthor(`${user.tag} left #${oldState.channel!.name}`, emojis.all)
 				.setFooter(`User ID: ${user.id}`)
 				.setColor('RED')
@@ -43,7 +44,7 @@ export default class VoiceStateUpdateListener extends Listener {
 		}
 		if (oldState.deaf !== newState.deaf) {
 			const type = !oldState.deaf && newState.deaf ? 1 : 0;
-			const embed = new MessageEmbed()
+			const embed = new SpectreEmbed()
 				.setAuthor(`${user.tag} ${type ? 'was deafened' : 'was undeafened'}`, emojis.all)
 				.setColor(type ? 'RED' : 'GREEN')
 				.setTimestamp()
@@ -56,7 +57,7 @@ export default class VoiceStateUpdateListener extends Listener {
 		}
 		if (oldState.mute !== newState.mute) {
 			const type = !oldState.mute && newState.mute ? 1 : 0;
-			const embed = new MessageEmbed()
+			const embed = new SpectreEmbed()
 				.setAuthor(`${user.tag} ${type ? 'was muted' : 'was unmuted'}`, emojis.all)
 				.setColor(type ? 'RED' : 'GREEN')
 				.setTimestamp()
@@ -68,7 +69,7 @@ export default class VoiceStateUpdateListener extends Listener {
 			return channel.send(embed);
 		}
 		if (oldState.streaming !== newState.streaming) {
-			const embed = new MessageEmbed()
+			const embed = new SpectreEmbed()
 				.setAuthor(`${user.tag} ${oldState.streaming ? 'stopped' : 'started'} streaming`, emojis.all)
 				.setColor(oldState.streaming ? 'RED' : 'GREEN')
 				.setTimestamp()

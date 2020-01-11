@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
-import Confirmation, { Responses } from '../../../util/Confirmation';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
+import Confirmation, { Responses } from '@util/Confirmation';
 
 export default class ResetLogsCommand extends Command {
 	public constructor() {
@@ -10,7 +11,7 @@ export default class ResetLogsCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const confirm = await new Confirmation(message, new MessageEmbed()
+		const confirm = await new Confirmation(message, new SpectreEmbed()
 			.setColor('YELLOW')
 			.setAuthor('⚠️ This action is irreversible.')
 			.setTitle('Confirmation')

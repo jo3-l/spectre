@@ -1,10 +1,11 @@
 import { Command, Argument } from 'discord-akairo';
 import { promisify, inspect } from 'util';
-import { exec as _exec } from 'child_process';
-import { MessageEmbed, Message } from 'discord.js';
-import { hastebin, escapedCodeblock } from '../../../util/Util';
-import Timer from '../../../util/Timer';
-const exec = promisify(_exec);
+import { exec } from 'child_process';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { hastebin, escapedCodeblock } from '@util/Util';
+import Timer from '@util/Timer';
+const execAsync = promisify(exec);
 
 export default class ExecCommand extends Command {
 	public constructor() {
@@ -45,12 +46,12 @@ export default class ExecCommand extends Command {
 	public async exec(message: Message, { expr, timeout }: { expr: string; timeout: number }) {
 		await message.util!.send(`${this.client.emojis.loading} Waiting for response...`);
 		const timer = new Timer();
-		const result = await exec(expr, { timeout })
+		const result = await execAsync(expr, { timeout })
 			.catch(error => ({ stdout: null, stderr: error.stderr }));
 		const { stdout, stderr } = result;
 		const ms = timer.stop();
 		if (!stdout && !stderr) return message.util!.send(`⏱ ${ms}ms\n\nThere was no output.`);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor('Exec', 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png')
 			.setDescription('')
 			.setColor(stderr ? this.client.config.color : 6398041)

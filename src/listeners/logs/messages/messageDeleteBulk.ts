@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
+import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
-import { Message, MessageEmbed, Collection, Snowflake, TextChannel } from 'discord.js';
+import { Message, Collection, Snowflake, TextChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class MessageDeleteBulkListener extends Listener {
 	public constructor() {
@@ -17,7 +18,7 @@ export default class MessageDeleteBulkListener extends Listener {
 		if (!guild) return;
 		const channel = Log.fetchChannel(guild, 'messages');
 		if (!channel) return;
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`Messages were bulk deleted in #${(messages.first()!.channel as TextChannel).name}`,
 				emojis.deleteMessage)
 			.setColor('RED')

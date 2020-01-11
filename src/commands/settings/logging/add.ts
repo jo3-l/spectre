@@ -1,6 +1,6 @@
 import { Command, Argument, Flag } from 'discord-akairo';
-import { requiredPermissions } from '../../../structures/Log';
-import { Log } from '../../../structures/SettingsProvider';
+import { requiredPermissions } from '@structures/Log';
+import { Log } from '@structures/SettingsProvider';
 import { Message, TextChannel, Snowflake } from 'discord.js';
 
 export default class AddLogCommand extends Command {

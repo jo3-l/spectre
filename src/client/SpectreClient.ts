@@ -1,28 +1,22 @@
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, AkairoModule } from 'discord-akairo';
+import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { join } from 'path';
-import { token, prefix, activities, owner, version, color, db, emojis, categoryImages } from '../../config';
-import ActivityHandler, { Activity } from '../structures/ActivityHandler';
-import SpectreLogger from '../structures/Logger';
-import Database from '../structures/Database';
-import TypeORMProvider from '../structures/SettingsProvider';
-import { Logger } from 'winston';
-import { GuildEmojiStore } from 'discord.js';
+import { promisify } from 'util';
+import { readdir } from 'fs';
+import { token, prefix, activities, owner, version, color, db, emojis, categoryImages } from '@root/config';
+import ActivityHandler, { Activity } from '@structures/ActivityHandler';
+import Logger from '@structures/Logger';
+import Database from '@structures/Database';
+import TypeORMProvider from '@structures/SettingsProvider';
+import AssetHandler from '@structures/AssetHandler';
 import { Connection } from 'typeorm';
 import { Guild } from '../models/Guild';
-import AssetHandler from '../structures/AssetHandler';
 
-Object.defineProperty(AkairoModule.prototype, 'logger', { value: SpectreLogger });
-Object.defineProperties(GuildEmojiStore.prototype, {
-	loading: { value: emojis.loading },
-	success: { value: emojis.success },
-	error: { value: emojis.error },
-	neutral: { value: emojis.neutral },
-});
+const readdirAsync = promisify(readdir);
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
 		version: string;
-		logger: Logger;
+		logger: typeof Logger;
 		db: Connection;
 		settings: TypeORMProvider;
 		config: SpectreConfig;
@@ -31,19 +25,6 @@ declare module 'discord-akairo' {
 		listenerHandler: ListenerHandler;
 		activityHandler: ActivityHandler;
 		assetHandler: AssetHandler;
-	}
-
-	interface AkairoModule {
-		logger: Logger;
-	}
-}
-
-declare module 'discord.js' {
-	interface GuildEmojiStore {
-		loading: string;
-		success: string;
-		error: string;
-		neutral: string;
 	}
 }
 
@@ -93,7 +74,7 @@ export default class SpectreClient extends AkairoClient {
 		directory: join(__dirname, '..', 'listeners'),
 	});
 
-	public logger = SpectreLogger;
+	public logger = Logger;
 	public db!: Connection;
 	public settings!: TypeORMProvider;
 	public config = { token, prefix, color, owner, db, activities, version, categoryImages, emojis };
@@ -108,6 +89,12 @@ export default class SpectreClient extends AkairoClient {
 
 	private async _init() {
 		this.logger.info('Spectre is starting up...');
+		// Load extensions
+		const extensionDir = join(__dirname, '..', 'extensions');
+		const extensions = await readdirAsync(extensionDir);
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		for (const extension of extensions) require(`${extensionDir}/${extension}`);
+		this.logger.info(`Loaded ${extensions.length} extensions.`);
 		// Load handlers
 		this.commandHandler
 			.useInhibitorHandler(this.inhibitorHandler)

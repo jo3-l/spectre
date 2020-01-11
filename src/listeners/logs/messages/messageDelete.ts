@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { escapedCodeblock } from '../../../util/Util';
+import Log, { emojis } from '@structures/Log';
+import { escapedCodeblock } from '@util/Util';
 import { Listener } from 'discord-akairo';
-import { Message, MessageEmbed, User } from 'discord.js';
+import { Message, User } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class MessageDeleteListener extends Listener {
 	public constructor() {
@@ -25,8 +26,8 @@ export default class MessageDeleteListener extends Listener {
 		} else {
 			executor = message.author;
 		}
-		const content = this.getContentDisplay(message);
-		const embed = new MessageEmbed()
+		const content = this._displayContent(message);
+		const embed = new SpectreEmbed()
 			.setAuthor(`${message.author.tag}'s message was deleted`, emojis.deleteMessage)
 			.setColor('RED')
 			.setTimestamp()
@@ -55,7 +56,7 @@ export default class MessageDeleteListener extends Listener {
 		channel.send(embed);
 	}
 
-	private getContentDisplay(message: Message) {
+	private _displayContent(message: Message) {
 		if (message.embeds.length && !message.content) return `*${message.embeds.length} embeds not shown.*`;
 		return escapedCodeblock(message.content);
 	}

@@ -1,7 +1,8 @@
 import { Command } from 'discord-akairo';
-import { MessageEmbed, Message } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { evaluate } from 'mathjs';
-import { codeblock } from '../../util/Util';
+import { codeblock } from '@util/Util';
 
 export default class EvaluateCommand extends Command {
 	public constructor() {
@@ -25,13 +26,13 @@ export default class EvaluateCommand extends Command {
 		};
 		try {
 			const res = evaluate(expr);
-			message.util!.send(new MessageEmbed()
+			message.util!.send(new SpectreEmbed()
 				.setColor('GREEN')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
 				.setTitle('`Output`')
 				.setDescription(codeblock(trim(res))));
 		} catch (err) {
-			message.util!.send(new MessageEmbed()
+			message.util!.send(new SpectreEmbed()
 				.setColor('RED')
 				.setAuthor('Calculator', 'https://cdn0.iconfinder.com/data/icons/finance-icons-rounded/110/Calculator-512.png')
 				.setTitle('`Error`')

@@ -1,8 +1,9 @@
 import { Listener } from 'discord-akairo';
-import { Role, MessageEmbed } from 'discord.js';
-import Log, { emojis } from '../../../structures/Log';
+import { Role } from 'discord.js';
+import Log, { emojis } from '@structures/Log';
 import { stringify } from 'querystring';
-import { removeBlankLines, humanizePermissionName } from '../../../util/Util';
+import { removeBlankLines, humanizePermissionName } from '@util/Util';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleUpdateListener extends Listener {
 	public constructor() {
@@ -19,9 +20,9 @@ export default class RoleUpdateListener extends Listener {
 		if (!channel) return;
 		const entry = await Log.getEntry(guild, 'ROLE_UPDATE');
 		const executor = await Log.getExecutor({ guild, id: newRole.id }, 'ROLE_UPDATE', entry);
-		let embed: MessageEmbed | undefined;
+		let embed: SpectreEmbed | undefined;
 		if (oldRole.name !== newRole.name) {
-			embed = new MessageEmbed()
+			embed = new SpectreEmbed()
 				.setDescription(`
 					▫️ **Old role name:** ${oldRole.name}
 					▫️ **New role name:** ${newRole.name}
@@ -51,12 +52,12 @@ export default class RoleUpdateListener extends Listener {
 				perms = `▫️ **Permissions lost:**
 					${data}`;
 			}
-			embed = new MessageEmbed()
+			embed = new SpectreEmbed()
 				.setDescription(perms)
 				.setAuthor(`Role ${newRole.name}'s permissions were updated`);
 		}
 		if (oldRole.mentionable !== newRole.mentionable) {
-			embed = new MessageEmbed()
+			embed = new SpectreEmbed()
 				.setDescription(`
 					${executor ? `▫️ **${newRole.mentionable ? 'Enabled' : 'Disabled'} by:** ${Log.formatUser(executor)}` : ''}
 				`)
@@ -64,7 +65,7 @@ export default class RoleUpdateListener extends Listener {
 				.setAuthor(`Role ${newRole.name} is ${newRole.mentionable ? 'now' : 'no longer'} mentionable`);
 		}
 		if (oldRole.hoist !== newRole.hoist) {
-			embed = new MessageEmbed()
+			embed = new SpectreEmbed()
 				.setDescription(`
 					${executor ? `▫️ **${newRole.hoist ? 'Enabled' : 'Disabled'} by:** ${Log.formatUser(executor)}` : ''}
 				`)
@@ -72,7 +73,7 @@ export default class RoleUpdateListener extends Listener {
 				.setAuthor(`Role ${newRole.name} is ${newRole.hoist ? 'now' : 'no longer'} hoisted`);
 		}
 		if (oldRole.color !== newRole.color) {
-			embed = new MessageEmbed()
+			embed = new SpectreEmbed()
 				.setDescription(`
 					▫️ **Old role color:** ${oldRole.color ? oldRole.hexColor : 'Default color'}
 					▫️ **New role color:** ${newRole.color ? newRole.hexColor : 'Default color'}

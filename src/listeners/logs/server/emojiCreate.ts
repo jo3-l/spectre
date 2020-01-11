@@ -1,6 +1,7 @@
-import Log, { emojis } from '../../../structures/Log';
+import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
-import { GuildEmoji, MessageEmbed } from 'discord.js';
+import { GuildEmoji } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class EmojiCreateListener extends Listener {
 	public constructor() {
@@ -17,7 +18,7 @@ export default class EmojiCreateListener extends Listener {
 		if (!channel) return;
 		const entry = await Log.getEntry(guild, 'EMOJI_CREATE');
 		const executor = await Log.getExecutor({ guild, id: emoji.id }, 'EMOJI_CREATE', entry);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`A new emoji was created`, emojis.createEmoji)
 			.setTimestamp()
 			.setFooter(`Emoji ID: ${emoji.id}`)
@@ -26,12 +27,12 @@ export default class EmojiCreateListener extends Listener {
 				▫️ **Emoji:** ${emoji}
 				▫️ **Emoji name:** \`${emoji.name}\`
 				▫️ **Animated:** ${emoji.animated ? 'yes' : 'no'}
-				▫️ **URL:** [View here](${emoji.url!})
+				▫️ **URL:** [View here](${emoji.url})
 				▫️ **Timestamp of creation:** ${Log.formatTime(emoji.createdAt!)}
 				${executor ? `▫️ **Created by:** ${Log.formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
-			.setThumbnail(emoji.url!);
+			.setThumbnail(emoji.url);
 		channel.send(embed);
 	}
 }

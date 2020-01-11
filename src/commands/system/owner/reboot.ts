@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
-import Confirmation, { Responses } from '../../../util/Confirmation';
-import { Message, MessageEmbed } from 'discord.js';
+import Confirmation, { Responses } from '@util/Confirmation';
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { Message } from 'discord.js';
 
 export default class RebootCommand extends Command {
 	public constructor() {
@@ -19,8 +20,8 @@ export default class RebootCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const confirm = await new Confirmation(message, new MessageEmbed()
-			.setColor(this.client.config.color)
+		const confirm = await new Confirmation(message, new SpectreEmbed()
+			.setColor('YELLOW')
 			.setAuthor('Confirmation')
 			.setDescription('Are you sure you wish to reload the bot? Respond with `yes/no`.')
 			.setFooter('You may respond with \'cancel\' to cancel the command.')).run();

@@ -1,8 +1,9 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed, TextChannel } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 import fetch from 'node-fetch';
-import RichDisplay from '../../util/RichDisplay';
 import { stringify } from 'querystring';
+import RichDisplay from '@util/RichDisplay';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 const trim = (str: string, max: number) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
 const addLinks = (str: string) => str
@@ -54,10 +55,9 @@ export default class UrbanDictionaryCommand extends Command {
 	}
 
 	private _buildEmbed({ definition, permalink, thumbs_up, thumbs_down, example, word, author }: Definition) {
-		return new MessageEmbed()
+		return new SpectreEmbed()
 			.setTitle(`Definition for ${word}`)
 			.setAuthor(author, '', `https://www.urbandictionary.com/author.php?${stringify({ author })}`)
-			.setColor(this.client.config.color)
 			.setURL(permalink)
 			.setFooter(`👍 ${thumbs_up} | 👎 ${thumbs_down}`)
 			.setDescription(trim(addLinks(definition), 2048) || '*No definition was provided.*')

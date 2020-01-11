@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { removeBlankLines } from '../../../util/Util';
+import Log, { emojis } from '@structures/Log';
+import { removeBlankLines } from '@util/Util';
 import { Listener } from 'discord-akairo';
-import { GuildMember, MessageEmbed } from 'discord.js';
+import { GuildMember } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class GuildMemberRemoveListener extends Listener {
 	public constructor() {
@@ -18,7 +19,7 @@ export default class GuildMemberRemoveListener extends Listener {
 		const { user, guild } = member;
 		const entry = await Log.getEntry(guild, 'MEMBER_KICK');
 		const executor = await Log.getExecutor({ guild, id: member.id }, 'MEMBER_KICK', entry);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`${user.tag} ${executor ? 'was kicked' : 'left'}`, emojis.removeMember)
 			.setColor('RED')
 			.setDescription(removeBlankLines`

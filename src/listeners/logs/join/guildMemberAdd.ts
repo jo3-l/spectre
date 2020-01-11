@@ -1,6 +1,7 @@
-import Log, { emojis } from '../../../structures/Log';
+import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
-import { GuildMember, MessageEmbed, User } from 'discord.js';
+import { GuildMember, User } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class GuildMemberAddListener extends Listener {
 	public constructor() {
@@ -17,7 +18,7 @@ export default class GuildMemberAddListener extends Listener {
 		const { user, guild } = member;
 		let executor: User | undefined;
 		if (user.bot) executor = await Log.getExecutor({ guild, id: user.id }, 'BOT_ADD');
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`${user.tag} joined`, emojis.addMember)
 			.setColor('GREEN')
 			.setDescription(`

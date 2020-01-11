@@ -23,10 +23,10 @@ export default class ViewPermsCommand extends Command {
 	public exec(message: Message, { member }: { member: GuildMember }) {
 		const { permissions } = member;
 		const humanReadable = [];
-		for (const FLAG of (Object.keys(Permissions.FLAGS) as PermissionString[])) {
-			humanReadable.push(oneLineTrim`${permissions.has(FLAG)
+		for (const flag of (Object.keys(Permissions.FLAGS) as PermissionString[]).sort()) {
+			humanReadable.push(oneLineTrim`${permissions.has(flag)
 				? this.client.emojis.success
-				: this.client.emojis.error} ${humanizePermissionName(FLAG)}`);
+				: this.client.emojis.error} ${humanizePermissionName(flag)}`);
 		}
 		const embed = new MessageEmbed()
 			.setAuthor(`${member.user.tag}'s permissions`, member.user.displayAvatarURL())

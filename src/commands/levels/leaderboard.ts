@@ -1,6 +1,7 @@
 import { Command, Argument } from 'discord-akairo';
 import { Member } from '../../models/Member';
-import { MessageEmbed, Message } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { calculateLevel } from '../../util/Util';
 import { stripIndents } from 'common-tags';
 
@@ -46,12 +47,11 @@ export default class LeaderboardCommand extends Command {
 			return stripIndents`**${i + 1}.** [\`${username}\`](https://discordapp.com)
 			- \`Level ${calculateLevel(xp)}\` | \`${xp} XP\``;
 		}));
-		return message.util!.send(new MessageEmbed()
+		return message.util!.send(new SpectreEmbed()
 			.setTitle(`🏆 Leaderboard`)
 			.setThumbnail(this.client.config.categoryImages.levels)
 			.setDescription(mapped.join('\n\n'))
 			.setFooter(`Page ${page / 10} | Showing ${result.length} members`)
-			.setURL('https://discordapp.com')
-			.setColor(this.client.config.color));
+			.setURL('https://discordapp.com'));
 	}
 }

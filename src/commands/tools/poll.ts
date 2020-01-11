@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { MessageEmbed, Message } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
 const EMOJIS = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
 
@@ -41,9 +42,8 @@ export default class PollCommand extends Command {
 		message.channel.bulkDelete(message.util!.messages!);
 		const trim = (str: string, t = 150) => str.length > t ? `${str.slice(0, t - 3)}...` : str;
 		const front = answers.reduce((res, cur, index) => res += `\n${EMOJIS[index]} ${trim(cur)}`);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setColor(this.client.config.color)
 			.setTitle(`Poll: ${trim(question, 240)}`)
 			.setDescription(`${EMOJIS[0]} ${front}`);
 		const msg = await message.util!.send(embed);

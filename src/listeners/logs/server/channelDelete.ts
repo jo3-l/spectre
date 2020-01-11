@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { removeBlankLines } from '../../../util/Util';
+import Log, { emojis } from '@structures/Log';
+import { removeBlankLines } from '@util/Util';
 import { Listener } from 'discord-akairo';
-import { GuildChannel, MessageEmbed, DMChannel } from 'discord.js';
+import { GuildChannel, DMChannel } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class ChannelDeleteListener extends Listener {
 	public constructor() {
@@ -19,7 +20,7 @@ export default class ChannelDeleteListener extends Listener {
 		if (!logChannel) return;
 		const entry = await Log.getEntry(guild, 'CHANNEL_DELETE');
 		const executor = await Log.getExecutor({ guild, id: channel.id }, 'CHANNEL_DELETE', entry);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`Channel #${channel.name} was deleted`, emojis.deleteChannel)
 			.setColor('RED')
 			.setDescription(removeBlankLines`

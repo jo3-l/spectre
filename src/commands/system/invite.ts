@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class InviteCommand extends Command {
 	public constructor() {
@@ -19,9 +20,8 @@ export default class InviteCommand extends Command {
 	public exec(message: Message) {
 		// eslint-disable-next-line max-len
 		const inviteLink = `https://discordapp.com/api/oauth2/authorize?client_id=${this.client.user!.id}&permissions=8&scope=bot`;
-		return message.util!.send(new MessageEmbed()
+		return message.util!.send(new SpectreEmbed()
 			.setAuthor('Spectre Invite Link', this.client.user!.displayAvatarURL())
-			.setDescription(`Click [here](${inviteLink}) to invite Spectre to your server!`)
-			.setColor(this.client.config.color));
+			.setDescription(`Click [here](${inviteLink}) to invite Spectre to your server!`));
 	}
 }

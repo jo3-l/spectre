@@ -1,6 +1,7 @@
 import { Command, Argument } from 'discord-akairo';
-import RichDisplay from '../../util/RichDisplay';
-import { Message, TextChannel, MessageEmbed } from 'discord.js';
+import RichDisplay from '@util/RichDisplay';
+import { Message, TextChannel } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class BackgroundsCommand extends Command {
 	public constructor() {
@@ -54,11 +55,10 @@ export default class BackgroundsCommand extends Command {
 			.filter(img => img.type === type)
 			.sort((a, b) => a.id - b.id);
 		for (const image of images.values()) {
-			display.add(new MessageEmbed()
+			display.add(new SpectreEmbed()
 				.setTitle(`#${image.id}`)
 				.setAuthor(`Spectre ${type[0].toUpperCase()}${type.substr(1)} Backgrounds`)
 				.setImage(image.url)
-				.setColor(this.client.config.color)
 				.setTimestamp());
 		}
 		display

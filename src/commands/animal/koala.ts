@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import fetch from 'node-fetch';
-import { MessageEmbed, Message } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '../../structures/SpectreEmbed';
 
 export default class KoalaCommand extends Command {
 	public constructor() {
@@ -19,10 +20,9 @@ export default class KoalaCommand extends Command {
 
 	public async exec(message: Message) {
 		const { link } = await fetch('https://some-random-api.ml/img/koala').then(res => res.json()) as ApiResponse;
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setTitle('🐨 Koala')
 			.setImage(link)
-			.setColor(this.client.config.color)
 			.setURL(link)
 			.setFooter('Powered by some-random-api.ml')
 			.setTimestamp();

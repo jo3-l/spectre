@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { removeBlankLines, humanizePermissionName } from '../../../util/Util';
+import Log, { emojis } from '@structures/Log';
+import { removeBlankLines, humanizePermissionName } from '@util/Util';
 import { Listener } from 'discord-akairo';
-import { GuildMember, MessageEmbed, PermissionString } from 'discord.js';
+import { GuildMember, PermissionString } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class GuildMemberUpdateListener extends Listener {
 	public constructor() {
@@ -19,7 +20,7 @@ export default class GuildMemberUpdateListener extends Listener {
 		if (oldMember.displayName !== newMember.displayName) {
 			const entry = await Log.getEntry(guild, 'MEMBER_UPDATE');
 			const executor = await Log.getExecutor({ guild, id: user.id }, 'MEMBER_UPDATE', entry);
-			const embed = new MessageEmbed()
+			const embed = new SpectreEmbed()
 				.setAuthor(`${user.tag}'s nickname was changed`, user.displayAvatarURL())
 				.setColor('ORANGE')
 				.setDescription(removeBlankLines`
@@ -58,7 +59,7 @@ export default class GuildMemberUpdateListener extends Listener {
 			const perms = `▫️ **Permissions ${roleRemoved ? 'lost' : 'gained'}:**
 				${adminChanged ? '• `Administrator` (All other permissions are granted)' : permissionsAdded || permissionsRemoved || 'n/a'}`;
 			/* eslint-enable */
-			const embed = new MessageEmbed()
+			const embed = new SpectreEmbed()
 				.setAuthor(`Role was ${roleRemoved ? 'removed from' : 'added to'} ${user.tag}`, emojis.updateMember)
 				.setColor(roleRemoved ? 'RED' : 'GREEN')
 				.setFooter(`Member ID: ${user.id}`)

@@ -1,5 +1,5 @@
 import { Command } from 'discord-akairo';
-import { scrapeSubreddit } from '../../util/Reddit';
+import { scrapeSubreddit } from '@util/Reddit';
 import { Message } from 'discord.js';
 
 export default class ShowerThoughtsCommand extends Command {

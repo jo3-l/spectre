@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { removeBlankLines } from '../../../util/Util';
+import Log, { emojis } from '@structures/Log';
+import { removeBlankLines } from '@util/Util';
 import { Listener } from 'discord-akairo';
-import { GuildChannel, MessageEmbed, DMChannel, PermissionString, Guild, TextChannel, Permissions, User, Role } from 'discord.js';
+import { GuildChannel, DMChannel, PermissionString, Guild, TextChannel, Permissions, User, Role } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export interface ChannelPermission {
 	allow: PermissionString[];
@@ -71,7 +72,7 @@ export default class ChannelUpdateListener extends Listener {
 			topicChange = `▫️ **Old topic:** ${oldChannel.topic || 'n/a'}
 				▫️ **New topic:** ${newChannel.topic || 'n/a'}`;
 		}
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`Channel #${newChannel.name} was updated`, emojis.updateChannel)
 			.setColor('ORANGE')
 			.setTimestamp()

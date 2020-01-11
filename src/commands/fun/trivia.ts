@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { stringify } from 'querystring';
 import fetch from 'node-fetch';
 import { stripIndents } from 'common-tags';
@@ -32,7 +33,7 @@ export default class TriviaCommand extends Command {
 		const front = answers.map((answer, i) => `**${i + 1}.** *${answer}*`).join('\n');
 		const time = 25e3;
 
-		message.util!.send(new MessageEmbed()
+		message.util!.send(new SpectreEmbed()
 			.setColor('RANDOM')
 			.setAuthor(`${message.author.username}'s Trivia Question`, message.author.displayAvatarURL())
 			.setDescription(stripIndents`**${trivia.question}**
@@ -41,7 +42,8 @@ export default class TriviaCommand extends Command {
 				${front}`)
 			.addField('Difficulty', `\`${trivia.difficulty[0].toUpperCase()}${trivia.difficulty.substr(1)}\``, true)
 			.addField('Category', `\`${trivia.category}\``, true)
-			.setFooter('💡 Tip: You can use either the number or the word to answer!'));
+			.setFooter('💡 Tip: You can use either the number or the word to answer!')
+			.boldFields());
 
 		const validAnswers = [trivia.correct_answer.toLowerCase(), (answers.indexOf(trivia.correct_answer) + 1).toString()];
 		let choice: Message;

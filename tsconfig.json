@@ -1,12 +1,15 @@
 {
 	"include": [
-		"./**/*.ts"
+		"./src/**/*",
+		"config.example.ts",
+		"config.ts",
 	],
 	"compilerOptions": {
 		"strict": true,
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"target": "es2019",
+		"skipLibCheck": true,
+		"target": "es2020",
 		"lib": [
 			"esnext",
 			"esnext.array",
@@ -27,6 +30,18 @@
 		"alwaysStrict": true,
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"@util/*": [
+				"src/util/*"
+			],
+			"@structures/*": [
+				"src/structures/*"
+			],
+			"@root/*": [
+				"*"
+			]
+		}
 	}
 }

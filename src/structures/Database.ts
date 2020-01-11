@@ -1,6 +1,6 @@
 import { ConnectionManager } from 'typeorm';
 import { join } from 'path';
-import { db } from '../../config';
+import { db } from '@root/config';
 
 const connectionManager = new ConnectionManager();
 connectionManager.create({

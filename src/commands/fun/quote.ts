@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 const MESSAGE_LINK_REGEX = /https:\/\/(www\.)?(ptb\.|canary\.)?discordapp\.com\/channels\/(\d+)\/(\d+)\/(\d+)/;
 
@@ -39,7 +40,7 @@ export default class QuoteCommand extends Command {
 			try { msg = await message.channel.messages.fetch(id); } catch { }
 		}
 		if (!msg || (!msg.content && !msg.attachments.size)) return;
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setColor(msg.member!.roles.highest ? msg.member!.roles.highest.color : this.client.config.color)
 			.setFooter(`Quoted by ${message.author.tag}`)

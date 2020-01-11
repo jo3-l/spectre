@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { emojify } from '../../../util/Util';
 import { commaListsAnd } from 'common-tags';
 
@@ -51,8 +52,7 @@ export default class ServerInfoCommand extends Command {
 			acc[key]++;
 			return acc;
 		}, { text: 0, store: 0, voice: 0, category: 0 });
-		const embed = new MessageEmbed()
-			.setColor(this.client.config.color)
+		const embed = new SpectreEmbed()
 			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() || '')
 			.setThumbnail(guild.iconURL() || '')
 			.addField('ID', guild.id)
@@ -64,7 +64,8 @@ export default class ServerInfoCommand extends Command {
 			.addField('Region', humanizedRegions[guild.region as keyof typeof humanizedRegions])
 			.addField('Verification Level', verificationLevels[guild.verificationLevel])
 			.setFooter('Created at')
-			.setTimestamp(guild.createdAt);
+			.setTimestamp(guild.createdAt)
+			.boldFields();
 		message.util!.send(embed);
 	}
 }

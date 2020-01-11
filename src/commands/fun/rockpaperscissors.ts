@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, User, MessageEmbed, MessageReaction } from 'discord.js';
+import { Message, User, MessageReaction } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLine } from 'common-tags';
 
 const rpsData: Record<Choice, { counters: string; emoji: string }> = {
@@ -47,12 +48,11 @@ export default class RockPaperScissorsCommand extends Command {
 		const winner = choice === selfChoice
 			? null
 			: rpsData[choice].counters === selfChoice ? message.author : this.client.user!;
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setTitle(`${winner ? `${winner.username} won!` : 'It\'s a tie!'}`)
 			.setDescription(oneLine`**${this.client.user!.username}** chose ${rpsData[selfChoice].emoji}, 
 				while **${message.author.username}** chose ${rpsData[choice].emoji}.`)
-			.setTimestamp()
-			.setColor(this.client.config.color);
+			.setTimestamp();
 		message.channel.send(embed);
 	}
 }

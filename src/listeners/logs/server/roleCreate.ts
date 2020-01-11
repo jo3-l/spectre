@@ -1,8 +1,9 @@
 import { Listener } from 'discord-akairo';
-import { Role, MessageEmbed } from 'discord.js';
-import Log, { emojis } from '../../../structures/Log';
+import { Role } from 'discord.js';
+import Log, { emojis } from '@structures/Log';
 import { stringify } from 'querystring';
-import { removeBlankLines } from '../../../util/Util';
+import { removeBlankLines } from '@util/Util';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleCreateListener extends Listener {
 	public constructor() {
@@ -19,7 +20,7 @@ export default class RoleCreateListener extends Listener {
 		if (!channel) return;
 		const entry = await Log.getEntry(guild, 'ROLE_CREATE');
 		const executor = await Log.getExecutor({ guild, id: role.id }, 'ROLE_CREATE', entry);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor('A role was created', emojis.createRole)
 			.setTimestamp()
 			.setFooter(`Role ID: ${role.id}`)

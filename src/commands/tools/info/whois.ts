@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed, GuildMember } from 'discord.js';
+import { Message, GuildMember } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import moment from 'moment';
 import { commaListsAnd } from 'common-tags';
 
@@ -16,7 +17,7 @@ export default class WhoisCommand extends Command {
 			aliases: ['whois', 'whoami', 'user', 'user-info', 'member'],
 			category: 'Info',
 			description: {
-				content: 'Displays information on a given user.',
+				content: 'Displays information for a given user.',
 				usage: '[user]',
 				examples: ['', '@Joe'],
 			},
@@ -36,7 +37,7 @@ export default class WhoisCommand extends Command {
 
 	public exec(message: Message, { member }: { member: GuildMember }) {
 		const { user } = member;
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`${user.tag}${member.nickname ? ` (${member.nickname})` : ''}`, user.displayAvatarURL())
 			.setThumbnail(user.displayAvatarURL())
 			.setColor(member.displayColor || this.client.config.color)
@@ -51,6 +52,6 @@ export default class WhoisCommand extends Command {
 		if (user.presence.clientStatus) {
 			embed.setFooter(commaListsAnd`${user.username} is active on ${Object.keys(user.presence.clientStatus)}`);
 		}
-		return message.util!.send(embed);
+		return message.util!.send(embed.boldFields());
 	}
 }

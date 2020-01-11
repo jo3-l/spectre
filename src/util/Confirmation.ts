@@ -1,4 +1,5 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 const RESPONSES = {
 	YES: ['yes', 'y', 'yup'],
@@ -11,7 +12,7 @@ export enum Responses {
 }
 
 export default class Confirmation {
-	public constructor(public readonly message: Message, public readonly embed: MessageEmbed, public readonly timeout = 15000) { }
+	public constructor(public readonly message: Message, public readonly embed: SpectreEmbed, public readonly timeout = 15000) { }
 	public async run() {
 		const filter = (m: Message) => m.author.id === this.message.author.id &&
 			Object.values(RESPONSES).flat().includes(m.content);

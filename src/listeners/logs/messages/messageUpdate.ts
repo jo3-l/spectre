@@ -1,7 +1,8 @@
-import Log, { emojis } from '../../../structures/Log';
-import { escapedCodeblock } from '../../../util/Util';
+import Log, { emojis } from '@structures/Log';
+import { escapedCodeblock } from '@util/Util';
 import { Listener } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class MessageUpdateListener extends Listener {
 	public constructor() {
@@ -19,7 +20,7 @@ export default class MessageUpdateListener extends Listener {
 		if (oldMessage.content === newMessage.content) return;
 		const oldContentDisplay = this._getContent(oldMessage);
 		const newContentDisplay = this._getContent(newMessage);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setColor('ORANGE')
 			.setAuthor(`${newMessage.author.tag}'s message was edited`, emojis.updateMessage)
 			.setFooter(`Message ID: ${newMessage.id}`)

@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 const capitalize = (word: string) => `${word[0].toUpperCase()}${word.substr(1)}`;
 
@@ -19,9 +20,8 @@ export default class ViewRoleRewardsCommand extends Command {
 			.map(([level, reward]) => `\n• **Level ${level}.** \`${guild.roles.get(reward)?.name ?? 'Unknown role'}\``)
 			.join('\n');
 		const type = capitalize(this.client.settings.get(guild, 'rewardType', 'stack'));
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setTitle('⚙️ Role Rewards')
-			.setColor(this.client.config.color)
 			.setThumbnail(this.client.config.categoryImages.levels)
 			.setDescription(`${data}\n\n**Role giving configuration:**\n${type}`)
 			.setFooter(guild.name);

@@ -1,6 +1,6 @@
 import { Listener } from 'discord-akairo';
 import { Message, Snowflake } from 'discord.js';
-import { calculateLevel } from '../../util/Util';
+import { calculateLevel } from '@util/Util';
 import { Member } from '../../models/Member';
 
 export default class MessageListener extends Listener {

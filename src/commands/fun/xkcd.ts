@@ -1,6 +1,7 @@
 import { Command, Argument } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
 import fetch from 'node-fetch';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLineTrim } from 'common-tags';
 
 export default class XkcdCommand extends Command {
@@ -46,7 +47,7 @@ export default class XkcdCommand extends Command {
 
 		const { num, title, alt, img } = comic;
 		const link = `https://xkcd.com/${num}`;
-		return message.util!.send(new MessageEmbed()
+		return message.util!.send(new SpectreEmbed()
 			.setTitle(`#${num}: ${title}`)
 			.setDescription(`[${alt}](${link})`)
 			.setColor('RANDOM')

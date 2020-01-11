@@ -1,6 +1,7 @@
-import Log, { emojis } from '../../../structures/Log';
+import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
-import { Guild, User, MessageEmbed } from 'discord.js';
+import { Guild, User } from 'discord.js';
+import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class GuildBanAddListener extends Listener {
 	public constructor() {
@@ -16,7 +17,7 @@ export default class GuildBanAddListener extends Listener {
 		if (!channel) return;
 		const entry = await Log.getEntry(guild, 'MEMBER_BAN_ADD');
 		const executor = await Log.getExecutor({ guild, id: user.id }, 'MEMBER_BAN_ADD', entry);
-		const embed = new MessageEmbed()
+		const embed = new SpectreEmbed()
 			.setAuthor(`${user.tag} was banned`, emojis.all)
 			.setColor('RED')
 			.setDescription(`

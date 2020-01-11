@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Canvas } from 'canvas-constructor';
 import { MessageAttachment, Message, User } from 'discord.js';
-import { calculateLevel, calculateXp } from '../../util/Util';
+import { calculateLevel, calculateXp } from '@util/Util';
 import fetch from 'node-fetch';
 import { Member } from '../../models/Member';
 import { format as d3format } from 'd3-format';

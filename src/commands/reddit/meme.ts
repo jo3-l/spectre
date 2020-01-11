@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { scrapeSubreddit } from '../../util/Reddit';
+import { scrapeSubreddit } from '@util/Reddit';
 
 export default class MemeCommand extends Command {
 	public constructor() {
@@ -23,6 +23,6 @@ export default class MemeCommand extends Command {
 				'Sorry, we could\'t find any dank memes to show you. Try again later.',
 			);
 		}
-		return message.util!.send(meme.toEmbed());
+		return message.util!.send(meme.embed());
 	}
 }
