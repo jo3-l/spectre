@@ -1,9 +1,12 @@
 import { Command, Argument } from 'discord-akairo';
 import { Member } from '../../models/Member';
-import { Message } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { calculateLevel } from '../../util/Util';
+import { calculateLevel } from '@util/Util';
+import RichDisplay from '@structures/RichDisplay';
+import paginate from '@util/paginate';
 import { stripIndents } from 'common-tags';
+import SpectreClient from '@root/src/client/SpectreClient';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {
@@ -34,24 +37,40 @@ export default class LeaderboardCommand extends Command {
 			where: { guildId: message.guild!.id },
 			select: ['id', 'xp'],
 			order: { xp: 'DESC' },
-			skip: page - 10,
-			take: page,
+			...this._getRange(page),
 		});
 		if (!result.length) return message.util!.reply(`there are no ranked members on page ${page / 10}!`);
-		const mapped = await Promise.all(result.map(async (member, i) => {
-			const { id, xp } = member;
-			let username = `User left guild (ID ${id})`;
-			try {
-				username = (await message.guild!.members.fetch(id)).user.tag;
-			} catch { }
-			return stripIndents`**${i + 1}.** [\`${username}\`](https://discordapp.com)
+		const pages = paginate(await Promise.all(
+			result.map((member, i) => this._formatEntry(this.client as SpectreClient, member, i)),
+		), 10);
+		const display = new RichDisplay({
+			filter: (_, user) => message.author.id === user.id,
+			channel: message.channel as TextChannel,
+		});
+		for (const page of pages) {
+			display.add(new SpectreEmbed()
+				.setTitle('🏆 Leaderboard')
+				.setThumbnail(this.client.config.categoryImages.levels)
+				.setDescription(page.join('\n\n'))
+				.setURL('https://discordapp.com'));
+		}
+		display
+			.transformAll((page, i, total) => page.setFooter(`Page ${i + 1} / ${total} | Showing 10 members per page`))
+			.setStart(page / 10)
+			.build();
+	}
+
+	private async _formatEntry(client: SpectreClient, { id, xp }: Member, index: number) {
+		const username = await client.users.fetch(id)
+			.then(user => user.tag)
+			.catch(() => `Unknown user (ID ${id})`);
+		return stripIndents`**${index + 1}.** [\`${username}\`](https://discordapp.com)
 			- \`Level ${calculateLevel(xp)}\` | \`${xp} XP\``;
-		}));
-		return message.util!.send(new SpectreEmbed()
-			.setTitle(`🏆 Leaderboard`)
-			.setThumbnail(this.client.config.categoryImages.levels)
-			.setDescription(mapped.join('\n\n'))
-			.setFooter(`Page ${page / 10} | Showing ${result.length} members`)
-			.setURL('https://discordapp.com'));
+	}
+
+	private _getRange(page: number, totalEntries = 1000) {
+		const skip = page - 10 - totalEntries > 0 ? page - totalEntries - 10 : 0;
+		const take = totalEntries - skip;
+		return { skip, take };
 	}
 }
