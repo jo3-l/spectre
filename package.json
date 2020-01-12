@@ -1,15 +1,31 @@
 {
 	"name": "spectre",
 	"version": "0.5.0",
-	"description": "An utility bot for Discord.",
+	"description": "A utility bot for Discord.",
+	"main": "dist/src/Spectre.js",
 	"scripts": {
 		"start": "ts-node --files src/Spectre",
 		"build": "rimraf dist && tsc",
 		"lint": "eslint . --ext .ts",
-		"lint:fix": "eslint . --ext .ts --fix"
+		"pm2:delete": "pm2 delete Spectre",
+		"pm2:logs": "pm2 logs Spectre --lines=200",
+		"pm2:restart": "pm2 restart Spectre",
+		"pm2:start-harmony": "pm2 start dist/src/Spectre.js --node-args=\"--harmony\" --name=\"Spectre\"",
+		"pm2:start": "pm2 start dist/src/Spectre.js --name=\"Spectre\"",
+		"pm2:stop": "pm2 stop Spectre"
 	},
-	"author": "Joe",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jo3-l/spectre.git"
+	},
+	"keywords": [
+		"discord",
+		"spectre",
+		"discord-bot"
+	],
+	"author": "jo3-l",
 	"license": "MIT",
+	"private": true,
 	"dependencies": {
 		"@vitalets/google-translate-api": "^3.0.0",
 		"canvas": "^2.6.1",
