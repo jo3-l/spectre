@@ -8,7 +8,7 @@ connectionManager.create({
 	type: 'postgres',
 	url: db,
 	entities: [join(__dirname, '..', 'models/*.{ts,js}')],
-	synchronize: true,
+	synchronize: Boolean(process.env.DEV),
 });
 
 export default connectionManager;
