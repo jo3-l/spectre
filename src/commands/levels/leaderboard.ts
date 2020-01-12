@@ -23,7 +23,10 @@ export default class LeaderboardCommand extends Command {
 			args: [
 				{
 					'id': 'page',
-					'type': Argument.compose('number', (_, int: unknown) => (int as number >= 1 ? int as number * 10 : null)),
+					'type': Argument.compose(
+						Argument.range('number', 0, Infinity),
+						(_, x: unknown) => x as number * 10,
+					),
 					'default': 10,
 				},
 			],
@@ -43,19 +46,17 @@ export default class LeaderboardCommand extends Command {
 		const pages = paginate(await Promise.all(
 			result.map((member, i) => this._formatEntry(this.client as SpectreClient, member, i)),
 		), 10);
-		const display = new RichDisplay({
+
+		new RichDisplay({
 			filter: (_, user) => message.author.id === user.id,
 			channel: message.channel as TextChannel,
-		});
-		for (const page of pages) {
-			display.add(new SpectreEmbed()
-				.setTitle('🏆 Leaderboard')
+			pages: pages.map(page => new SpectreEmbed().setDescription(page.join('\n\n'))),
+		})
+			.transformAll((page, i, total) => page
+				.setFooter(`Page ${i + 1} / ${total} | Showing 10 members per page`)
+				.setURL('https://discordapp.com')
 				.setThumbnail(this.client.config.categoryImages.levels)
-				.setDescription(page.join('\n\n'))
-				.setURL('https://discordapp.com'));
-		}
-		display
-			.transformAll((page, i, total) => page.setFooter(`Page ${i + 1} / ${total} | Showing 10 members per page`))
+				.setTitle('🏆 Leaderboard'))
 			.setStart(page / 10)
 			.build();
 	}
