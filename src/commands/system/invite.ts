@@ -21,7 +21,7 @@ export default class InviteCommand extends Command {
 		// eslint-disable-next-line max-len
 		const inviteLink = `https://discordapp.com/api/oauth2/authorize?client_id=${this.client.user!.id}&permissions=8&scope=bot`;
 		return message.util!.send(new SpectreEmbed()
-			.setAuthor('Spectre Invite Link', this.client.user!.displayAvatarURL())
+			.setAuthor('❯ Spectre Invite Link', this.client.user!.displayAvatarURL())
 			.setDescription(`Click [here](${inviteLink}) to invite Spectre to your server!`));
 	}
 }

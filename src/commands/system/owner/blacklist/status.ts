@@ -30,7 +30,7 @@ export default class BlacklistStatusCommand extends Command {
 		const isBlacklisted = blacklist.includes(user.id);
 		const embed = new SpectreEmbed()
 			.setColor(isBlacklisted ? 'RED' : 'GREEN')
-			.setAuthor(`Blacklist status for ${user.tag}`, user.displayAvatarURL())
+			.setAuthor(`❯ Blacklist status for ${user.tag}`, user.displayAvatarURL())
 			.setDescription(oneLine`${isBlacklisted ? this.client.emojis.success : this.client.emojis.error} 
 				**${user.tag}** ${isBlacklisted ? 'is' : 'is not'} blacklisted!`);
 		message.util!.send(embed);

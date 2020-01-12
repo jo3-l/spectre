@@ -19,7 +19,7 @@ export default class PingCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const msg = await message.util!.send('Ping...');
+		const msg = await message.util!.send('Pinging...');
 		return message.util!.send(new SpectreEmbed()
 			.setTitle('🏓 Pong!')
 			.setDescription(stripIndents`• Latency: \`${

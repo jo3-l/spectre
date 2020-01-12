@@ -80,10 +80,10 @@ export default class TranslateCommand extends Command {
 		}
 		const embed = new SpectreEmbed()
 			.setAuthor('Translate', 'https://i.stack.imgur.com/P6kbv.png')
-			.setDescription(stripIndents`**Result:**
+			.setDescription(stripIndents`**❯ Result:**
 				${res.text}
 				
-				**Details:**
+				**❯ Details:**
 				• Translated from: \`${languages[res.from.language.iso]}\`
 				• Translated to: \`${languages[to || 'en']}\`
 			`)

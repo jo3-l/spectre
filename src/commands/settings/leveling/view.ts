@@ -22,7 +22,7 @@ export default class ViewRoleRewardsCommand extends Command {
 		const embed = new SpectreEmbed()
 			.setTitle('⚙️ Role Rewards')
 			.setThumbnail(this.client.config.categoryImages.levels)
-			.setDescription(`${data}\n\n**Role giving configuration:**\n${type}`)
+			.setDescription(`${data}\n\n*❯ *Role giving configuration:**\n${type}`)
 			.setFooter(guild.name);
 		return message.util!.send(embed);
 	}

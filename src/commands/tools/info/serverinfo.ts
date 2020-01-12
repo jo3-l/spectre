@@ -55,14 +55,14 @@ export default class ServerInfoCommand extends Command {
 		const embed = new SpectreEmbed()
 			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() || '')
 			.setThumbnail(guild.iconURL() || '')
-			.addField('ID', guild.id)
-			.addField('Channels', commaListsAnd`• ${Object.values(data).map((v, i) => `${v} ${suffixes[i]}`)}
+			.addField('❯ ID', guild.id)
+			.addField('❯ Channels', commaListsAnd`• ${Object.values(data).map((v, i) => `${v} ${suffixes[i]}`)}
 				• AFK: ${guild.afkChannel?.toString() ?? 'None'}`)
-			.addField('Membercount', `${guild.memberCount}`)
-			.addField('Owner', `${(await guild.members.fetch(guild.ownerID)).user.tag} (${guild.ownerID})`)
-			.addField('Roles', guild.roles.size)
-			.addField('Region', humanizedRegions[guild.region as keyof typeof humanizedRegions])
-			.addField('Verification Level', verificationLevels[guild.verificationLevel])
+			.addField('❯ Membercount', `${guild.memberCount}`)
+			.addField('❯ Owner', `${(await guild.members.fetch(guild.ownerID)).user.tag} (${guild.ownerID})`)
+			.addField('❯ Roles', guild.roles.size)
+			.addField('❯ Region', humanizedRegions[guild.region as keyof typeof humanizedRegions])
+			.addField('❯ Verification Level', verificationLevels[guild.verificationLevel])
 			.setFooter('Created at')
 			.setTimestamp(guild.createdAt)
 			.boldFields();
