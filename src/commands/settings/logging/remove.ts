@@ -1,6 +1,6 @@
 import { Command, Argument, Flag } from 'discord-akairo';
 import { Log } from '@structures/SettingsProvider';
-import { Message, Snowflake } from 'discord.js';
+import { Message } from 'discord.js';
 
 export default class RemoveLogcommand extends Command {
 	public constructor() {
@@ -18,7 +18,7 @@ export default class RemoveLogcommand extends Command {
 						['voice', 'voicelog', 'voice-log', 'voicelogs', 'voice-logs'],
 					], (message, phrase: unknown) => {
 						const type = phrase as Log;
-						const settings = this.client.settings.get(message.guild!, 'logs', {} as { [key in Log]: Snowflake });
+						const settings = this.client.settings.get(message.guild!, 'logs', {});
 						if (!(type in settings)) return Flag.fail('NON_EXISTENT');
 						return type;
 					}),

@@ -41,6 +41,17 @@ export default class TypeORMProvider extends Provider {
 		}
 	}
 
+	public get<K extends keyof Settings, T>(
+		guild: GuildResolvable,
+		key: K,
+		defaultValue: Settings[K] | T,
+	): T extends Settings[K] ? Settings[K] : Settings[K] | T;
+
+	public get<K extends keyof Settings>(
+		guild: GuildResolvable,
+		key: K,
+	): Settings[K] | undefined;
+
 	public get<K extends keyof Settings, T = undefined>(
 		guild: GuildResolvable,
 		key: K,

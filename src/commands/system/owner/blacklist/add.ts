@@ -27,7 +27,7 @@ export default class BlacklistAddCommand extends Command {
 	}
 
 	public async exec(message: Message, { user }: { user: User }) {
-		const blacklist = this.client.settings.get('global', 'blacklist', [] as string[]);
+		const blacklist = this.client.settings.get('global', 'blacklist', []);
 		blacklist.push(user.id);
 		await this.client.settings.set('global', 'blacklist', blacklist);
 		message.util!.send(`${this.client.emojis.success} Successfully blacklisted **${user.tag}**!`);

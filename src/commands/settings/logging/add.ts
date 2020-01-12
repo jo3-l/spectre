@@ -1,7 +1,7 @@
 import { Command, Argument, Flag } from 'discord-akairo';
 import { requiredPermissions } from '@structures/Log';
 import { Log } from '@structures/SettingsProvider';
-import { Message, TextChannel, Snowflake } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 
 export default class AddLogCommand extends Command {
 	public constructor() {
@@ -58,7 +58,7 @@ export default class AddLogCommand extends Command {
 			await this.client.settings.set(message.guild!, 'logs', settings);
 			return message.util!.send(`${this.client.emojis.success} All log events will now log to ${channel}.`);
 		}
-		const current = this.client.settings.get(message.guild!, 'logs', {} as { [key in Log]: Snowflake });
+		const current = this.client.settings.get(message.guild!, 'logs', {});
 		current[type] = channel.id;
 		await this.client.settings.set(message.guild!, 'logs', current);
 		// eslint-disable-next-line max-len

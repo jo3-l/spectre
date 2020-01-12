@@ -39,7 +39,7 @@ export default class AddRoleRewardCommand extends Command {
 
 	public async exec(message: Message, { level, reward }: { level: string; reward: Role }) {
 		const guild = message.guild!;
-		const roleRewards = this.client.settings.get(guild, 'roleRewards', {} as Record<string, string>);
+		const roleRewards = this.client.settings.get(guild, 'roleRewards', {});
 		roleRewards[level] = reward.id;
 		await this.client.settings.set(guild, 'roleRewards', roleRewards);
 		// eslint-disable-next-line max-len

@@ -26,7 +26,7 @@ export default class BlacklistStatusCommand extends Command {
 	}
 
 	public exec(message: Message, { user }: { user: User }) {
-		const blacklist = this.client.settings.get('global', 'blacklist', [] as string[]);
+		const blacklist = this.client.settings.get('global', 'blacklist', []);
 		const isBlacklisted = blacklist.includes(user.id);
 		const embed = new SpectreEmbed()
 			.setColor(isBlacklisted ? 'RED' : 'GREEN')
