@@ -1,4 +1,4 @@
-export default function paginate<T>(data: T[], maxLength: number): T[];
+export default function paginate<T>(data: T[], maxLength: number): T[][];
 export default function paginate<T>(
 	data: T[],
 	maxLength: number,
