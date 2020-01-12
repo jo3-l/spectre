@@ -7,8 +7,8 @@ export default class RichDisplay {
 	private readonly _timeout: number;
 	private _pages: SpectreEmbed[];
 	private _page = 0;
-	private _start: SpectreEmbed | number | null = null;
-	private _end: SpectreEmbed | number | null = null;
+	private _start: SpectreEmbed | null = null;
+	private _end: SpectreEmbed | null = null;
 	private readonly _channel: TextChannel;
 	private _message!: Message;
 
@@ -31,20 +31,23 @@ export default class RichDisplay {
 	}
 
 	public setStart(page: SpectreEmbed | number) {
-		if (typeof page === 'number' && this._pages[page]) {
-			this._start = page - 1;
+		if (typeof page === 'number' && this._pages[page - 1]) {
+			this._start = this._pages[page - 1];
 			this._page = page - 1;
 			return this;
 		}
+		if (typeof page === 'number') return this;
 		this._start = page;
 		return this;
 	}
 
 	public setEnd(page: SpectreEmbed | number) {
-		if (typeof page === 'number' && this._pages[page]) {
-			this._end = page;
+		if (typeof page === 'number' && this._pages[page - 1]) {
+			this._end = this._pages[page - 1];
+			this._page = page - 1;
 			return this;
 		}
+		if (typeof page === 'number') return this;
 		this._end = page;
 		return this;
 	}
@@ -57,9 +60,7 @@ export default class RichDisplay {
 
 	public async build() {
 		if (!this._pages.length) throw new Error('There must be at least 1 page to start the paginator.');
-		const message = await this._channel.send(typeof this._start === 'number'
-			? this._pages[this._start]
-			: this._start || this._pages[0]);
+		const message = await this._channel.send(this._start || this._pages[0]);
 		this._message = message;
 		for (const emoji of Object.values(this._emojis)) await message.react(emoji);
 		const collector = message.createReactionCollector(this._filter, { time: this._timeout });
@@ -77,7 +78,7 @@ export default class RichDisplay {
 					collector.stop();
 					break;
 				case this._emojis.next:
-					this.jump(++this._page);
+					if (this._pages[this._page + 1]) this.jump(++this._page);
 					break;
 				case this._emojis.last:
 					this.jump(this._pages.length - 1);
@@ -88,8 +89,7 @@ export default class RichDisplay {
 
 		collector.on('end', () => {
 			message.reactions.removeAll();
-			if (typeof this._end === 'number') message.edit(this._pages[this._end]);
-			else if (this._end) message.edit(this._end);
+			if (this._end) message.edit(this._end);
 		});
 	}
 }
