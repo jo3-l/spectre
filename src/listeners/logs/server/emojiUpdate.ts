@@ -21,7 +21,7 @@ export default class EmojiUpdateListener extends Listener {
 		const entry = await Log.getEntry(guild, 'EMOJI_UPDATE');
 		const executor = await Log.getExecutor({ guild, id: newEmoji.id }, 'EMOJI_UPDATE', entry);
 		const embed = new SpectreEmbed()
-			.setAuthor(`An emoji was renamed`, emojis.updateEmoji)
+			.setAuthor('An emoji was renamed', emojis.updateEmoji)
 			.setTimestamp()
 			.setFooter(`Emoji ID: ${newEmoji.id}`)
 			.setColor('ORANGE')
@@ -30,11 +30,11 @@ export default class EmojiUpdateListener extends Listener {
 				▫️ **Updated emoji name:** \`${newEmoji.name}\`
 				▫️ **Old emoji name:** \`${oldEmoji.name}\`
 				▫️ **Animated:** ${newEmoji.animated ? 'yes' : 'no'}
-				▫️ **URL:** [Emoji URL](${newEmoji.url})
+				▫️ **URL:** [Emoji URL](${newEmoji.url!})
 				${executor ? `▫️ **Updated by:** ${Log.formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
-			.setThumbnail(newEmoji.url);
+			.setThumbnail(newEmoji.url!);
 		channel.send(embed);
 	}
 }

@@ -19,7 +19,7 @@ export default class EmojiDeleteListener extends Listener {
 		const entry = await Log.getEntry(guild, 'EMOJI_DELETE');
 		const executor = await Log.getExecutor({ guild, id: emoji.id }, 'EMOJI_DELETE', entry);
 		const embed = new SpectreEmbed()
-			.setAuthor(`An emoji was deleted`, emojis.deleteEmoji)
+			.setAuthor('An emoji was deleted', emojis.deleteEmoji)
 			.setTimestamp()
 			.setFooter(`Emoji ID: ${emoji.id}`)
 			.setColor('RED')
@@ -27,12 +27,12 @@ export default class EmojiDeleteListener extends Listener {
 				▫️ **Emoji:** ${emoji}
 				▫️ **Emoji name:** \`${emoji.name}\`
 				▫️ **Animated:** ${emoji.animated ? 'yes' : 'no'}
-				▫️ **URL:** [View here](${emoji.url})
+				▫️ **URL:** [View here](${emoji.url!})
 				▫️ **Timestamp of creation:** ${Log.formatTime(emoji.createdAt!)}
 				${executor ? `▫️ **Deleted by:** ${Log.formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
-			.setThumbnail(emoji.url);
+			.setThumbnail(emoji.url!);
 		channel.send(embed);
 	}
 }
