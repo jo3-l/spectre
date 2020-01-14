@@ -5,7 +5,9 @@ interface StaticActivity {
 	activity: string;
 	options?: ActivityOptions;
 }
+
 type ActivityCastor = (client: AkairoClient) => StaticActivity;
+
 export type Activity = StaticActivity | ActivityCastor;
 
 export default class ActivityHandler {
@@ -20,7 +22,7 @@ export default class ActivityHandler {
 			: activity));
 	}
 
-	private get _next(): StaticActivity {
+	private get _next() {
 		return this.activities[++this._current % this.activities.length];
 	}
 
