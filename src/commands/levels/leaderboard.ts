@@ -5,8 +5,6 @@ import SpectreEmbed from '@structures/SpectreEmbed';
 import { calculateLevel } from '@util/Util';
 import RichDisplay from '@structures/RichDisplay';
 import paginate from '@util/paginate';
-import { stripIndents } from 'common-tags';
-import SpectreClient from '@root/src/client/SpectreClient';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {
@@ -44,7 +42,7 @@ export default class LeaderboardCommand extends Command {
 		});
 		if (!result.length) return message.util!.reply(`there are no ranked members on page ${page / 10}!`);
 		const pages = paginate(await Promise.all(
-			result.map((member, i) => this._formatEntry(this.client as SpectreClient, member, i)),
+			result.map(this._formatEntry.bind(this)),
 		), 10);
 
 		new RichDisplay({
@@ -61,12 +59,11 @@ export default class LeaderboardCommand extends Command {
 			.build();
 	}
 
-	private async _formatEntry(client: SpectreClient, { id, xp }: Member, index: number) {
-		const username = await client.users.fetch(id)
+	private async _formatEntry({ id, xp }: Member, index: number) {
+		const username = await this.client.users.fetch(id)
 			.then(user => user.tag)
 			.catch(() => `Unknown user (ID ${id})`);
-		return stripIndents`**${index + 1}.** [\`${username}\`](https://discordapp.com)
-			- \`Level ${calculateLevel(xp)}\` | \`${xp} XP\``;
+		return `**${index + 1}.** [\`${username}\`](https://discordapp.com) \n- \`Level ${calculateLevel(xp)}\` | \`${xp} XP\``;
 	}
 
 	private _getRange(page: number, totalEntries = 1000) {
