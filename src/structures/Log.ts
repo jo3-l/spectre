@@ -1,7 +1,6 @@
-import { GuildAuditLogsActions, Invite, TextChannel, User, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
+import { GuildAuditLogsActions, Invite, TextChannel, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
 import { Log } from './SettingsProvider';
 import SpectreClient from '../client/SpectreClient';
-import moment from 'moment';
 
 export const requiredPermissions: PermissionString[] = ['VIEW_AUDIT_LOG', 'EMBED_LINKS', 'MANAGE_WEBHOOKS'];
 
@@ -33,14 +32,6 @@ export default {
 		if (!entry || !entry.target || Math.abs(Date.now() - entry.createdTimestamp) > 5000 ||
 			(!(entry.target instanceof Invite) && entry.target.id !== id)) return;
 		return entry.executor;
-	},
-
-	formatUser(user: User) {
-		return `${user.tag} (${user.id})`;
-	},
-
-	formatTime(time: Date = new Date()) {
-		return moment.utc(time).format('YYYY/MM/DD HH:mm:ss [(UTC)]');
 	},
 };
 

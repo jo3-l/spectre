@@ -1,7 +1,7 @@
 import Log, { emojis } from '@structures/Log';
 import { VoiceState } from 'discord.js';
 import { Listener } from 'discord-akairo';
-import { removeBlankLines } from '@util/Util';
+import { removeBlankLines, formatUser } from '@util/Util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class VoiceStateUpdateListener extends Listener {
@@ -26,7 +26,7 @@ export default class VoiceStateUpdateListener extends Listener {
 					.setColor('GREEN')
 					.setTimestamp()
 					.setDescription(removeBlankLines`
-						▫️ **Member:** ${Log.formatUser(user)}
+						▫️ **Member:** ${formatUser(user)}
 						▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 					`);
 				return channel.send(embed);
@@ -37,7 +37,7 @@ export default class VoiceStateUpdateListener extends Listener {
 				.setColor('RED')
 				.setTimestamp()
 				.setDescription(removeBlankLines`
-						▫️ **Member:** ${Log.formatUser(user)}
+						▫️ **Member:** ${formatUser(user)}
 						▫️ **Old voice channel:** ${oldState.channel!} (${oldState.channel!.id})
 					`);
 			return channel.send(embed);
@@ -50,7 +50,7 @@ export default class VoiceStateUpdateListener extends Listener {
 				.setTimestamp()
 				.setFooter(`User ID: ${user.id}`)
 				.setDescription(`
-					▫️ **Member:** ${Log.formatUser(user)}
+					▫️ **Member:** ${formatUser(user)}
 					▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 				`);
 			return channel.send(embed);
@@ -63,7 +63,7 @@ export default class VoiceStateUpdateListener extends Listener {
 				.setTimestamp()
 				.setFooter(`User ID: ${user.id}`)
 				.setDescription(`
-					▫️ **Member:** ${Log.formatUser(user)}
+					▫️ **Member:** ${formatUser(user)}
 					▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 				`);
 			return channel.send(embed);
@@ -75,7 +75,7 @@ export default class VoiceStateUpdateListener extends Listener {
 				.setTimestamp()
 				.setFooter(`User ID: ${user.id}`)
 				.setDescription(`
-					▫️ **Member:** ${Log.formatUser(user)}
+					▫️ **Member:** ${formatUser(user)}
 					▫️ **Voice channel:** ${newState.channel} (${newState.channel!.id})
 				`);
 			return channel.send(embed);

@@ -2,6 +2,7 @@ import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
 import { GuildEmoji } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatUser } from '@util/Util';
 
 export default class EmojiUpdateListener extends Listener {
 	public constructor() {
@@ -31,7 +32,7 @@ export default class EmojiUpdateListener extends Listener {
 				▫️ **Old emoji name:** \`${oldEmoji.name}\`
 				▫️ **Animated:** ${newEmoji.animated ? 'yes' : 'no'}
 				▫️ **URL:** [Emoji URL](${newEmoji.url!})
-				${executor ? `▫️ **Updated by:** ${Log.formatUser(executor)}` : ''}
+				${executor ? `▫️ **Updated by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
 			.setThumbnail(newEmoji.url!);

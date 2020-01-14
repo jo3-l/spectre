@@ -2,6 +2,7 @@ import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
 import { Guild, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatUser } from '@util/Util';
 
 export default class GuildBanRemoveListener extends Listener {
 	public constructor() {
@@ -21,7 +22,7 @@ export default class GuildBanRemoveListener extends Listener {
 			.setAuthor(`${user.tag} was unbanned`, emojis.all)
 			.setColor('GREEN')
 			.setDescription(`
-				▫️ **Unbanned by:** ${executor ? Log.formatUser(executor) : 'Unknown#????'}
+				▫️ **Unbanned by:** ${executor ? formatUser(executor) : 'Unknown#????'}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
 			.setFooter(`User ID: ${user.id}`)

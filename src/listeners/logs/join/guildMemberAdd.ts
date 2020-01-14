@@ -2,6 +2,7 @@ import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
 import { GuildMember, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatTime, formatUser } from '@util/Util';
 
 export default class GuildMemberAddListener extends Listener {
 	public constructor() {
@@ -22,10 +23,10 @@ export default class GuildMemberAddListener extends Listener {
 			.setAuthor(`${user.tag} joined`, emojis.addMember)
 			.setColor('GREEN')
 			.setDescription(`
-				▫️ **Account created at:** ${Log.formatTime(user.createdAt)}
+				▫️ **Account created at:** ${formatTime(user.createdAt)}
 				▫️ **Avatar URL:** [View here](${user.displayAvatarURL()})
 				▫️ **Bot account:** ${user.bot ? 'yes' : 'no'}
-				${executor ? `▫️ **Invited by:** ${Log.formatUser(executor)}` : ''}
+				${executor ? `▫️ **Invited by:** ${formatUser(executor)}` : ''}
 				▫️ **Membercount:** ${guild.memberCount}
 			`)
 			.setFooter(`User ID: ${user.id}`)

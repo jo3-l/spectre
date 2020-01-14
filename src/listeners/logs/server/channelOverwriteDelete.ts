@@ -2,7 +2,7 @@ import { Listener } from 'discord-akairo';
 import { ChannelPermission } from './channelUpdate';
 import { GuildChannel } from 'discord.js';
 import Log, { emojis } from '@structures/Log';
-import { humanizePermissionName, removeBlankLines } from '@util/Util';
+import { humanizePermissionName, removeBlankLines, formatTime, formatUser } from '@util/Util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class ChannelOverwriteDeleteListener extends Listener {
@@ -33,8 +33,8 @@ export default class ChannelOverwriteDeleteListener extends Listener {
 			.setFooter(`Channel ID: ${channel.id}`)
 			.setDescription(removeBlankLines`
 				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (${channel.parentID})` : 'n/a'}
-				▫️ **Created at:** ${Log.formatTime(channel.createdAt)}
-				${executor ? `▫️ **Overwrites deleted by:** ${Log.formatUser(executor)}` : ''}
+				▫️ **Created at:** ${formatTime(channel.createdAt)}
+				${executor ? `▫️ **Overwrites deleted by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 				▫️ **Type:** \`${channel.type}\`
 				▫️ **Permission overwrites deleted:**

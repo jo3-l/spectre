@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
-import { PermissionString } from 'discord.js';
+import { PermissionString, User } from 'discord.js';
 import { TemplateTag, replaceResultTransformer } from 'common-tags';
+import moment from 'moment';
 
 export function ordinal(cardinal: number) {
 	const cent = cardinal % 100;
@@ -16,6 +17,10 @@ export function ordinal(cardinal: number) {
 }
 
 export const escapeAllMentions = (str: string) => str.replace(/@/g, `@${String.fromCharCode(8203)}`);
+
+export const formatUser = (user: User) => `${user.tag} (${user.id})`;
+
+export const formatTime = (time = new Date()) => moment.utc(time).format('YYYY/MM/DD HH:mm:ss [(UTC)]');
 
 export async function hastebin(content: string, {
 	url = 'https://hasteb.in', extension = 'js',

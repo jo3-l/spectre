@@ -1,5 +1,5 @@
 import Log, { emojis } from '@structures/Log';
-import { removeBlankLines } from '@util/Util';
+import { removeBlankLines, formatUser, formatTime } from '@util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildMember } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
@@ -23,10 +23,10 @@ export default class GuildMemberRemoveListener extends Listener {
 			.setAuthor(`${user.tag} ${executor ? 'was kicked' : 'left'}`, emojis.removeMember)
 			.setColor('RED')
 			.setDescription(removeBlankLines`
-					${executor ? `**▫️ Kicked by:** ${Log.formatUser(executor)}` : ''}
+					${executor ? `**▫️ Kicked by:** ${formatUser(executor)}` : ''}
 					${executor && entry?.reason ? `**▫️ Reason:** ${entry.reason}` : ''}
-					▫️ **Account created at:** ${Log.formatTime(user.createdAt)}
-					▫️ **Joined guild at:** ${Log.formatTime(member.joinedAt!)}
+					▫️ **Account created at:** ${formatTime(user.createdAt)}
+					▫️ **Joined guild at:** ${formatTime(member.joinedAt!)}
 					▫️ **Avatar URL:** [View here](${user.displayAvatarURL()})
 					▫️ **Bot account:** ${user.bot ? 'yes' : 'no'}
 					▫️ **Membercount:** ${guild.memberCount}

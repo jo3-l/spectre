@@ -1,5 +1,5 @@
 import Log, { emojis } from '@structures/Log';
-import { removeBlankLines, humanizePermissionName } from '@util/Util';
+import { removeBlankLines, humanizePermissionName, formatUser } from '@util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildMember, PermissionString } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
@@ -24,11 +24,11 @@ export default class GuildMemberUpdateListener extends Listener {
 				.setAuthor(`${user.tag}'s nickname was changed`, user.displayAvatarURL())
 				.setColor('ORANGE')
 				.setDescription(removeBlankLines`
-					▫️ **Changed by:** ${Log.formatUser(executor ?? user)}
+					▫️ **Changed by:** ${formatUser(executor ?? user)}
 					${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 					▫️ **Old nickname:** ${oldMember.displayName}
 					▫️ **New nickname:** ${newMember.displayName}
-					▫️ **Member:** ${Log.formatUser(user)}
+					▫️ **Member:** ${formatUser(user)}
 				`)
 				.setFooter(`User ID: ${user.id}`)
 				.setTimestamp();
@@ -65,10 +65,10 @@ export default class GuildMemberUpdateListener extends Listener {
 				.setFooter(`Member ID: ${user.id}`)
 				.setTimestamp()
 				.setDescription(removeBlankLines`
-					${executor ? `▫️ **${roleRemoved ? 'Removed' : 'Added'} by:** ${Log.formatUser(executor)}` : ''}
+					${executor ? `▫️ **${roleRemoved ? 'Removed' : 'Added'} by:** ${formatUser(executor)}` : ''}
 					${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 					▫️ **Role ${roleRemoved ? 'removed' : 'added'}:** ${role} (ID ${role.id})
-					▫️ **Member:** ${Log.formatUser(user)}
+					▫️ **Member:** ${formatUser(user)}
 					${perms}
 				`);
 			channel.send(embed);

@@ -4,6 +4,7 @@ import { Guild } from 'discord.js';
 import ms from 'ms';
 import { humanizedRegions, verificationLevels } from '../../../commands/tools/info/serverinfo';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatUser } from '@util/Util';
 
 export default class GuildUpdateListener extends Listener {
 	public constructor() {
@@ -52,8 +53,8 @@ export default class GuildUpdateListener extends Listener {
 			change = 'explicit content filter';
 		} else if (oldGuild.ownerID !== newGuild.ownerID) {
 			executor = await this.client.users.fetch(oldGuild.ownerID);
-			before = Log.formatUser(executor);
-			after = Log.formatUser(await this.client.users.fetch(newGuild.ownerID)!);
+			before = formatUser(executor);
+			after = formatUser(await this.client.users.fetch(newGuild.ownerID)!);
 			change = 'owner';
 			// eslint-disable-next-line no-negated-condition
 		} else if (oldGuild.region !== newGuild.region) {
@@ -67,7 +68,7 @@ export default class GuildUpdateListener extends Listener {
 			.setTimestamp()
 			.setColor('ORANGE')
 			.setDescription(`
-				${executor ? `▫️ **Updated by:** ${Log.formatUser(executor)}` : ''}
+				${executor ? `▫️ **Updated by:** ${formatUser(executor)}` : ''}
 				▫️ **Old ${change}:** ${before}
 				▫️ **New ${change}:** ${after}
 			`);

@@ -2,6 +2,7 @@ import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
 import { GuildEmoji } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatTime, formatUser } from '@util/Util';
 
 export default class EmojiDeleteListener extends Listener {
 	public constructor() {
@@ -28,8 +29,8 @@ export default class EmojiDeleteListener extends Listener {
 				▫️ **Emoji name:** \`${emoji.name}\`
 				▫️ **Animated:** ${emoji.animated ? 'yes' : 'no'}
 				▫️ **URL:** [View here](${emoji.url!})
-				▫️ **Timestamp of creation:** ${Log.formatTime(emoji.createdAt!)}
-				${executor ? `▫️ **Deleted by:** ${Log.formatUser(executor)}` : ''}
+				▫️ **Timestamp of creation:** ${formatTime(emoji.createdAt!)}
+				${executor ? `▫️ **Deleted by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
 			.setThumbnail(emoji.url!);

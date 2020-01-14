@@ -1,5 +1,5 @@
 import Log, { emojis } from '@structures/Log';
-import { escapedCodeblock } from '@util/Util';
+import { escapedCodeblock, formatTime, formatUser } from '@util/Util';
 import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
@@ -26,9 +26,9 @@ export default class MessageUpdateListener extends Listener {
 			.setFooter(`Message ID: ${newMessage.id}`)
 			.setTimestamp()
 			.setDescription(`
-				▫️ **Message initially sent at:** ${Log.formatTime(oldMessage.createdAt)}
-				▫️ **Message edited at:** ${Log.formatTime(newMessage.editedAt!)}
-				▫️ **Message author:** ${Log.formatUser(newMessage.author)}
+				▫️ **Message initially sent at:** ${formatTime(oldMessage.createdAt)}
+				▫️ **Message edited at:** ${formatTime(newMessage.editedAt!)}
+				▫️ **Message author:** ${formatUser(newMessage.author)}
 				${oldContentDisplay.length < 900 ? `▫️ **Before:** ${oldContentDisplay}` : ''}
 				${newContentDisplay.length < 900 ? `▫️ **After:** ${newContentDisplay}` : ''}
 			`);

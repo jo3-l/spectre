@@ -2,7 +2,7 @@ import { Listener } from 'discord-akairo';
 import { Role } from 'discord.js';
 import Log, { emojis } from '@structures/Log';
 import { stringify } from 'querystring';
-import { removeBlankLines } from '@util/Util';
+import { removeBlankLines, formatTime, formatUser } from '@util/Util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleDeleteListener extends Listener {
@@ -26,13 +26,13 @@ export default class RoleDeleteListener extends Listener {
 			.setFooter(`Role ID: ${role.id}`)
 			.setColor('RED')
 			.setDescription(removeBlankLines`
-				${executor ? `▫️ **Deleted by:** ${Log.formatUser(executor)}` : ''}
+				${executor ? `▫️ **Deleted by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 				▫️ **Role:** \`${role.name}\` (${role.id})
 				▫️ **Color:** ${role.color ? role.hexColor : 'Default color'}
 				▫️ **Mentionable:** ${role.mentionable ? 'yes' : 'no'}
 				▫️ **Hoisted:** ${role.hoist ? 'yes' : 'no'}
-				▫️ **Timestamp of creation:** ${Log.formatTime(role.createdAt)}
+				▫️ **Timestamp of creation:** ${formatTime(role.createdAt)}
 			`)
 			.setImage(`https://dummyimage.com/400/${role.hexColor.substr(1)}/ffffff/&${stringify({ text: 'Role color' })}`);
 		channel.send(embed);

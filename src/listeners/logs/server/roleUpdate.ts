@@ -2,7 +2,7 @@ import { Listener } from 'discord-akairo';
 import { Role } from 'discord.js';
 import Log, { emojis } from '@structures/Log';
 import { stringify } from 'querystring';
-import { removeBlankLines, humanizePermissionName } from '@util/Util';
+import { removeBlankLines, humanizePermissionName, formatUser, formatTime } from '@util/Util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleUpdateListener extends Listener {
@@ -59,7 +59,7 @@ export default class RoleUpdateListener extends Listener {
 		if (oldRole.mentionable !== newRole.mentionable) {
 			embed = new SpectreEmbed()
 				.setDescription(`
-					${executor ? `▫️ **${newRole.mentionable ? 'Enabled' : 'Disabled'} by:** ${Log.formatUser(executor)}` : ''}
+					${executor ? `▫️ **${newRole.mentionable ? 'Enabled' : 'Disabled'} by:** ${formatUser(executor)}` : ''}
 				`)
 				.setColor(newRole.mentionable ? 'GREEN' : 'RED')
 				.setAuthor(`Role ${newRole.name} is ${newRole.mentionable ? 'now' : 'no longer'} mentionable`);
@@ -67,7 +67,7 @@ export default class RoleUpdateListener extends Listener {
 		if (oldRole.hoist !== newRole.hoist) {
 			embed = new SpectreEmbed()
 				.setDescription(`
-					${executor ? `▫️ **${newRole.hoist ? 'Enabled' : 'Disabled'} by:** ${Log.formatUser(executor)}` : ''}
+					${executor ? `▫️ **${newRole.hoist ? 'Enabled' : 'Disabled'} by:** ${formatUser(executor)}` : ''}
 				`)
 				.setColor(newRole.hoist ? 'GREEN' : 'RED')
 				.setAuthor(`Role ${newRole.name} is ${newRole.hoist ? 'now' : 'no longer'} hoisted`);
@@ -89,9 +89,9 @@ export default class RoleUpdateListener extends Listener {
 		if (!embed) return;
 		const condition = oldRole.mentionable === newRole.mentionable && oldRole.hoist === newRole.hoist;
 		embed.description = removeBlankLines`
-				${(executor && condition) ? `▫️ **Updated by:** ${Log.formatUser(executor)}` : ''}
+				${(executor && condition) ? `▫️ **Updated by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
-				▫️ **Timestamp of creation:** ${Log.formatTime(newRole.createdAt)}
+				▫️ **Timestamp of creation:** ${formatTime(newRole.createdAt)}
 				${embed.description}
 			`;
 		embed.author!.iconURL = emojis.updateRole;

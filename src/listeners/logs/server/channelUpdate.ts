@@ -1,5 +1,5 @@
 import Log, { emojis } from '@structures/Log';
-import { removeBlankLines } from '@util/Util';
+import { removeBlankLines, formatTime, formatUser } from '@util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildChannel, DMChannel, PermissionString, Guild, TextChannel, Permissions, User, Role } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
@@ -79,8 +79,8 @@ export default class ChannelUpdateListener extends Listener {
 			.setFooter(`Channel ID: ${newChannel.id}`)
 			.setDescription(removeBlankLines`
 					▫️ **Parent channel:** ${newChannel.parent ? `${newChannel.parent} (${newChannel.parentID})` : 'n/a'}
-					▫️ **Created at:** ${Log.formatTime(newChannel.createdAt)}
-					${executor ? `▫️ **Updated by:** ${Log.formatUser(executor)}` : ''}
+					▫️ **Created at:** ${formatTime(newChannel.createdAt)}
+					${executor ? `▫️ **Updated by:** ${formatUser(executor)}` : ''}
 					${nameChange}
 					${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 					${topicChange}

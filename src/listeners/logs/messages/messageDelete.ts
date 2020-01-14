@@ -1,5 +1,5 @@
 import Log, { emojis } from '@structures/Log';
-import { escapedCodeblock } from '@util/Util';
+import { escapedCodeblock, formatUser, formatTime } from '@util/Util';
 import { Listener } from 'discord-akairo';
 import { Message, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
@@ -33,10 +33,10 @@ export default class MessageDeleteListener extends Listener {
 			.setTimestamp()
 			.setFooter(`Message ID: ${message.id}`)
 			.setDescription(`
-				▫️ **Deleted by:** ${Log.formatUser(executor)}
-				▫️ **Timestamp of message:** ${Log.formatTime(message.createdAt)}
+				▫️ **Deleted by:** ${formatUser(executor)}
+				▫️ **Timestamp of message:** ${formatTime(message.createdAt)}
 				▫️ **Channel:** ${message.channel} (${message.channel.id})
-				▫️ **Message author:** ${Log.formatUser(message.author)}
+				▫️ **Message author:** ${formatUser(message.author)}
 				▫️ **Message content:** ${content.length < 1800 ? content : ''}
 			`);
 		if (message.attachments.size) {

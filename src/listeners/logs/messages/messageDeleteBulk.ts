@@ -3,6 +3,7 @@ import { Listener } from 'discord-akairo';
 import { Message, Collection, Snowflake, TextChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatTime, formatUser } from '@util/Util';
 
 export default class MessageDeleteBulkListener extends Listener {
 	public constructor() {
@@ -32,7 +33,7 @@ export default class MessageDeleteBulkListener extends Listener {
 				attachment: Buffer.from(
 					messages
 						.map(msg =>
-							stripIndents`[${Log.formatTime(msg.createdAt)}] ${Log.formatUser(msg.author)}: ${msg.content}
+							stripIndents`[${formatTime(msg.createdAt)}] ${formatUser(msg.author)}: ${msg.content}
 							${msg.attachments.first()?.proxyURL ?? ''}`)
 						.reverse()
 						.join('\r\n'), 'utf8',

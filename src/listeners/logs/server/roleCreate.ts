@@ -2,7 +2,7 @@ import { Listener } from 'discord-akairo';
 import { Role } from 'discord.js';
 import Log, { emojis } from '@structures/Log';
 import { stringify } from 'querystring';
-import { removeBlankLines } from '@util/Util';
+import { removeBlankLines, formatTime, formatUser } from '@util/Util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleCreateListener extends Listener {
@@ -26,14 +26,14 @@ export default class RoleCreateListener extends Listener {
 			.setFooter(`Role ID: ${role.id}`)
 			.setColor('GREEN')
 			.setDescription(removeBlankLines`
-				${executor ? `▫️ **Created by:** ${Log.formatUser(executor)}` : ''}
+				${executor ? `▫️ **Created by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 				▫️ **Role:** \`${role.name}\` (${role.id})
 				▫️ **Color:** ${role.color ? role.hexColor : 'Default color'}
 				▫️ **Mentionable:** ${role.mentionable ? 'yes' : 'no'}
 				▫️ **Hoisted:** ${role.hoist ? 'yes' : 'no'}
 				▫️ **Role position:** ${Math.abs(role.position - guild.roles.size)}
-				▫️ **Timestamp of creation:** ${Log.formatTime(role.createdAt)}
+				▫️ **Timestamp of creation:** ${formatTime(role.createdAt)}
 			`)
 			.setThumbnail(`https://dummyimage.com/500/${role.hexColor.substr(1)}/ffffff/&${stringify({ text: 'Role color' })}`);
 		channel.send(embed);

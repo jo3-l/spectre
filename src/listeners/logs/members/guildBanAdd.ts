@@ -2,6 +2,7 @@ import Log, { emojis } from '@structures/Log';
 import { Listener } from 'discord-akairo';
 import { Guild, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { formatUser } from '@util/Util';
 
 export default class GuildBanAddListener extends Listener {
 	public constructor() {
@@ -21,7 +22,7 @@ export default class GuildBanAddListener extends Listener {
 			.setAuthor(`${user.tag} was banned`, emojis.all)
 			.setColor('RED')
 			.setDescription(`
-				▫️ **Banned by:** ${executor ? Log.formatUser(executor) : 'Unknown#????'}
+				▫️ **Banned by:** ${executor ? formatUser(executor) : 'Unknown#????'}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
 			.setFooter(`User ID: ${user.id}`)

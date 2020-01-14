@@ -1,5 +1,5 @@
 import Log, { emojis } from '@structures/Log';
-import { removeBlankLines } from '@util/Util';
+import { removeBlankLines, formatTime, formatUser } from '@util/Util';
 import { Listener } from 'discord-akairo';
 import { GuildChannel, DMChannel } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
@@ -25,8 +25,8 @@ export default class ChannelDeleteListener extends Listener {
 			.setColor('RED')
 			.setDescription(removeBlankLines`
 				▫️ **Parent channel:** ${channel.parent ? `${channel.parent} (${channel.parentID})` : 'n/a'}
-				▫️ **Created at:** ${Log.formatTime(channel.createdAt)}
-				${executor ? `▫️ **Deleted by:** ${Log.formatUser(executor)}` : ''}
+				▫️ **Created at:** ${formatTime(channel.createdAt)}
+				${executor ? `▫️ **Deleted by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 				▫️ **Type:** \`${channel.type}\`
 			`)
