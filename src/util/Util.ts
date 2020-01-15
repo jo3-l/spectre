@@ -3,6 +3,7 @@ import { PermissionString, User } from 'discord.js';
 import { TemplateTag, replaceResultTransformer } from 'common-tags';
 import moment from 'moment';
 
+/* Utilies for strings */
 export function ordinal(cardinal: number) {
 	const cent = cardinal % 100;
 	const dec = cardinal % 10;
@@ -21,24 +22,6 @@ export const escapeAllMentions = (str: string) => str.replace(/@/g, `@${String.f
 export const formatUser = (user: User) => `${user.tag} (${user.id})`;
 
 export const formatTime = (time = new Date()) => moment.utc(time).format('YYYY/MM/DD HH:mm:ss [(UTC)]');
-
-export async function hastebin(content: string, {
-	url = 'https://hasteb.in', extension = 'js',
-} = { url: 'https://hasteb.in', extension: 'js' }) {
-	const res = await fetch(`${url}/documents`, {
-		method: 'POST',
-		body: content,
-		headers: { 'Content-Type': 'text/plain' },
-	});
-
-	if (!res.ok) throw new Error(res.statusText);
-	const { key } = await res.json() as { key: string };
-	return `${url}/${key}.${extension}`;
-}
-
-export const calculateLevel = (xp: number) => Math.floor(0.1 * Math.sqrt(xp));
-
-export const calculateXp = (level: number) => Math.floor(100 * (level ** 2));
 
 export const codeblock = (content: string, lang = '') => (
 	`\`\`\`${lang}\n${content}\`\`\``
@@ -76,6 +59,26 @@ export const removeBlankLines = new TemplateTag(
 	replaceResultTransformer(/^\s*[\r\n]/gm, ''),
 );
 
+export async function hastebin(content: string, {
+	url = 'https://hasteb.in', extension = 'js',
+} = { url: 'https://hasteb.in', extension: 'js' }) {
+	const res = await fetch(`${url}/documents`, {
+		method: 'POST',
+		body: content,
+		headers: { 'Content-Type': 'text/plain' },
+	});
+
+	if (!res.ok) throw new Error(res.statusText);
+	const { key } = await res.json() as { key: string };
+	return `${url}/${key}.${extension}`;
+}
+
+/* Level utilities */
+export const calculateLevel = (xp: number) => Math.floor(0.1 * Math.sqrt(xp));
+
+export const calculateXp = (level: number) => Math.floor(100 * (level ** 2));
+
+/* Misc utilities */
 export const emojis = {
 	'a': '🇦', 'b': '🇧', 'c': '🇨', 'd': '🇩',
 	'e': '🇪', 'f': '🇫', 'g': '🇬', 'h': '🇭',
