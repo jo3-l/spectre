@@ -31,7 +31,7 @@ export default class TriviaCommand extends Command {
 		let answers = trivia.incorrect_answers;
 		answers.push(trivia.correct_answer);
 		answers = answers.sort();
-		const front = answers.map((answer, i) => `**${i + 1}.** *${answer}*`).join('\n');
+		const possibleAnswers = answers.map((answer, i) => `**${i + 1}.** *${answer}*`).join('\n');
 		const time = 25e3;
 
 		message.util!.send(new SpectreEmbed()
@@ -40,7 +40,7 @@ export default class TriviaCommand extends Command {
 			.setDescription(stripIndents`**${trivia.question}**
 				*Please choose an answer within ${time / 1000}s.*
 				
-				${front}`)
+				${possibleAnswers}`)
 			.addField('❯ Difficulty', `\`${capitalize(trivia.difficulty)}\``, true)
 			.addField('❯ Category', `\`${trivia.category}\``, true)
 			.setFooter('💡 Tip: You can use either the number or the word to answer!'));
