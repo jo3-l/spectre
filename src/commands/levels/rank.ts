@@ -9,15 +9,16 @@ import { format as d3format } from 'd3-format';
 const format = (number: number) => number > 999 ? d3format('.3s')(number) : number;
 const toPercentage = (current: number, total: number) => Math.round(current / total * 640);
 
-enum STATUS_COLORS {
+enum statusColors {
 	online = '#438581',
 	dnd = '#F04747',
 	idle = '#FAA61A',
 	offline = '#747F8D',
 }
-enum FONTS {
-	LUCIDA_SANS = '24px Lucida Sans',
-	CENTURY_GOTHIC = '50px Century Gothic',
+
+enum fonts {
+	lucidaSans = '24px Lucida Sans',
+	centuryGothic = '50px Century Gothic',
 }
 
 
@@ -86,27 +87,27 @@ export default class RankCommand extends Command {
 			.addCircularImage(avatar, 141, 141, 80)
 			.setColor('#000000')
 			.addCircle(184, 194, 24)
-			.setColor(STATUS_COLORS[user.presence.status])
+			.setColor(statusColors[user.presence.status])
 			.addCircle(184, 194, 20)
 			.setColor(`#${color}`)
-			.setTextFont(FONTS.CENTURY_GOTHIC)
+			.setTextFont(fonts.centuryGothic)
 			.setTextAlign('right')
 			.addText(level, 870, 100)
 			.measureText(level, size => correctX = 865 - size.width)
-			.setTextFont(FONTS.LUCIDA_SANS)
+			.setTextFont(fonts.lucidaSans)
 			.addText('LEVEL', correctX, 100)
 			.measureText('LEVEL', size => correctX -= size.width + 20)
-			.setTextFont(FONTS.CENTURY_GOTHIC)
+			.setTextFont(fonts.centuryGothic)
 			.setColor('#FFFFFF')
 			.addText(`#${format(Number(rank))}`, correctX, 100)
 			.measureText(`#${format(Number(rank))}`, size => correctX -= size.width + 5)
-			.setTextFont(FONTS.LUCIDA_SANS)
+			.setTextFont(fonts.lucidaSans)
 			.addText('RANK', correctX, 100)
 			.setTextSize(38)
 			.setTextAlign('start')
 			.addResponsiveText(user.username, 260, 160, 322)
 			.measureText(user.username, ({ width }: TextMetrics) => correctX = width)
-			.setTextFont(FONTS.LUCIDA_SANS)
+			.setTextFont(fonts.lucidaSans)
 			.setColor('#7F8384')
 			.addText(`#${user.discriminator}`, correctX + 265, 160)
 			.setTextSize(24)
