@@ -31,11 +31,11 @@ export default class EmojiUpdateListener extends Listener {
 				▫️ **Updated emoji name:** \`${newEmoji.name}\`
 				▫️ **Old emoji name:** \`${oldEmoji.name}\`
 				▫️ **Animated:** ${newEmoji.animated ? 'yes' : 'no'}
-				▫️ **URL:** [Emoji URL](${newEmoji.url!})
+				▫️ **URL:** [Emoji URL](${newEmoji.url})
 				${executor ? `▫️ **Updated by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
-			.setThumbnail(newEmoji.url!);
+			.setThumbnail(newEmoji.url);
 		channel.send(embed);
 	}
 }

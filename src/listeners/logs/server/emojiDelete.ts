@@ -28,12 +28,12 @@ export default class EmojiDeleteListener extends Listener {
 				▫️ **Emoji:** ${emoji}
 				▫️ **Emoji name:** \`${emoji.name}\`
 				▫️ **Animated:** ${emoji.animated ? 'yes' : 'no'}
-				▫️ **URL:** [View here](${emoji.url!})
+				▫️ **URL:** [View here](${emoji.url})
 				▫️ **Timestamp of creation:** ${formatTime(emoji.createdAt!)}
 				${executor ? `▫️ **Deleted by:** ${formatUser(executor)}` : ''}
 				${entry?.reason ? `▫️ **Reason:** ${entry.reason}` : ''}
 			`)
-			.setThumbnail(emoji.url!);
+			.setThumbnail(emoji.url);
 		channel.send(embed);
 	}
 }
