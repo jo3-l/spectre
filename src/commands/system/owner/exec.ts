@@ -5,6 +5,7 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { hastebin, escapedCodeblock } from '@util/Util';
 import Timer from '@util/Timer';
+
 const execAsync = promisify(exec);
 
 export default class ExecCommand extends Command {
@@ -23,10 +24,10 @@ export default class ExecCommand extends Command {
 				{
 					'id': 'timeout',
 					'match': 'option',
-					'type': Argument.compose('number', (_, int: unknown) => {
-						if (typeof int !== 'number') return;
-						return int >= 1 && int <= 60 ? int * 1000 : null;
-					}),
+					'type': Argument.compose(
+						Argument.range('number', 0, 60, true),
+						(_, num: unknown) => num as number * 10,
+					),
 					'flag': ['-t', '--timeout'],
 					'unordered': true,
 					'default': 5000,
@@ -47,7 +48,10 @@ export default class ExecCommand extends Command {
 		await message.util!.send(`${this.client.emojis.loading} Waiting for response...`);
 		const timer = new Timer();
 		const result = await execAsync(expr, { timeout })
-			.catch(error => ({ stdout: null, stderr: error.stderr }));
+			.catch(error => ({
+				stdout: null,
+				stderr: error.stderr,
+			}));
 		const { stdout, stderr } = result;
 		const ms = timer.stop();
 		if (!stdout && !stderr) return message.util!.send(`⏱ ${ms}ms\n\nThere was no output.`);
@@ -56,9 +60,9 @@ export default class ExecCommand extends Command {
 			.setDescription('')
 			.setColor(stderr ? this.client.config.color : 6398041)
 			.setFooter(`⏱ ${ms}ms`);
-		if (stdout) embed.addField('OUTPUT', await this._clean(stdout, 'Output'));
-		if (stderr) embed.addField('ERROR', await this._clean(stderr, 'Error'));
-		message.util!.send(embed.boldFields());
+		if (stdout) embed.addField('❯ Output', await this._clean(stdout, 'Output'));
+		if (stderr) embed.addField('❯ Error', await this._clean(stderr, 'Error'));
+		message.util!.send(embed);
 	}
 
 	private async _clean(text: any, name?: string) {

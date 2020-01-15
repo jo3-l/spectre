@@ -41,10 +41,9 @@ export default class TriviaCommand extends Command {
 				*Please choose an answer within ${time / 1000}s.*
 				
 				${front}`)
-			.addField('Difficulty', `\`${capitalize(trivia.difficulty)}\``, true)
-			.addField('Category', `\`${trivia.category}\``, true)
-			.setFooter('💡 Tip: You can use either the number or the word to answer!')
-			.boldFields());
+			.addField('❯ Difficulty', `\`${capitalize(trivia.difficulty)}\``, true)
+			.addField('❯ Category', `\`${trivia.category}\``, true)
+			.setFooter('💡 Tip: You can use either the number or the word to answer!'));
 
 		const validAnswers = [trivia.correct_answer.toLowerCase(), (answers.indexOf(trivia.correct_answer) + 1).toString()];
 		let choice: Message;

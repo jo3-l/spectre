@@ -28,7 +28,6 @@ export default class StatCommands extends Command {
 			.addField('❯ General Statistics', `• Guilds: ${this.client.guilds.size}\n• Channels: ${this.client.channels.size}`)
 			.addField('❯ Version', `v${this.client.version}`)
 			.addField('❯ Library', '[discord.js](https://discord.js.org)[-akairo](https://discord-akairo.github.io \'akairo\')')
-			.addField('❯ Github', 'Spectre is open-source! View it [here](https://github.com/Jo3-L/spectre).')
-			.boldFields());
+			.addField('❯ Github', 'Spectre is open-source! View it [here](https://github.com/Jo3-L/spectre).'));
 	}
 }

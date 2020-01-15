@@ -64,8 +64,7 @@ export default class ServerInfoCommand extends Command {
 			.addField('❯ Region', humanizedRegions[guild.region as keyof typeof humanizedRegions])
 			.addField('❯ Verification Level', verificationLevels[guild.verificationLevel])
 			.setFooter('Created at')
-			.setTimestamp(guild.createdAt)
-			.boldFields();
+			.setTimestamp(guild.createdAt);
 		message.util!.send(embed);
 	}
 }

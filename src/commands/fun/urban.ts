@@ -56,13 +56,12 @@ export default class UrbanDictionaryCommand extends Command {
 
 	private _buildEmbed({ definition, permalink, thumbs_up, thumbs_down, example, word, author }: Definition) {
 		return new SpectreEmbed()
-			.setTitle(`Definition for ${word}`)
+			.setTitle(`❯ Definition for ${word}`)
 			.setAuthor(author, '', `https://www.urbandictionary.com/author.php?${stringify({ author })}`)
 			.setURL(permalink)
 			.setFooter(`👍 ${thumbs_up} | 👎 ${thumbs_down}`)
 			.setDescription(trim(addLinks(definition), EmbedLimits.Description) || '*No definition was provided.*')
-			.addField('Example', trim(addLinks(example), EmbedLimits.FieldValue) || '*No example was provided.*')
-			.boldFields();
+			.addField('❯ Example', trim(addLinks(example), EmbedLimits.FieldValue) || '*No example was provided.*');
 	}
 }
 
