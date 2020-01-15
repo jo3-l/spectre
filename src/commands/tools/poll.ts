@@ -1,9 +1,10 @@
-import { Command } from 'discord-akairo';
+import { Command, Argument } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
-import { trim } from '@util/Util';
-const EMOJIS = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
+import { ordinal } from '@util/Util';
+
+const emojis = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
 
 export default class PollCommand extends Command {
 	public constructor() {
@@ -11,42 +12,45 @@ export default class PollCommand extends Command {
 			aliases: ['poll'],
 			category: 'Tools',
 			description: {
-				content: stripIndents`Creates a quick poll. You will be prompted for the answers individually.
-					**Note**: The question and the answers must be under 150 characters in length each!
-					
-					*You may also use the -s flag to mark the poll as simple with only a question and yes/no answers only.*`,
+				content: stripIndents`Creates a poll.
+					**Note**: The answers all must be under 150 characters in length!`,
 				usage: '<question> [...answers]',
-				examples: ['\'Do you like cats or dogs more?\'', 'sleep?'],
+				examples: ['"Do you like cats or dogs more?" cats dogs', 'sleep? "Yeah you should" "No you shouldn\'t"'],
 			},
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			args: [
-				{
-					id: 'question',
-					match: 'content',
-					prompt: { start: 'What question would you like to ask?' },
-				},
-				{
-					id: 'answers',
-					match: 'none',
-					prompt: {
-						start: stripIndents`What answers should be possible for the poll?
-						Type them in separate messages and type \`stop\` when finished.`,
-						infinite: true,
-					},
-				},
-			],
 		});
 	}
 
+	public *args() {
+		const tooLong = 'the answers must be under 150 characters each. Try again.';
+		const prompt = (num: number) => `what would you like the ${ordinal(num)} answer to be?`;
+		const question = yield {
+			type: Argument.validate('string', (_, str) => str.length < 240),
+			prompt: {
+				start: 'what would you like the question to be?',
+				retry: 'the question must be under 250 characters. Try again.',
+			},
+		};
+		const answers: string[] = [];
+		for (let i = 0; i < 10; i++) {
+			const answer = yield {
+				type: Argument.validate('string', (_, str) => str.length < 150),
+				prompt: i < 2 ? { start: prompt(i + 1), retry: tooLong } : { optional: true, start: tooLong, retry: tooLong },
+			};
+			if (answer) answers.push(answer);
+			else return { question, answers };
+		}
+		return { question, answers };
+	}
+
 	public async exec(message: Message, { question, answers }: { question: string; answers: string[] }) {
-		answers = answers.slice(0, 10);
 		message.channel.bulkDelete(message.util!.messages!);
-		const front = answers.reduce((res, cur, index) => res += `\n${EMOJIS[index]} ${trim(cur, 150)}`);
+		const possibleAnswers = answers.map((answer, i) => `${emojis[i]} ${answer}`).join('\n');
 		const embed = new SpectreEmbed()
-			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle(`Poll: ${trim(question, 240)}`)
-			.setDescription(`${EMOJIS[0]} ${front}`);
+			.setAuthor(message.author.tag, message.author.displayAvatarURL())
+			.setTitle(`❯ Poll: ${question}`)
+			.setDescription(possibleAnswers);
 		const msg = await message.util!.send(embed);
-		for (const EMOJI of EMOJIS.slice(0, answers.length)) await msg.react(EMOJI);
+		for (const EMOJI of emojis.slice(0, answers.length)) await msg.react(EMOJI);
 	}
 }
