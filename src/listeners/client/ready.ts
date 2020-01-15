@@ -33,13 +33,13 @@ export default class extends Listener {
 				|_|
 			`)}
 
-			Spectre has started, with ${bold(this.client.commandHandler.modules.size)} commands in ${bold(this.client.commandHandler.categories.size)} categories.
+			Spectre has started, with ${bold(this.client.commandHandler.modules.size)} commands in a total of ${bold(this.client.commandHandler.categories.size)} categories.
 			Below are some statistics:
 
 			${bold('• Mode:')} ${process.env.DEV ? 'Development' : 'Production'}
 			${bold('• Version:')} ${this.client.version}
 			${bold('• Guilds:')} ${this.client.guilds.size}
-			${bold('• Total Users:')} ${this.client.users.size}
+			${bold('• Total users:')} ${this.client.users.size}
 			${bold('• Bot instance:')} ${this.client.user!.tag}
 			${bold('• Bot instance owned by:')} ${owner}
 			${bold('• GitHub:')} https://github.com/jo3-l/spectre
