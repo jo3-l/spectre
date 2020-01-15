@@ -29,6 +29,7 @@ export default class MessageUpdateListener extends Listener {
 				▫️ **Message initially sent at:** ${formatTime(oldMessage.createdAt)}
 				▫️ **Message edited at:** ${formatTime(newMessage.editedAt!)}
 				▫️ **Message author:** ${formatUser(newMessage.author)}
+				▫️ **Message link:** [Click here](${newMessage.url})
 				${oldContentDisplay.length < 900 ? `▫️ **Before:** ${oldContentDisplay}` : ''}
 				${newContentDisplay.length < 900 ? `▫️ **After:** ${newContentDisplay}` : ''}
 			`);
