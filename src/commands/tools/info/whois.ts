@@ -1,5 +1,5 @@
 import { Command } from 'discord-akairo';
-import { Message, GuildMember, Activity } from 'discord.js';
+import { Message, GuildMember } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import moment from 'moment';
 import { commaListsAnd } from 'common-tags';
