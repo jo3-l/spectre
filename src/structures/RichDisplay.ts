@@ -7,7 +7,9 @@ export default class RichDisplay {
 	private readonly _timeout: number;
 	private _pages: SpectreEmbed[];
 	private _page = 0;
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly
 	private _start: SpectreEmbed | null = null;
+	// eslint-disable-next-line @typescript-eslint/prefer-readonly
 	private _end: SpectreEmbed | null = null;
 	private readonly _channel: TextChannel;
 	private _message!: Message;
@@ -25,30 +27,19 @@ export default class RichDisplay {
 		return this;
 	}
 
-	private jump(index: number) {
+	private _updatePage(index: number) {
 		if (this._page !== index) this._page = index;
 		this._message.edit(this._pages[index]);
 	}
 
-	public setStart(page: SpectreEmbed | number) {
+	public set(type: 'start' | 'end', page: SpectreEmbed | number) {
 		if (typeof page === 'number' && this._pages[page - 1]) {
-			this._start = this._pages[page - 1];
+			this[`_${type}` as '_start' | '_end'] = this._pages[page - 1];
 			this._page = page - 1;
 			return this;
 		}
-		if (typeof page === 'number') return this;
-		this._start = page;
-		return this;
-	}
-
-	public setEnd(page: SpectreEmbed | number) {
-		if (typeof page === 'number' && this._pages[page - 1]) {
-			this._end = this._pages[page - 1];
-			this._page = page - 1;
-			return this;
-		}
-		if (typeof page === 'number') return this;
-		this._end = page;
+		if (typeof page === 'number') throw new RangeError('The page provided was not in the pages set for this display.');
+		this[`_${type}` as '_start' | '_end'] = page;
 		return this;
 	}
 
@@ -68,20 +59,20 @@ export default class RichDisplay {
 		collector.on('collect', (reaction, user) => {
 			switch (reaction.emoji.name) {
 				case this._emojis.first:
-					this.jump(0);
+					this._updatePage(0);
 					break;
 				case this._emojis.prev:
-					if (this._pages[this._page - 1]) this.jump(--this._page);
+					if (this._pages[this._page - 1]) this._updatePage(--this._page);
 					break;
 				case this._emojis.stop:
 					message.reactions.removeAll();
 					collector.stop();
 					break;
 				case this._emojis.next:
-					if (this._pages[this._page + 1]) this.jump(++this._page);
+					if (this._pages[this._page + 1]) this._updatePage(++this._page);
 					break;
 				case this._emojis.last:
-					this.jump(this._pages.length - 1);
+					this._updatePage(this._pages.length - 1);
 					break;
 			}
 			message.reactions.get(reaction.emoji.name)!.users.remove(user.id);
