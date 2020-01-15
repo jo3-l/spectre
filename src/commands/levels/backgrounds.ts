@@ -31,12 +31,15 @@ export default class BackgroundsCommand extends Command {
 				retry: 'that was not a valid type of background.',
 			},
 		};
-		const relevantTypeCastor = Argument.range(
-			'integer', 0, this.client.assetHandler.filter(img => img.type === type).size, true,
+		const imageNumType = Argument.range(
+			'integer',
+			0,
+			this.client.assetHandler.filter(img => img.type === type).size,
+			true,
 		);
 		const number = yield {
 			id: 'number',
-			type: relevantTypeCastor,
+			type: imageNumType,
 			prompt: {
 				start: 'please provide a number to show.',
 				retry: 'that wasn\'t a valid number. Try again.',
@@ -64,7 +67,7 @@ export default class BackgroundsCommand extends Command {
 		}
 		display
 			.transformAll((page, index, length) => page.setFooter(`Background ${index + 1} of ${length} total`))
-			.setStart(number ?? 1)
+			.set('start', number ?? 1)
 			.build();
 	}
 }

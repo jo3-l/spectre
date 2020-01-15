@@ -55,7 +55,7 @@ export default class LeaderboardCommand extends Command {
 				.setURL('https://discordapp.com')
 				.setThumbnail(this.client.config.categoryImages.levels)
 				.setTitle('🏆 Leaderboard'))
-			.setStart(page / 10)
+			.set('start', page / 10)
 			.build();
 	}
 
