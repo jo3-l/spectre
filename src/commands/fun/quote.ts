@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
-const MESSAGE_LINK_REGEX = /https:\/\/(www\.)?(ptb\.|canary\.)?discordapp\.com\/channels\/(\d+)\/(\d+)\/(\d+)/;
+const MESSAGE_LINK_REGEX = /https:\/\/(?:www\.)?(?:ptb\.|canary\.)?discordapp\.com\/channels\/\d+\/(\d+)\/(\d+)/;
 
 export default class QuoteCommand extends Command {
 	public constructor() {
@@ -35,7 +35,7 @@ export default class QuoteCommand extends Command {
 
 	public async exec(message: Message, { match, msg }: { match?: RegExpMatchArray; msg?: Message }) {
 		if (!msg && match) {
-			const [channel, id] = match.slice(4);
+			const [, channel, id] = match;
 			if (!message.guild!.channels.has(channel)) return;
 			try { msg = await message.channel.messages.fetch(id); } catch { }
 		}
