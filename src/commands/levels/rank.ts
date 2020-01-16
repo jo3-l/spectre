@@ -21,7 +21,6 @@ enum fonts {
 	centuryGothic = '50px Century Gothic',
 }
 
-
 export default class RankCommand extends Command {
 	public constructor() {
 		super('rank', {
