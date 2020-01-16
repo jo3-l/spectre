@@ -1,6 +1,7 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 const base = 'logs';
 
@@ -8,7 +9,7 @@ export default class LoggingCommand extends Command {
 	public constructor() {
 		super('logging', {
 			aliases: ['logging', 'logs'],
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 			description: {
 				content: stripIndents`Command to help manage logging settings on the server.
 

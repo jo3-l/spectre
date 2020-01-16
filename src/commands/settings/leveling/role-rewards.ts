@@ -1,6 +1,7 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 const base = 'role-rewards';
 
@@ -8,7 +9,7 @@ export default class RoleRewardsCommand extends Command {
 	public constructor() {
 		super('role-rewards', {
 			aliases: ['role-rewards', 'rr'],
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 			description: {
 				content: stripIndents`Command to help manage role rewards / level settings on the server.
 

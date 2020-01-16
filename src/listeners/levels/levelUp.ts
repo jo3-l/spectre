@@ -8,7 +8,6 @@ export default class LevelUpListener extends Listener {
 		super('levelUp', {
 			emitter: 'client',
 			event: 'levelUp',
-			category: 'Levels',
 		});
 	}
 

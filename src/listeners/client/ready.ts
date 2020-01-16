@@ -8,7 +8,6 @@ export default class extends Listener {
 		super('ready', {
 			emitter: 'client',
 			event: 'ready',
-			category: 'Self',
 			type: 'once',
 		});
 	}

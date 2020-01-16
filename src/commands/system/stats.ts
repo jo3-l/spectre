@@ -3,12 +3,13 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { duration } from 'moment';
 import 'moment-duration-format';
+import { CATEGORIES } from '@util/Constants';
 
 export default class StatCommands extends Command {
 	public constructor() {
 		super('stats', {
 			aliases: ['stats', 'info'],
-			category: 'System',
+			category: CATEGORIES.SYSTEM,
 			description: {
 				content: 'Spectre statistics!',
 				examples: [''],

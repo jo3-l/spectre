@@ -2,11 +2,12 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { capitalize } from '@util/Util';
+import { CATEGORIES, CATEGORY_IMAGES } from '@util/Constants';
 
 export default class ViewRoleRewardsCommand extends Command {
 	public constructor() {
 		super('role-rewards-view', {
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 		});
 	}
 
@@ -21,7 +22,7 @@ export default class ViewRoleRewardsCommand extends Command {
 		const type = capitalize(this.client.settings.get(guild, 'rewardType', 'stack'));
 		const embed = new SpectreEmbed()
 			.setTitle('⚙️ Role Rewards')
-			.setThumbnail(this.client.config.categoryImages.levels)
+			.setThumbnail(CATEGORY_IMAGES[CATEGORIES.LEVELS])
 			.setDescription(`${data}\n\n*❯ *Role giving configuration:**\n${type}`)
 			.setFooter(guild.name);
 		return message.util!.send(embed);

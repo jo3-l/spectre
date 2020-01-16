@@ -1,11 +1,12 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 const TWITCH_URL_REGEX = /(https?:\/\/)?(www\.)?twitch\.tv\/\S+/;
 
 export default class SetStreamingCommand extends Command {
 	public constructor() {
 		super('set-streaming', {
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			optionFlags: ['--url', '-u'],
 		});
 	}

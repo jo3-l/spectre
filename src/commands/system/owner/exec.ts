@@ -5,6 +5,7 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { hastebin, escapedCodeblock } from '@util/Util';
 import Timer from '@util/Timer';
+import { CATEGORIES } from '@util/Constants';
 
 const execAsync = promisify(exec);
 
@@ -12,7 +13,7 @@ export default class ExecCommand extends Command {
 	public constructor() {
 		super('exec', {
 			aliases: ['exec'],
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			description: {
 				content: 'Executes an expression in the terminal. Set a timeout with `--timeout` (in seconds, max 60).',
 				usage: '<expression> [flags]',

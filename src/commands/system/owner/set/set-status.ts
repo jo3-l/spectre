@@ -1,10 +1,11 @@
 import { Command } from 'discord-akairo';
 import { Message, PresenceStatusData } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class SetStatusCommand extends Command {
 	public constructor() {
 		super('set-status', {
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			args: [
 				{
 					'id': 'status',

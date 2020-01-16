@@ -2,13 +2,14 @@ import { Command } from 'discord-akairo';
 import { Message, GuildMember, PermissionString, MessageEmbed, Permissions } from 'discord.js';
 import { humanizePermissionName } from '../../../util/Util';
 import { oneLineTrim } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 
 export default class ViewPermsCommand extends Command {
 	public constructor() {
 		super('view-perms', {
 			aliases: ['view-perms', 'permissions', 'perms'],
-			category: 'Info',
+			category: CATEGORIES.INFO,
 			description: {
 				content: 'A list of permissions for a given member (defaults to yourself).',
 				usage: '[member]',

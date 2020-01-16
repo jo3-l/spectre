@@ -5,6 +5,7 @@ import { stringify } from 'querystring';
 import fetch from 'node-fetch';
 import { capitalize } from '@util/Util';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 export default class TriviaCommand extends Command {
 	public constructor() {
@@ -15,7 +16,7 @@ export default class TriviaCommand extends Command {
 				usage: '',
 				examples: [''],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 		});
 	}

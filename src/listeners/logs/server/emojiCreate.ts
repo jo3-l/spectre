@@ -7,7 +7,6 @@ import { formatTime, formatUser } from '@util/Util';
 export default class EmojiCreateListener extends Listener {
 	public constructor() {
 		super('emojiCreate', {
-			category: 'Logs',
 			emitter: 'client',
 			event: 'emojiCreate',
 		});

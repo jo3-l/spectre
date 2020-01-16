@@ -1,11 +1,12 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 export default class SetTypeRoleRewardsCommand extends Command {
 	public constructor() {
 		super('role-rewards-set-type', {
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 			args: [
 				{
 					id: 'type',

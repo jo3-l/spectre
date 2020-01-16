@@ -2,6 +2,7 @@ import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import SpectreClient from '@root/src/client/SpectreClient';
+import { CATEGORIES } from '@util/Constants';
 
 const base = 'blacklist';
 
@@ -25,7 +26,7 @@ export default class BlacklistCommand extends Command {
 					'status 12345678',
 				],
 			},
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			ownerOnly: true,
 		});

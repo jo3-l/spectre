@@ -9,7 +9,6 @@ export default class ChannelCreateListener extends Listener {
 		super('channelCreate', {
 			emitter: 'client',
 			event: 'channelCreate',
-			category: 'Logs',
 		});
 	}
 

@@ -2,12 +2,13 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 export default class PingCommand extends Command {
 	public constructor() {
 		super('ping', {
 			aliases: ['ping', 'pong'],
-			category: 'System',
+			category: CATEGORIES.SYSTEM,
 			description: {
 				content: 'Check the latency of the bot.',
 				examples: [''],

@@ -1,12 +1,13 @@
 import { Command } from 'discord-akairo';
 import { scrapeSubreddit } from '@util/Reddit';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class ShowerThoughtsCommand extends Command {
 	public constructor() {
 		super('shower-thoughts', {
 			aliases: ['shower-thoughts', 'shower-thought'],
-			category: 'Reddit',
+			category: CATEGORIES.REDDIT,
 			clientPermissions: ['SEND_MESSAGES'],
 			description: {
 				content: 'Things to think about in the shower.',

@@ -1,10 +1,11 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class SetListeningCommand extends Command {
 	public constructor() {
 		super('set-listening', {
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			args: [{ id: 'status', match: 'content' }],
 		});
 	}

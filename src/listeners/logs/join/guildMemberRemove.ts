@@ -9,7 +9,6 @@ export default class GuildMemberRemoveListener extends Listener {
 		super('guildMemberRemove', {
 			emitter: 'client',
 			event: 'guildMemberRemove',
-			category: 'Logs',
 		});
 	}
 

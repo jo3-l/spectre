@@ -24,10 +24,12 @@ export default class ReloadCommand extends Command {
 	}
 
 	public *args(message: Message) {
-		const categoryTypeCastor = (_: Message, phrase: string) => this.handler.findCategory(phrase);
-		const moduleTypeCastor = Argument.union(['commands', 'inhibitors', 'listeners'],
-			categoryTypeCastor);
-		const fileTypeCastor = async (_: Message, phrase: string) => {
+		const categoryType = (_: Message, phrase: string) => this.handler.findCategory(phrase);
+		const moduleType = Argument.union(
+			['commands', 'inhibitors', 'listeners'],
+			categoryType,
+		);
+		const fileType = async (_: Message, phrase: string) => {
 			const BASE_URL = join(__dirname, '..', '..', '..');
 			const ext = __filename.endsWith('.ts') ? '.ts' : '.js';
 			const dir = join(BASE_URL, phrase.endsWith(ext) ? phrase : `${phrase}${ext}`);
@@ -39,13 +41,13 @@ export default class ReloadCommand extends Command {
 			? true
 			: yield { match: 'flag', flag: ['--all', '-a'], unordered: true };
 		if (all) {
-			const module = yield { type: moduleTypeCastor, unordered: true };
+			const module = yield { type: moduleType, unordered: true };
 			return { many: module };
 		}
-		const file = yield { type: fileTypeCastor, match: 'content' };
+		const file = yield { type: fileType, match: 'content' };
 		if (file) return { file };
 		const module = yield {
-			type: Argument.union('commandAlias', 'command', 'inhibitor', 'listener', categoryTypeCastor),
+			type: Argument.union('commandAlias', 'command', 'inhibitor', 'listener', categoryType),
 			match: 'content',
 			prompt: {
 				start: 'please provide a valid module to reload.',

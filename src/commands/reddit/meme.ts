@@ -1,12 +1,13 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { scrapeSubreddit } from '@util/Reddit';
+import { CATEGORIES } from '@util/Constants';
 
 export default class MemeCommand extends Command {
 	public constructor() {
 		super('meme', {
 			aliases: ['meme', 'random-meme', 'dankmeme'],
-			category: 'Reddit',
+			category: CATEGORIES.REDDIT,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			description: {
 				content: 'Fresh dank memes!',

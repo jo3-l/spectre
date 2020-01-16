@@ -5,6 +5,7 @@ import { stringify } from 'querystring';
 import RichDisplay from '@structures/RichDisplay';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { trim, EmbedLimits } from '@util/Util';
+import { CATEGORIES } from '@util/Constants';
 
 const addLinks = (str: string) => str
 	// eslint-disable-next-line max-len
@@ -19,7 +20,7 @@ export default class UrbanDictionaryCommand extends Command {
 				usage: '<term>',
 				examples: ['lmao'],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			channel: 'guild',
 			args: [

@@ -6,20 +6,23 @@ interface StaticActivity {
 	options?: ActivityOptions;
 }
 
-type ActivityCastor = (client: AkairoClient) => StaticActivity;
-
-export type Activity = StaticActivity | ActivityCastor;
+export type Activity = StaticActivity | ((client: AkairoClient) => StaticActivity);
 
 export default class ActivityHandler {
 	private _current = 0;
 	private _interval: NodeJS.Timeout | null = null;
 	public readonly activities: StaticActivity[];
 	public constructor(
-		private readonly client: AkairoClient, activities: Activity[], private readonly interval: number = 5 * 60000,
+		private readonly client: AkairoClient,
+		activities: Activity[],
+		private readonly interval: number = 5 * 60000,
 	) {
-		this.activities = activities.map((activity: Activity) => Object.assign({ type: 'PLAYING' }, typeof activity === 'function'
-			? activity(this.client)
-			: activity));
+		this.activities = activities.map(activity => (
+			Object.assign(
+				{ type: 'PLAYING' },
+				typeof activity === 'function' ? activity(this.client) : activity,
+			)
+		));
 	}
 
 	private get _next() {
@@ -27,7 +30,7 @@ export default class ActivityHandler {
 	}
 
 	public start() {
-		if (this._interval !== null) return;
+		if (this._interval) return;
 		const setActivity = () => {
 			const { activity, ...options } = this._next;
 			this.client.user!.setActivity(activity, options as ActivityOptions);
@@ -36,14 +39,10 @@ export default class ActivityHandler {
 		setActivity();
 	}
 
-	public stop() {
+	public set(activity: string, options?: ActivityOptions) {
+		this.client.user!.setActivity(activity, options);
 		if (!this._interval) return;
 		clearTimeout(this._interval);
 		this._interval = null;
-	}
-
-	public set(activity: string, options?: ActivityOptions) {
-		this.client.user!.setActivity(activity, options);
-		this.stop();
 	}
 }

@@ -7,7 +7,6 @@ import { formatUser } from '@util/Util';
 export default class EmojiUpdateListener extends Listener {
 	public constructor() {
 		super('emojiUpdate', {
-			category: 'Logs',
 			emitter: 'client',
 			event: 'emojiUpdate',
 		});

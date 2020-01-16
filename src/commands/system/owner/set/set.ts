@@ -1,6 +1,7 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 const base = 'set';
 
@@ -25,7 +26,7 @@ export default class SetCommand extends Command {
 					'status DND',
 				],
 			},
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			clientPermissions: ['SEND_MESSAGES'],
 			ownerOnly: true,
 		});

@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message, User, MessageReaction } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLine } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 const rpsData: Record<Choice, { counters: string; emoji: string }> = {
 	rock: {
@@ -27,7 +28,7 @@ export default class RockPaperScissorsCommand extends Command {
 				usage: '',
 				examples: [''],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS', 'MANAGE_MESSAGES'],
 		});
 	}

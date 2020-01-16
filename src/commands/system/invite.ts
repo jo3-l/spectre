@@ -1,12 +1,13 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/Constants';
 
 export default class InviteCommand extends Command {
 	public constructor() {
 		super('invite', {
 			aliases: ['invite', 'inv'],
-			category: 'System',
+			category: CATEGORIES.SYSTEM,
 			description: {
 				usage: '',
 				content: 'Sends a link to invite Spectre to your server.',

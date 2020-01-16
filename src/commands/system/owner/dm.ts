@@ -1,12 +1,13 @@
 /* eslint-disable promise/prefer-await-to-then */
 import { Command } from 'discord-akairo';
 import { User, Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class DmCommands extends Command {
 	public constructor() {
 		super('dm', {
 			aliases: ['dm'],
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			description: {
 				content: 'Owner-only command to DM a user.',
 				usage: '<user> <content>',

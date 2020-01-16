@@ -9,7 +9,6 @@ export default class ChannelDeleteListener extends Listener {
 		super('channelDelete', {
 			emitter: 'client',
 			event: 'channelDelete',
-			category: 'Logs',
 		});
 	}
 

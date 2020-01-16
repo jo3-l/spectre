@@ -2,11 +2,12 @@ import { Command } from 'discord-akairo';
 import { Message, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLine } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 export default class BlacklistStatusCommand extends Command {
 	public constructor() {
 		super('blacklist-status', {
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			args: [
 				{
 					id: 'user',

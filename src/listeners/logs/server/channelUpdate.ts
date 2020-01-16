@@ -21,7 +21,6 @@ export default class ChannelUpdateListener extends Listener {
 		super('channelUpdate', {
 			emitter: 'client',
 			event: 'channelUpdate',
-			category: 'Logs',
 		});
 	}
 

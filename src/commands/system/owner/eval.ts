@@ -7,6 +7,7 @@ import { inspect } from 'util';
 import fetch from 'node-fetch';
 import { stripIndents } from 'common-tags';
 import { hastebin, escapedCodeblock } from '@util/Util';
+import { CATEGORIES } from '@util/Constants';
 
 const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
 const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)(\..+)?$/;
@@ -15,7 +16,7 @@ export default class EvalCommand extends Command {
 	public constructor() {
 		super('eval', {
 			aliases: ['eval', 'evaluate', 'ev'],
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			description: {
 				content: stripIndents`Evalutes arbitrary JavaScript code. 
 					
@@ -36,16 +37,16 @@ export default class EvalCommand extends Command {
 	}
 
 	public *args() {
-		const hastebinLinkTypeCastor = async (_: Message, code: string) => {
+		const hastebinLinkType = async (_: Message, code: string) => {
 			const hastebinKey = LINK_REGEX.exec(code)?.[2];
 			if (hastebinKey) {
 				const { data } = await fetch(`https://hasteb.in/documents/${hastebinKey}`).then(res => res.json());
 				return data;
 			}
 		};
-		const codeTypeCaster = async (_: Message, code?: string) => {
+		const codeType = async (_: Message, code?: string) => {
 			if (!code) return;
-			const content = await hastebinLinkTypeCastor(_, code);
+			const content = await hastebinLinkType(_, code);
 			if (content) return content;
 			return CODEBLOCK_REGEX.exec(code)?.[2] ?? code;
 		};
@@ -57,7 +58,7 @@ export default class EvalCommand extends Command {
 
 		let code = yield {
 			match: 'rest',
-			type: codeTypeCaster,
+			type: codeType,
 			prompt: { start: 'what would you like to evaluate?' },
 			unordered: true,
 		};
@@ -65,7 +66,7 @@ export default class EvalCommand extends Command {
 		const insert = yield {
 			match: 'option',
 			flag: ['--insert-from', '-f'],
-			type: hastebinLinkTypeCastor,
+			type: hastebinLinkType,
 			unordered: true,
 		};
 		if (insert) code = `${insert}\n${code}`;

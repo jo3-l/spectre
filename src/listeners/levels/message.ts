@@ -9,7 +9,6 @@ export default class MessageListener extends Listener {
 		super('message', {
 			emitter: 'client',
 			event: 'message',
-			category: 'Levels',
 		});
 	}
 

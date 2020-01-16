@@ -9,7 +9,6 @@ export default class MessageDeleteListener extends Listener {
 		super('messageDelete', {
 			emitter: 'client',
 			event: 'messageDelete',
-			category: 'Logs',
 		});
 	}
 

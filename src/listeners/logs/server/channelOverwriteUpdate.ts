@@ -10,7 +10,6 @@ export default class ChannelOverwriteUpdateListener extends Listener {
 		super('channelOverwriteUpdate', {
 			emitter: 'client',
 			event: 'channelOverwriteUpdate',
-			category: 'Logs',
 		});
 	}
 

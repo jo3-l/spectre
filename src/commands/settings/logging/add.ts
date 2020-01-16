@@ -2,11 +2,12 @@ import { Command, Argument, Flag } from 'discord-akairo';
 import { requiredPermissions } from '@structures/Log';
 import { Log } from '@structures/SettingsProvider';
 import { Message, TextChannel } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class AddLogCommand extends Command {
 	public constructor() {
 		super('logs-add', {
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 			args: [
 				{
 					id: 'type',

@@ -9,7 +9,6 @@ export default class GuildMemberAddListener extends Listener {
 		super('guildMemberAdd', {
 			emitter: 'client',
 			event: 'guildMemberAdd',
-			category: 'Logs',
 		});
 	}
 

@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { emojify } from '../../../util/Util';
 import { commaListsAnd } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 export const humanizedRegions = {
 	'brazil': `${emojify('br')} Brazil`,
@@ -32,7 +33,7 @@ export default class ServerInfoCommand extends Command {
 	public constructor() {
 		super('server-info', {
 			aliases: ['server-info', 'guild-info', 'guild', 'server'],
-			category: 'Info',
+			category: CATEGORIES.INFO,
 			description: {
 				content: 'Some information about the server.',
 				usage: '',

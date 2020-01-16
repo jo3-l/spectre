@@ -4,6 +4,7 @@ import cheerio from 'cheerio';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 const EMOJIS = { ONE: '1⃣', TWO: '2⃣' };
 
@@ -16,7 +17,7 @@ export default class WouldYouRatherCommand extends Command {
 				usage: '',
 				examples: [''],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
 		});
 	}

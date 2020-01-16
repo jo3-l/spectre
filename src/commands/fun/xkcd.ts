@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLineTrim } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 export default class XkcdCommand extends Command {
 	public constructor() {
@@ -14,7 +15,7 @@ export default class XkcdCommand extends Command {
 				usage: '[comic #] [-l|--latest]',
 				examples: ['1234', '-l', ''],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			args: [
 				{

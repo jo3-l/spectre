@@ -8,7 +8,6 @@ import SpectreEmbed from '@structures/SpectreEmbed';
 export default class RoleUpdateListener extends Listener {
 	public constructor() {
 		super('roleUpdate', {
-			category: 'Logs',
 			event: 'roleUpdate',
 			emitter: 'client',
 		});

@@ -3,11 +3,12 @@ import RichDisplay from '@structures/RichDisplay';
 import { Message, TextChannel } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { capitalize } from '@util/Util';
+import { CATEGORIES } from '@util/Constants';
 
 export default class BackgroundsCommand extends Command {
 	public constructor() {
 		super('backgrounds', {
-			category: 'Levels',
+			category: CATEGORIES.LEVELS,
 			aliases: ['backgrounds', 'bgs', 'view-bgs', 'view-backgrounds', 'banners', 'wallpapers'],
 			description: {
 				content: 'Shows the backgrounds avaliable for levelup / rank cards. See a specific one by specifying a number.',

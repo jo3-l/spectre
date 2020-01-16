@@ -7,7 +7,6 @@ import { formatTime, formatUser } from '@util/Util';
 export default class EmojiDeleteListener extends Listener {
 	public constructor() {
 		super('emojiDelete', {
-			category: 'Logs',
 			emitter: 'client',
 			event: 'emojiDelete',
 		});

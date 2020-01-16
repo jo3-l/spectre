@@ -1,11 +1,12 @@
 import { Command } from 'discord-akairo';
 import { Message, User } from 'discord.js';
 import { blacklistUserType } from './blacklist';
+import { CATEGORIES } from '@util/Constants';
 
 export default class BlacklistAddCommand extends Command {
 	public constructor() {
 		super('blacklist-remove', {
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			args: [
 				{
 					id: 'user',

@@ -2,6 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
+import { CATEGORIES } from '@util/Constants';
 
 export default class TopicCommand extends Command {
 	public constructor() {
@@ -12,7 +13,7 @@ export default class TopicCommand extends Command {
 				usage: '',
 				examples: [''],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES'],
 		});
 	}

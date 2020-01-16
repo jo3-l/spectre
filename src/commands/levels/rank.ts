@@ -5,6 +5,7 @@ import { calculateLevel, calculateXp } from '@util/Util';
 import fetch from 'node-fetch';
 import { Member } from '../../models/Member';
 import { format as d3format } from 'd3-format';
+import { CATEGORIES } from '@util/Constants';
 
 const format = (number: number) => number > 999 ? d3format('.3s')(number) : number;
 const toPercentage = (current: number, total: number) => Math.round(current / total * 640);
@@ -25,7 +26,7 @@ export default class RankCommand extends Command {
 	public constructor() {
 		super('rank', {
 			aliases: ['rank'],
-			category: 'Levels',
+			category: CATEGORIES.LEVELS,
 			description: {
 				content: 'Obtains the rank of a given member.',
 				usage: '[user]',

@@ -1,7 +1,8 @@
 import { Command } from 'discord-akairo';
 import fetch from 'node-fetch';
 import { Message } from 'discord.js';
-import SpectreEmbed from '../../structures/SpectreEmbed';
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/Constants';
 
 export default class RedPandaCommand extends Command {
 	public constructor() {
@@ -12,7 +13,7 @@ export default class RedPandaCommand extends Command {
 				usage: '',
 				examples: [''],
 			},
-			category: 'Animals',
+			category: CATEGORIES.ANIMAL,
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 		});

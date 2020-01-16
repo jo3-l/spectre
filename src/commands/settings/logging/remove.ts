@@ -1,11 +1,12 @@
 import { Command, Argument, Flag } from 'discord-akairo';
 import { Log } from '@structures/SettingsProvider';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class RemoveLogcommand extends Command {
 	public constructor() {
 		super('logs-remove', {
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 			args: [
 				{
 					id: 'type',

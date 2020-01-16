@@ -5,11 +5,12 @@ import SpectreEmbed from '@structures/SpectreEmbed';
 import { calculateLevel } from '@util/Util';
 import RichDisplay from '@structures/RichDisplay';
 import paginate from '@util/paginate';
+import { CATEGORIES, CATEGORY_IMAGES } from '@util/Constants';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {
 		super('leaderboard', {
-			category: 'Levels',
+			category: CATEGORIES.LEVELS,
 			aliases: ['leaderboard', 'lb', 'top'],
 			description: {
 				content: 'Shows the XP leaderboard for this server.',
@@ -52,7 +53,7 @@ export default class LeaderboardCommand extends Command {
 			.transformAll((page, i, total) => page
 				.setFooter(`Page ${i + 1} / ${total} | Showing 10 members per page`)
 				.setURL('https://discordapp.com')
-				.setThumbnail(this.client.config.categoryImages.levels)
+				.setThumbnail(CATEGORY_IMAGES[CATEGORIES.LEVELS])
 				.setTitle('🏆 Leaderboard'))
 			.set('start', page / 10)
 			.build();

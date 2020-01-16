@@ -2,21 +2,13 @@ import { Command, Category, Argument } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLineTrim } from 'common-tags';
-
-const toCommandList = (category: Category<string, Command>) => {
-	const result = [];
-	for (const command of category.values()) {
-		if (!command.aliases.length) continue;
-		result.push(`\`${command.aliases[0]}\``);
-	}
-	return result;
-};
+import { CATEGORIES, CATEGORY_IMAGES } from '@util/Constants';
 
 export default class HelpCommand extends Command {
 	public constructor() {
 		super('help', {
 			aliases: ['help', 'h', 'cmd', 'cmds', 'module', 'command', 'category'],
-			category: 'System',
+			category: CATEGORIES.SYSTEM,
 			description: {
 				content: 'Information on specific commands or modules.',
 				usage: '[command|module]',
@@ -47,25 +39,32 @@ export default class HelpCommand extends Command {
 				.setDescription(desc)
 				.setTitle('❯ Spectre Help');
 			for (const category of this.handler.categories.values()) {
-				embed.addField(`❯ ${category.id}`, toCommandList(category).join(' '));
+				embed.addField(`❯ ${category.id}`, category
+					.filter(cmd => cmd.aliases.length > 0)
+					.map(cmd => `\`${cmd.aliases[0]}\``)
+					.join(' '));
 			}
 			return message.util!.send(embed);
 		}
 		if (module instanceof Category) {
 			return message.util!.send(embed
-				.setThumbnail(this.client.user!.displayAvatarURL())
+				.setThumbnail(CATEGORY_IMAGES[module.id])
 				.setTitle(`❯ Category: ${module}`)
 				.setDescription(desc)
-				.addField('❯ Commands', toCommandList(module).join(' ')));
+				.addField('❯ Commands', module
+					.filter(cmd => cmd.aliases.length > 0)
+					.map(cmd => `\`${cmd.aliases[0]}\``)
+					.join(' ')));
 		}
 		const { aliases, description: { examples, usage, content }, ratelimit, cooldown, category } = module;
 		return message.util!.send(embed
 			.setTitle(`\`${aliases[0]}${usage ? ` ${usage}` : ''}\``)
 			.addField('❯ Aliases', aliases.map(a => `\`${a}\``).join(' '))
 			.addField('❯ Description', content)
-			// eslint-disable-next-line max-len
-			.addField('❯ Examples', examples.map((example?: string) => `\`${prefix}${aliases[0]}${example ? ` ${example}` : ''}\``).join('\n'))
+			.addField('❯ Examples', examples.map((example?: string) => (
+				`\`${prefix}${aliases[0]}${example ? ` ${example}` : ''}\``
+			)).join('\n'))
 			.setFooter(`Cooldown: ${ratelimit || 1}/${cooldown ? cooldown : 3}s | Category: ${category}`)
-			.setThumbnail(this.client.config.categoryImages[category.id.toLowerCase()]));
+			.setThumbnail(CATEGORY_IMAGES[category.id]));
 	}
 }

@@ -9,7 +9,6 @@ export default class VoiceStateUpdateListener extends Listener {
 		super('voiceStateUpdate', {
 			event: 'voiceStateUpdate',
 			emitter: 'client',
-			category: 'Logs',
 		});
 	}
 

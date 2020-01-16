@@ -2,7 +2,7 @@ import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 
 import { join } from 'path';
 import { promisify } from 'util';
 import { readdir } from 'fs';
-import { token, prefix, activities, owner, version, color, db, emojis, categoryImages } from '@root/config';
+import { token, prefix, activities, owner, version, color, db, emojis } from '@root/config';
 import ActivityHandler, { Activity } from '@structures/ActivityHandler';
 import Logger from '@structures/Logger';
 import Database from '@structures/Database';
@@ -37,7 +37,6 @@ export interface SpectreConfig {
 	db: string;
 	owner: string;
 	activities?: Activity[];
-	categoryImages: Record<string, string>;
 }
 
 export default class SpectreClient extends AkairoClient {
@@ -77,7 +76,7 @@ export default class SpectreClient extends AkairoClient {
 	public logger = Logger;
 	public db!: Connection;
 	public settings!: TypeORMProvider;
-	public config = { token, prefix, color, owner, db, activities, version, categoryImages, emojis };
+	public config = { token, prefix, color, owner, db, activities, version, emojis };
 	public activityHandler: ActivityHandler = new ActivityHandler(this, this.config.activities);
 	public assetHandler: AssetHandler = new AssetHandler(join(__dirname, '..', 'assets'));
 

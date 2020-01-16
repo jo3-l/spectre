@@ -1,6 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
+import { CATEGORIES } from '@util/Constants';
 
 export default class CatfactCommand extends Command {
 	public constructor() {
@@ -11,7 +12,7 @@ export default class CatfactCommand extends Command {
 				usage: '',
 				examples: [''],
 			},
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES'],
 		});
 	}

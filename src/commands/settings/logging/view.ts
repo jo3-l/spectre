@@ -2,11 +2,12 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { capitalize } from '@util/Util';
+import { CATEGORIES, CATEGORY_IMAGES } from '@util/Constants';
 
 export default class ViewRoleRewardsCommand extends Command {
 	public constructor() {
 		super('logs-view', {
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 		});
 	}
 
@@ -20,7 +21,7 @@ export default class ViewRoleRewardsCommand extends Command {
 			.map(([type, channel]) => `• **${capitalize(type)}:** ${guild.channels.get(channel as string) ?? 'Unknown channel'}`);
 		const embed = new SpectreEmbed()
 			.setTitle('⚙️ Log Settings')
-			.setThumbnail(this.client.config.categoryImages.settings)
+			.setThumbnail(CATEGORY_IMAGES[CATEGORIES.SETTINGS])
 			.setDescription(data)
 			.setFooter(guild.name);
 		return message.util!.send(embed);

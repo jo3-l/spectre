@@ -1,10 +1,11 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class ToggleTypeRoleCommand extends Command {
 	public constructor() {
 		super('role-rewards-toggle-type', {
-			category: 'Settings',
+			category: CATEGORIES.SETTINGS,
 		});
 	}
 

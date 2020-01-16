@@ -8,7 +8,6 @@ import SpectreEmbed from '@structures/SpectreEmbed';
 export default class RoleDeleteListener extends Listener {
 	public constructor() {
 		super('roleDelete', {
-			category: 'Logs',
 			event: 'roleDelete',
 			emitter: 'client',
 		});

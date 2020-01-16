@@ -3,12 +3,13 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { evaluate } from 'mathjs';
 import { codeblock } from '@util/Util';
+import { CATEGORIES } from '@util/Constants';
 
 export default class EvaluateCommand extends Command {
 	public constructor() {
 		super('calculate', {
 			aliases: ['calculate', 'calc', 'math'],
-			category: 'Tools',
+			category: CATEGORIES.TOOLS,
 			description: {
 				content: 'Calculates a given mathematical expression.',
 				usage: '<expression>',

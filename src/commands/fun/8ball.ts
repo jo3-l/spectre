@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 const answers = [
 	'It is certain.',
@@ -28,7 +29,7 @@ export default class EightballCommand extends Command {
 	public constructor() {
 		super('8ball', {
 			aliases: ['8ball', '8'],
-			category: 'Fun',
+			category: CATEGORIES.FUN,
 			description: {
 				usage: '<question>',
 				content: 'Asks a question of the allmighty 8ball.',

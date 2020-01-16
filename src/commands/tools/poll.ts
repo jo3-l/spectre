@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
 import { ordinal } from '@util/Util';
+import { CATEGORIES } from '@util/Constants';
 
 const emojis = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
 
@@ -10,7 +11,7 @@ export default class PollCommand extends Command {
 	public constructor() {
 		super('poll', {
 			aliases: ['poll'],
-			category: 'Tools',
+			category: CATEGORIES.TOOLS,
 			description: {
 				content: stripIndents`Creates a poll.
 					**Note**: The answers all must be under 150 characters in length!`,

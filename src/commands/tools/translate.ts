@@ -3,6 +3,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { oneLine, stripIndents } from 'common-tags';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/Constants';
 
 const getCode = (desiredLang: string) => {
 	if (!desiredLang) return;
@@ -18,7 +19,7 @@ export default class TranslateCommand extends Command {
 	public constructor() {
 		super('translate', {
 			aliases: ['translate'],
-			category: 'Tools',
+			category: CATEGORIES.TOOLS,
 			description: {
 				content: oneLine`Translates the given text. 
 					Optionally, supply a language to translate from with \`--from\` and to translate to with \`--to\`.

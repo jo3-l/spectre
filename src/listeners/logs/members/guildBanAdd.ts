@@ -9,7 +9,6 @@ export default class GuildBanAddListener extends Listener {
 		super('guildBanAdd', {
 			emitter: 'client',
 			event: 'guildBanAdd',
-			category: 'Logs',
 		});
 	}
 

@@ -1,12 +1,13 @@
 import { Command } from 'discord-akairo';
 import { Message, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/Constants';
 
 export default class AvatarCommand extends Command {
 	public constructor() {
 		super('avatar', {
 			aliases: ['avatar', 'av', 'pfp'],
-			category: 'Info',
+			category: CATEGORIES.INFO,
 			description: {
 				content: 'Displays the avatar of a given user.',
 				usage: '[user]',

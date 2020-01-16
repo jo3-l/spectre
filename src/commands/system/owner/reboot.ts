@@ -2,12 +2,13 @@ import { Command } from 'discord-akairo';
 import Confirmation, { Responses } from '@structures/Confirmation';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { Message } from 'discord.js';
+import { CATEGORIES } from '@util/Constants';
 
 export default class RebootCommand extends Command {
 	public constructor() {
 		super('reboot', {
 			aliases: ['reboot', 'die', 'shutdown'],
-			category: 'Owner',
+			category: CATEGORIES.OWNER,
 			description: {
 				content: 'Reboots the bot.',
 				usage: '',

@@ -3,6 +3,7 @@ import { Message, GuildMember } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import moment from 'moment';
 import { commaListsAnd } from 'common-tags';
+import { CATEGORIES } from '@util/Constants';
 
 enum HUMAN_STATUSES {
 	online = 'Online',
@@ -15,7 +16,7 @@ export default class WhoisCommand extends Command {
 	public constructor() {
 		super('whois', {
 			aliases: ['whois', 'whoami', 'user', 'user-info', 'member'],
-			category: 'Info',
+			category: CATEGORIES.INFO,
 			description: {
 				content: 'Displays information for a given user.',
 				usage: '[user]',
