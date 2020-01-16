@@ -23,7 +23,6 @@ export default class HelpCommand extends Command {
 				examples: ['ping', 'General'],
 			},
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			ratelimit: 2,
 		});
 	}
 

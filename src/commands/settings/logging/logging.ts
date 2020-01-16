@@ -29,7 +29,6 @@ export default class LoggingCommand extends Command {
 				examples: ['add joinlogs #join-logs', 'remove joinlogs', 'reset', 'view'],
 			},
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-			ratelimit: 1,
 			channel: 'guild',
 			userPermissions: ['MANAGE_GUILD'],
 		});

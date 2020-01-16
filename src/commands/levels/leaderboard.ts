@@ -17,7 +17,6 @@ export default class LeaderboardCommand extends Command {
 				examples: ['1', ''],
 			},
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			ratelimit: 1,
 			args: [
 				{
 					'id': 'page',

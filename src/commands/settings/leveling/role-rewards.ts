@@ -27,7 +27,6 @@ export default class RoleRewardsCommand extends Command {
 				examples: ['set-type stack', 'add 10 Level 10+', 'remove 10', 'reset'],
 			},
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-			ratelimit: 1,
 			channel: 'guild',
 			userPermissions: ['MANAGE_GUILD'],
 		});

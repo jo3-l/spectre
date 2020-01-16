@@ -33,7 +33,6 @@ export default class RankCommand extends Command {
 				examples: ['@Joe', ''],
 			},
 			clientPermissions: ['SEND_MESSAGES', 'ATTACH_FILES'],
-			ratelimit: 1,
 			args: [
 				{
 					'id': 'user',

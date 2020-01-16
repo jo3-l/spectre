@@ -15,7 +15,6 @@ export default class BackgroundsCommand extends Command {
 				examples: ['levelup 1', 'rank'],
 			},
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			ratelimit: 1,
 			channel: 'guild',
 		});
 	}
