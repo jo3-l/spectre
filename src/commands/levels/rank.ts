@@ -130,7 +130,7 @@ export default class RankCommand extends Command {
 
 		// Calculate the percentage
 		let percent = toPercentage(Number(current), Number(total));
-		// Return the constructed canvas if percentage under 40 (radius of a single rounded corner of the rounded progress bar)
+		// Return the constructed canvas if percentage under 40 (diameter of a single rounded corner of the rounded progress bar)
 		if (percent < 40) return canvas.toBufferAsync();
 		canvas
 			.setColor(`#${color}`)
