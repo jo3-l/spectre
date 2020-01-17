@@ -23,4 +23,5 @@ export const emojis = {
 export const activities: Activity[] = [
 	{ activity: `v${version}` },
 	{ activity: 'Spectre, help', type: 'LISTENING' },
+	client => ({ activity: client.guilds.size.toString(), type: 'WATCHING' }),
 ];
