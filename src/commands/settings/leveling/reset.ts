@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import Confirmation, { Responses } from '@structures/Confirmation';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class ResetRoleRewardsCommand extends Command {
 	public constructor() {

@@ -2,7 +2,7 @@ import { Command, Category, Argument } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLineTrim } from 'common-tags';
-import { CATEGORIES, CATEGORY_IMAGES } from '@util/Constants';
+import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
 
 export default class HelpCommand extends Command {
 	public constructor() {

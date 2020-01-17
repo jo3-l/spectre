@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import Confirmation, { Responses } from '@structures/Confirmation';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { Message } from 'discord.js';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class RebootCommand extends Command {
 	public constructor() {

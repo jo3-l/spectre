@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import { Message, User, MessageReaction } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLine } from 'common-tags';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 const rpsData: Record<Choice, { counters: string; emoji: string }> = {
 	rock: {

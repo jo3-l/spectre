@@ -1,5 +1,5 @@
-import Log, { emojis } from '@structures/Log';
-import { removeBlankLines, humanizePermissionName, formatUser } from '@util/Util';
+import Log, { emojis } from '@util/logUtil';
+import { removeBlankLines, humanizePermissionName, formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { GuildMember, PermissionString } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';

@@ -1,8 +1,8 @@
 import { Command } from 'discord-akairo';
 import { Message, GuildMember, PermissionString, MessageEmbed, Permissions } from 'discord.js';
-import { humanizePermissionName } from '../../../util/Util';
+import { humanizePermissionName } from '../../../util/util';
 import { oneLineTrim } from 'common-tags';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 
 export default class ViewPermsCommand extends Command {

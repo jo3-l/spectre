@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message, User } from 'discord.js';
 import { blacklistUserType } from './blacklist';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class BlacklistAddCommand extends Command {
 	public constructor() {

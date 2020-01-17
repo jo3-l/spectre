@@ -1,9 +1,9 @@
-import Log, { emojis } from '@structures/Log';
+import Log, { emojis } from '@util/logUtil';
 import { Listener } from 'discord-akairo';
 import { Message, Collection, Snowflake, TextChannel } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { formatTime, formatUser } from '@util/Util';
+import { formatTime, formatUser } from '@util/util';
 
 export default class MessageDeleteBulkListener extends Listener {
 	public constructor() {

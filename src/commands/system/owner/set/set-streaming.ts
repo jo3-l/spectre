@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 const TWITCH_URL_REGEX = /(https?:\/\/)?(www\.)?twitch\.tv\/\S+/;
 
 export default class SetStreamingCommand extends Command {

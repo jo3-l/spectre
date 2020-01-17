@@ -1,9 +1,9 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { emojify } from '../../../util/Util';
+import { emojify } from '../../../util/util';
 import { commaListsAnd } from 'common-tags';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export const humanizedRegions = {
 	'brazil': `${emojify('br')} Brazil`,

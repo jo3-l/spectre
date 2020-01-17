@@ -3,9 +3,9 @@ import { promisify, inspect } from 'util';
 import { exec } from 'child_process';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { hastebin, escapedCodeblock } from '@util/Util';
-import Timer from '@util/Timer';
-import { CATEGORIES } from '@util/Constants';
+import { hastebin, escapedCodeblock } from '@util/util';
+import Timer from '@util/timer';
+import { CATEGORIES } from '@util/constants';
 
 const execAsync = promisify(exec);
 

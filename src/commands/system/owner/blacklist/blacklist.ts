@@ -2,7 +2,7 @@ import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import SpectreClient from '@root/src/client/SpectreClient';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 const base = 'blacklist';
 

@@ -2,7 +2,7 @@ import { Command } from 'discord-akairo';
 import fetch from 'node-fetch';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class CatCommand extends Command {
 	public constructor() {

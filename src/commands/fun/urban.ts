@@ -4,8 +4,8 @@ import fetch from 'node-fetch';
 import { stringify } from 'querystring';
 import RichDisplay from '@structures/RichDisplay';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { trim, EmbedLimits } from '@util/Util';
-import { CATEGORIES } from '@util/Constants';
+import { trim, EmbedLimits } from '@util/util';
+import { CATEGORIES } from '@util/constants';
 
 const addLinks = (str: string) => str
 	// eslint-disable-next-line max-len

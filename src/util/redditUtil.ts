@@ -3,12 +3,16 @@ import fetch from 'node-fetch';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export async function scrapeSubreddit({
-	subreddit = 'dankmemes', limit = 500, t = 'day', sort = 'top', filterNSFW = true,
+	subreddit = 'dankmemes',
+	limit = 100,
+	t = 'day',
+	sort = 'top',
+	filterNSFW: filterNsfw = true,
 }: RedditScrapeOptions) {
 	const params = stringify({ t, limit });
 	const url = `https://www.reddit.com/r/${subreddit}/${sort}/.json?${params}`;
 	let data = (await fetch(url).then(res => res.json()) as RedditApiResponse).data.children;
-	if (filterNSFW) data = data.filter(({ data: postData }) => !postData.over_18);
+	if (filterNsfw) data = data.filter(({ data: postData }) => !postData.over_18);
 	if (!data.length) return 'NO_ITEMS_FOUND';
 	const post = data.random().data;
 	return {

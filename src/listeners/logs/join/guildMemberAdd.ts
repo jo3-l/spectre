@@ -1,8 +1,8 @@
-import Log, { emojis } from '@structures/Log';
+import Log, { emojis } from '@util/logUtil';
 import { Listener } from 'discord-akairo';
 import { GuildMember, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { formatTime, formatUser } from '@util/Util';
+import { formatTime, formatUser } from '@util/util';
 
 export default class GuildMemberAddListener extends Listener {
 	public constructor() {

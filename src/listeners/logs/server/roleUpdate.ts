@@ -1,8 +1,8 @@
 import { Listener } from 'discord-akairo';
 import { Role } from 'discord.js';
-import Log, { emojis } from '@structures/Log';
+import Log, { emojis } from '@util/logUtil';
 import { stringify } from 'querystring';
-import { removeBlankLines, humanizePermissionName, formatUser, formatTime } from '@util/Util';
+import { removeBlankLines, humanizePermissionName, formatUser, formatTime } from '@util/util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleUpdateListener extends Listener {

@@ -1,8 +1,8 @@
 import { Command, Argument, Flag } from 'discord-akairo';
-import { requiredPermissions } from '@structures/Log';
+import { requiredPermissions } from '@util/logUtil';
 import { Log } from '@structures/SettingsProvider';
 import { Message, TextChannel } from 'discord.js';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class AddLogCommand extends Command {
 	public constructor() {

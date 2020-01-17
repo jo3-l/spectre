@@ -3,7 +3,7 @@ import { Message, GuildMember } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import moment from 'moment';
 import { commaListsAnd } from 'common-tags';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 enum HUMAN_STATUSES {
 	online = 'Online',

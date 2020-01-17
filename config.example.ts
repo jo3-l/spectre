@@ -1,3 +1,5 @@
+import { Activity } from '@structures/ActivityHandler';
+
 // Prefix(es)
 export const prefix = ['s!', 'Spectre', 'Spectre,'];
 // Bot token
@@ -18,7 +20,7 @@ export const emojis = {
 	neutral: '',
 };
 // Array of activities
-export const activities = [
-	{ activity: version },
+export const activities: Activity[] = [
+	{ activity: `v${version}` },
 	{ activity: 'Spectre, help', type: 'LISTENING' },
 ];

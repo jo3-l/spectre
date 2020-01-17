@@ -1,15 +1,14 @@
-import SpectreEmbed from './SpectreEmbed';
+import SpectreEmbed from '../structures/SpectreEmbed';
 
 enum EmbedParseErrors {
 	Invalid = 0, NoContent
 }
 
-
 interface Templates {
 	[templateName: string]: string | number | Record<string, string | number>;
 }
 
-function isObject(obj: any) {
+function isObject(obj: any): obj is Record<string, string | number> {
 	const type = typeof obj;
 	return (type === 'function' || type === 'object') && Boolean(obj);
 }
@@ -22,10 +21,7 @@ export function parseOne(template: string, templates: Templates): string | undef
 	if (!templates || !(struct in templates)) return;
 	const data = templates[struct as keyof Templates];
 	if (!data) return;
-	if (isObject(data) && prop in (data as object)) {
-		return (data as Record<string, string | number>)[prop].toString();
-	}
-
+	if (isObject(data) && prop in data) return data[prop].toString();
 	return data.toString();
 }
 

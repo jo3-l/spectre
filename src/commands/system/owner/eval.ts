@@ -1,13 +1,13 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { join } from 'path';
-import Timer from '@util/Timer';
+import Timer from '@util/timer';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { inspect } from 'util';
 import fetch from 'node-fetch';
 import { stripIndents } from 'common-tags';
-import { hastebin, escapedCodeblock } from '@util/Util';
-import { CATEGORIES } from '@util/Constants';
+import { hastebin, escapedCodeblock } from '@util/util';
+import { CATEGORIES } from '@util/constants';
 
 const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
 const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)(\..+)?$/;

@@ -1,5 +1,5 @@
 import { GuildAuditLogsActions, Invite, TextChannel, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
-import { Log } from './SettingsProvider';
+import { Log } from '../structures/SettingsProvider';
 import SpectreClient from '../client/SpectreClient';
 
 export const requiredPermissions: PermissionString[] = ['VIEW_AUDIT_LOG', 'EMBED_LINKS', 'MANAGE_WEBHOOKS'];

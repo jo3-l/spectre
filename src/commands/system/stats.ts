@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { duration } from 'moment';
 import 'moment-duration-format';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class StatCommands extends Command {
 	public constructor() {

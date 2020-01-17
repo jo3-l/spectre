@@ -2,8 +2,8 @@ import { Command, Argument } from 'discord-akairo';
 import RichDisplay from '@structures/RichDisplay';
 import { Message, TextChannel } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { capitalize } from '@util/Util';
-import { CATEGORIES } from '@util/Constants';
+import { capitalize } from '@util/util';
+import { CATEGORIES } from '@util/constants';
 
 export default class BackgroundsCommand extends Command {
 	public constructor() {

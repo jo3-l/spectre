@@ -1,8 +1,8 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { capitalize } from '@util/Util';
-import { CATEGORIES, CATEGORY_IMAGES } from '@util/Constants';
+import { capitalize } from '@util/util';
+import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
 
 export default class ViewRoleRewardsCommand extends Command {
 	public constructor() {

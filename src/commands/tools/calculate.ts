@@ -2,8 +2,8 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { evaluate } from 'mathjs';
-import { codeblock } from '@util/Util';
-import { CATEGORIES } from '@util/Constants';
+import { codeblock } from '@util/util';
+import { CATEGORIES } from '@util/constants';
 
 export default class EvaluateCommand extends Command {
 	public constructor() {

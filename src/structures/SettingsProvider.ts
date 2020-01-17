@@ -1,9 +1,3 @@
-/**
- * I took heavy inspiration from iCrawl's implementation of a Provider for TypeORM (see below)
- * @author iCrawl <github.com/iCrawl> with his TypeORMProvider in the Haruana repo.
- * @see {@link github.com/Naval-Base/haruana|Github}
- */
-
 import { Provider } from 'discord-akairo';
 import { Guild as DiscordGuild, Snowflake } from 'discord.js';
 import { Repository } from 'typeorm';
@@ -59,7 +53,7 @@ export default class TypeORMProvider extends Provider {
 	): Settings[K] | T {
 		const id = this.constructor._resolveId(guild);
 		if (this.items.has(id)) {
-			const value = this.items.get(id)?.[key];
+			const value = this.items.get(id)[key];
 			return value ?? defaultValue;
 		}
 

@@ -3,9 +3,9 @@ import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stringify } from 'querystring';
 import fetch from 'node-fetch';
-import { capitalize } from '@util/Util';
+import { capitalize } from '@util/util';
 import { stripIndents } from 'common-tags';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class TriviaCommand extends Command {
 	public constructor() {

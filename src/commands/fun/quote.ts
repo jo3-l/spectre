@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 const MESSAGE_LINK_REGEX = /https:\/\/(?:www\.)?(?:ptb\.|canary\.)?discordapp\.com\/channels\/\d+\/(\d+)\/(\d+)/;
 

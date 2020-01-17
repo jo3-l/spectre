@@ -2,8 +2,8 @@ import { Command, Argument } from 'discord-akairo';
 import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { stripIndents } from 'common-tags';
-import { ordinal } from '@util/Util';
-import { CATEGORIES } from '@util/Constants';
+import { ordinal } from '@util/util';
+import { CATEGORIES } from '@util/constants';
 
 const emojis = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
 

@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message, PresenceStatusData } from 'discord.js';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class SetStatusCommand extends Command {
 	public constructor() {

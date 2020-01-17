@@ -3,7 +3,7 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { oneLine, stripIndents } from 'common-tags';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 const getCode = (desiredLang: string) => {
 	if (!desiredLang) return;

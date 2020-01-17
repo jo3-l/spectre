@@ -1,8 +1,8 @@
 import { Listener } from 'discord-akairo';
 import { ChannelPermission } from './channelUpdate';
 import { GuildChannel } from 'discord.js';
-import Log, { emojis } from '@structures/Log';
-import { humanizePermissionName, removeBlankLines, formatTime, formatUser } from '@util/Util';
+import Log, { emojis } from '@util/logUtil';
+import { humanizePermissionName, removeBlankLines, formatTime, formatUser } from '@util/util';
 import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class ChannelOverwriteDeleteListener extends Listener {

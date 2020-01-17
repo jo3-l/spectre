@@ -1,7 +1,7 @@
 /* eslint-disable promise/prefer-await-to-then */
 import { Command } from 'discord-akairo';
 import { User, Message } from 'discord.js';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class DmCommands extends Command {
 	public constructor() {

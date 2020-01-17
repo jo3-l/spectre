@@ -1,6 +1,6 @@
 import { Command, Flag } from 'discord-akairo';
 import { Message, Role } from 'discord.js';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class AddRoleRewardCommand extends Command {
 	public constructor() {

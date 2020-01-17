@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import fetch from 'node-fetch';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { oneLineTrim } from 'common-tags';
-import { CATEGORIES } from '@util/Constants';
+import { CATEGORIES } from '@util/constants';
 
 export default class XkcdCommand extends Command {
 	public constructor() {
