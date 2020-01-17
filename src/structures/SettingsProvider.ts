@@ -17,6 +17,7 @@ interface Settings {
 	disabledCommands: string[];
 	disabledModules: string[];
 	blacklist: string[];
+	totalCases: number;
 }
 
 export type GuildResolvable = DiscordGuild | Snowflake;

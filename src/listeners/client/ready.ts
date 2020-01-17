@@ -15,7 +15,7 @@ export default class extends Listener {
 	public async exec() {
 		this.logger.info(`Logged in as ${this.client.user!.tag}.`);
 		this.client.activityHandler.start();
-		this.logger.info('Set activity and started the activity handler.');
+		this.logger.info('Set activity and started the Activity Handler.');
 		const owner = await this.client.users.fetch(
 			Array.isArray(this.client.ownerID) ? this.client.ownerID[0] : this.client.ownerID,
 		).then(user => user.tag);
