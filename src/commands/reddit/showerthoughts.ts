@@ -18,12 +18,11 @@ export default class ShowerThoughtsCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const data = await scrapeSubreddit({ subreddit: 'showerthoughts' });
-		if (data === 'NO_ITEMS_FOUND') {
-			return message.util!.send(
-				'Sorry, we couldn\'t find any showerthoughts to show you. Try again later.',
-			);
+		const showerthought = await scrapeSubreddit({ subreddit: 'showerthoughts' })
+			.catch(() => undefined);
+		if (!showerthought) {
+			return message.util!.send(`${this.client.emojis.error} There were no showerthoughts to show you. Try again later?`);
 		}
-		return message.util!.send(data.title);
+		return message.util!.send(showerthought.title);
 	}
 }

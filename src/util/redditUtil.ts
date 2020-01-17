@@ -13,7 +13,7 @@ export async function scrapeSubreddit({
 	const url = `https://www.reddit.com/r/${subreddit}/${sort}/.json?${params}`;
 	let data = (await fetch(url).then(res => res.json()) as RedditApiResponse).data.children;
 	if (filterNsfw) data = data.filter(({ data: postData }) => !postData.over_18);
-	if (!data.length) return 'NO_ITEMS_FOUND';
+	if (!data.length) return Promise.reject('NO_ITEMS_FOUND');
 	const post = data.random().data;
 	return {
 		...post,

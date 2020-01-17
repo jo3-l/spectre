@@ -18,11 +18,10 @@ export default class MemeCommand extends Command {
 	}
 
 	public async exec(message: Message) {
-		const meme = await scrapeSubreddit({ subreddit: 'dankmemes' });
-		if (meme === 'NO_ITEMS_FOUND') {
-			return message.util!.send(
-				'Sorry, we could\'t find any dank memes to show you. Try again later.',
-			);
+		const meme = await scrapeSubreddit({ subreddit: 'dankmemes' })
+			.catch(() => null);
+		if (!meme) {
+			return message.util!.send(`${this.client.emojis.error} I was unable to find any memes to show you. Try again later?`);
 		}
 		return message.util!.send(meme.embed());
 	}
