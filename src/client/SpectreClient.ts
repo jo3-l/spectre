@@ -1,7 +1,6 @@
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { join } from 'path';
-import { promisify } from 'util';
-import { readdir } from 'fs';
+import { readdir } from 'fs-nextra';
 import { token, prefix, activities, owner, version, color, db, emojis } from '@root/config';
 import ActivityHandler, { Activity } from '@structures/ActivityHandler';
 import Logger from '@structures/Logger';
@@ -10,8 +9,6 @@ import TypeORMProvider from '@structures/SettingsProvider';
 import AssetHandler from '@structures/AssetHandler';
 import { Connection } from 'typeorm';
 import { Guild } from '../models/Guild';
-
-const readdirAsync = promisify(readdir);
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -90,7 +87,7 @@ export default class SpectreClient extends AkairoClient {
 		this.logger.info('Spectre is starting up...');
 		// Load extensions
 		const extensionDir = join(__dirname, '..', 'extensions');
-		const extensions = await readdirAsync(extensionDir);
+		const extensions = await readdir(extensionDir);
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		for (const extension of extensions) require(`${extensionDir}/${extension}`);
 		this.logger.info(`Loaded ${extensions.length} extensions.`);

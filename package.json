@@ -1,7 +1,7 @@
 {
 	"name": "spectre",
 	"version": "0.5.0",
-	"description": "A utility bot for Discord.",
+	"description": "A multi-purpose bot for Discord.",
 	"main": "dist/src/Spectre.js",
 	"scripts": {
 		"start": "cross-env DEV=\"true\" ts-node --files src/Spectre",
@@ -36,6 +36,7 @@
 		"d3-format": "^1.4.2",
 		"discord-akairo": "github:discord-akairo/discord-akairo",
 		"discord.js": "github:discordjs/discord.js",
+		"fs-nextra": "^0.4.7",
 		"mathjs": "^6.2.5",
 		"module-alias": "^2.2.2",
 		"moment": "^2.24.0",

@@ -8,7 +8,7 @@ export type Log = 'messages' | 'members' | 'join' | 'server' | 'voice';
 interface Settings {
 	logs: { [key in Log]?: Snowflake };
 	rewardType: 'stack' | 'highest';
-	roleRewards: { [level: string]: Snowflake };
+	roleRewards: Record<string, Snowflake>;
 	backgrounds: {
 		levelUp: string;
 		rankCard: string;

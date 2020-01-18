@@ -1,10 +1,7 @@
 import { Command, Argument, Category, Listener, Inhibitor } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { promisify } from 'util';
-import { stat } from 'fs';
+import { stat } from 'fs-nextra';
 import { join } from 'path';
-
-const statAsync = promisify(stat);
 
 export default class ReloadCommand extends Command {
 	public constructor() {
@@ -34,7 +31,7 @@ export default class ReloadCommand extends Command {
 			const ext = __filename.endsWith('.ts') ? '.ts' : '.js';
 			const dir = join(BASE_URL, phrase.endsWith(ext) ? phrase : `${phrase}${ext}`);
 			try {
-				if (!(await statAsync(dir)).isDirectory()) return dir;
+				if (!(await stat(dir)).isDirectory()) return dir;
 			} catch { }
 		};
 		const all = ['reload-all', 'reloadall'].includes(message.util!.parsed!.alias!)

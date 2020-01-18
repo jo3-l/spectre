@@ -1,10 +1,6 @@
-import { readdir, readFile } from 'fs';
-import { promisify } from 'util';
+import { readdir, readFile } from 'fs-nextra';
 import { join } from 'path';
 import { Collection } from 'discord.js';
-
-const readdirAsync = promisify(readdir);
-const readFileAsync = promisify(readFile);
 
 interface Image {
 	buffer: Buffer;
@@ -24,13 +20,13 @@ export default class AssetHandler extends Collection<string, Image> {
 		const levelUpDir = join(this._directory, 'social', 'levelup');
 		const rankDir = join(this._directory, 'social', 'rank');
 
-		const levelUpFiles = await readdirAsync(levelUpDir);
-		const rankFiles = await readdirAsync(rankDir);
+		const levelUpFiles = await readdir(levelUpDir);
+		const rankFiles = await readdir(rankDir);
 
 		for (const levelUpFile of levelUpFiles) {
 			const id = Number(levelUpFile.replace('.png', '.'));
 			this.set(`levelup-${id}`, {
-				buffer: await readFileAsync(join(levelUpDir, levelUpFile)),
+				buffer: await readFile(join(levelUpDir, levelUpFile)),
 				id,
 				type: 'levelup',
 				url: `${GITHUB_CDN}/levelup/${id}.png`,
@@ -40,7 +36,7 @@ export default class AssetHandler extends Collection<string, Image> {
 		for (const rankFile of rankFiles) {
 			const id = Number(rankFile.replace('.png', ''));
 			this.set(`rank-${id}`, {
-				buffer: await readFileAsync(join(rankDir, rankFile)),
+				buffer: await readFile(join(rankDir, rankFile)),
 				id,
 				type: 'rank',
 				url: `${GITHUB_CDN}/rank/${id}.png`,
