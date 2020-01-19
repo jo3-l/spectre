@@ -1,11 +1,12 @@
-import { Command } from 'discord-akairo';
-import { Canvas } from 'canvas-constructor';
-import { MessageAttachment, Message, User } from 'discord.js';
-import { calculateLevel, calculateXp } from '@util/util';
-import fetch from 'node-fetch';
-import { Member } from '../../models/Member';
-import { format as d3format } from 'd3-format';
 import { CATEGORIES } from '@util/constants';
+import { calculateLevel, calculateXp } from '@util/util';
+import { Canvas } from 'canvas-constructor';
+import { format as d3format } from 'd3-format';
+import { Command } from 'discord-akairo';
+import { Message, MessageAttachment, User } from 'discord.js';
+import fetch from 'node-fetch';
+
+import { Member } from '../../models/Member';
 
 const format = (number: number) => number > 999 ? d3format('.3s')(number) : number;
 const toPercentage = (current: number, total: number) => Math.round(current / total * 640);
@@ -26,30 +27,30 @@ export default class RankCommand extends Command {
 	public constructor() {
 		super('rank', {
 			aliases: ['rank'],
-			category: CATEGORIES.LEVELS,
-			description: {
-				content: 'Obtains the rank of a given member.',
-				usage: '[user]',
-				examples: ['@Joe', ''],
-			},
-			clientPermissions: ['SEND_MESSAGES', 'ATTACH_FILES'],
 			args: [
 				{
+					'default': (message: Message) => message.author,
 					'id': 'user',
 					'type': 'user',
-					'default': (message: Message) => message.author,
 				},
 			],
+			category: CATEGORIES.LEVELS,
 			channel: 'guild',
+			clientPermissions: ['SEND_MESSAGES', 'ATTACH_FILES'],
+			description: {
+				content: 'Obtains the rank of a given member.',
+				examples: ['@Joe', ''],
+				usage: '[user]',
+			},
 		});
 	}
 
 	public async exec(message: Message, { user }: { user: User }) {
 		const repo = this.client.db.getRepository(Member);
 		const members = await repo.find({
-			where: { guildId: message.guild!.id },
-			select: ['id', 'xp'],
 			order: { xp: 'DESC' },
+			select: ['id', 'xp'],
+			where: { guildId: message.guild!.id },
 		});
 		const rank = members.findIndex(member => member.id === user.id) + 1;
 		if (!rank) return message.util!.reply(`**${user.tag}** is not ranked yet.`);
@@ -58,8 +59,9 @@ export default class RankCommand extends Command {
 		const current = userXp >= 100 ? userXp - calculateXp(calculateLevel(userXp)) : userXp;
 		const total = calculateXp(calculateLevel(userXp) + 1);
 		return message.util!.send(new MessageAttachment(await this._generate({
-			current, total, rank, user,
-			level: calculateLevel(userXp),
+			background: 6, current, level: calculateLevel(userXp), rank,
+			total,
+			user,
 		})));
 	}
 
@@ -70,15 +72,15 @@ export default class RankCommand extends Command {
 		level = level.toString();
 		color = color.toString().length === 6 ? color : color.toString().padStart(6, '0');
 		const avatar = await fetch(user.displayAvatarURL({ format: 'png', size: 1024 })).then(res => res.buffer());
-		const { buffer: _background } = this.client.assetHandler.fetch({ id: background, type: 'rank' });
+		const { buffer } = this.client.assetHandler.fetch({ id: background, type: 'rank' });
 
 		let correctX = 0;
-		const canvas = new Canvas(934, 282).addImage(_background, 0, 0, 934, 282);
+		const canvas = new Canvas(934, 282).addImage(buffer, 0, 0, 934, 282);
 		if (background !== 9) {
 			canvas
-				.setColor('rgba(35, 39, 42, 0.5)')
+				.setColor('rgba(35, 39, 42, 0.25)')
 				.addRect(0, 0, canvas.width, canvas.height)
-				.setColor('rgba(0, 0, 0, 0.55)')
+				.setColor('rgba(0, 0, 0, 0.75)')
 				.addBeveledRect(20, canvas.height - 250, canvas.width - 40, canvas.height - 65, 10);
 		}
 

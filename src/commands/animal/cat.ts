@@ -1,20 +1,20 @@
-import { Command } from 'discord-akairo';
-import fetch from 'node-fetch';
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
+import fetch from 'node-fetch';
 
 export default class CatCommand extends Command {
 	public constructor() {
 		super('cat', {
 			aliases: ['cat', 'kitty'],
-			description: {
-				content: '🐱 Sends a random cat in the chat.',
-				usage: '',
-				examples: [''],
-			},
 			category: CATEGORIES.ANIMAL,
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: '🐱 Sends a random cat in the chat.',
+				examples: [''],
+				usage: '',
+			},
 			ratelimit: 2,
 		});
 	}

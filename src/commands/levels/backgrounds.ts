@@ -1,35 +1,35 @@
-import { Command, Argument } from 'discord-akairo';
 import RichDisplay from '@structures/RichDisplay';
-import { Message, TextChannel } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { capitalize } from '@util/util';
 import { CATEGORIES } from '@util/constants';
+import { capitalize } from '@util/util';
+import { Argument, Command } from 'discord-akairo';
+import { Message, TextChannel } from 'discord.js';
 
 export default class BackgroundsCommand extends Command {
 	public constructor() {
 		super('backgrounds', {
-			category: CATEGORIES.LEVELS,
 			aliases: ['backgrounds', 'bgs', 'view-bgs', 'view-backgrounds', 'banners', 'wallpapers'],
+			category: CATEGORIES.LEVELS,
+			channel: 'guild',
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: 'Shows the backgrounds avaliable for levelup / rank cards. See a specific one by specifying a number.',
-				usage: '<levelup|rank> [page]',
 				examples: ['levelup 1', 'rank'],
+				usage: '<levelup|rank> [page]',
 			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			channel: 'guild',
 		});
 	}
 
 	public *args() {
 		const type = yield {
+			prompt: {
+				retry: 'that was not a valid type of background.',
+				start: 'please provide a valid type of background to show (levelup or rank).',
+			},
 			type: [
 				['levelup', 'level-up'],
 				'rank',
 			],
-			prompt: {
-				start: 'please provide a valid type of background to show (levelup or rank).',
-				retry: 'that was not a valid type of background.',
-			},
 		};
 		const imageNumType = Argument.range(
 			'integer',
@@ -39,20 +39,20 @@ export default class BackgroundsCommand extends Command {
 		);
 		const number = yield {
 			id: 'number',
-			type: imageNumType,
 			prompt: {
-				start: 'please provide a number to show.',
-				retry: 'that wasn\'t a valid number. Try again.',
 				optional: true,
+				retry: 'that wasn\'t a valid number. Try again.',
+				start: 'please provide a number to show.',
 			},
+			type: imageNumType,
 		};
-		return { type, number };
+		return { number, type };
 	}
 
 	public async exec(message: Message, { type, number }: { type: 'levelup' | 'rank'; number?: number }) {
 		const display = new RichDisplay({
-			filter: (_, user) => user.id === message.author.id,
 			channel: message.channel as TextChannel,
+			filter: (_, user) => user.id === message.author.id,
 		});
 
 		const images = this.client.assetHandler

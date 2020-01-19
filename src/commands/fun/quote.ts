@@ -1,7 +1,7 @@
-import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 const MESSAGE_LINK_REGEX = /https:\/\/(?:www\.)?(?:ptb\.|canary\.)?discordapp\.com\/channels\/\d+\/(\d+)\/(\d+)/;
 
@@ -10,24 +10,24 @@ export default class QuoteCommand extends Command {
 		super('quote', {
 			aliases: ['quote'],
 			category: CATEGORIES.FUN,
+			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			regex: MESSAGE_LINK_REGEX,
 			description: {
 				content: 'Quote someone!',
-				usage: '[channel] <id>',
 				examples: ['#general 123456', '123456'],
+				usage: '[channel] <id>',
 			},
-			channel: 'guild',
+			regex: MESSAGE_LINK_REGEX,
 		});
 	}
 
 	public *args() {
 		const channel = yield { type: 'textChannel' };
 		let msg: any = {
-			type: 'message', prompt: {
-				start: 'please provide a valid message ID.',
+			match: 'content', prompt: {
 				retry: 'that wasn\'t a valid message ID!',
-			}, match: 'content',
+				start: 'please provide a valid message ID.',
+			}, type: 'message',
 		};
 		if (channel) msg = { type: 'message' };
 		msg = yield msg;

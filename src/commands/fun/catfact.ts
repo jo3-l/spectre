@@ -1,19 +1,19 @@
+import { CATEGORIES } from '@util/constants';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
-import { CATEGORIES } from '@util/constants';
 
 export default class CatfactCommand extends Command {
 	public constructor() {
 		super('cat-fact', {
 			aliases: ['cat-fact', 'catfacts', 'cf'],
-			description: {
-				content: 'Sends you a random cat fact.',
-				usage: '',
-				examples: [''],
-			},
 			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES'],
+			description: {
+				content: 'Sends you a random cat fact.',
+				examples: [''],
+				usage: '',
+			},
 		});
 	}
 

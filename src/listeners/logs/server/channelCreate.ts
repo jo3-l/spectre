@@ -1,8 +1,8 @@
-import Log, { emojis } from '@util/logUtil';
-import { removeBlankLines, formatTime, formatUser } from '@util/util';
-import { Listener } from 'discord-akairo';
-import { GuildChannel, DMChannel } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import Log, { emojis } from '@util/logUtil';
+import { formatTime, formatUser, removeBlankLines } from '@util/util';
+import { Listener } from 'discord-akairo';
+import { DMChannel, GuildChannel } from 'discord.js';
 
 export default class ChannelCreateListener extends Listener {
 	public constructor() {

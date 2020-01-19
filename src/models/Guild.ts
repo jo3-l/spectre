@@ -1,10 +1,10 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('guilds')
 export class Guild {
 	@PrimaryColumn({ type: 'bigint' })
 	public id!: string;
 
-	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'", 'nullable': true })
+	@Column({ 'default': (): string => "'{}'", 'nullable': true, 'type': 'jsonb' })
 	public settings!: any;
 }

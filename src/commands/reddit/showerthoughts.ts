@@ -1,7 +1,7 @@
-import { Command } from 'discord-akairo';
-import { scrapeSubreddit } from '@util/redditUtil';
-import { Message } from 'discord.js';
 import { CATEGORIES } from '@util/constants';
+import { scrapeSubreddit } from '@util/redditUtil';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 export default class ShowerThoughtsCommand extends Command {
 	public constructor() {
@@ -11,8 +11,8 @@ export default class ShowerThoughtsCommand extends Command {
 			clientPermissions: ['SEND_MESSAGES'],
 			description: {
 				content: 'Things to think about in the shower.',
-				usage: '',
 				examples: [''],
+				usage: '',
 			},
 		});
 	}

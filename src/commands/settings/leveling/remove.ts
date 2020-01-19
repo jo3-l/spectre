@@ -1,29 +1,29 @@
+import { CATEGORIES } from '@util/constants';
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { CATEGORIES } from '@util/constants';
 
 export default class RemoveRoleRewardCommand extends Command {
 	public constructor() {
 		super('role-rewards-remove', {
-			category: CATEGORIES.SETTINGS,
 			args: [
 				{
 					id: 'levelToRemove',
+					prompt: {
+						retry: (_: Message, { failure }: { failure: { value: string } }) => {
+							if (failure.value) return 'please provide a level that has an existing role reward.';
+							return 'please provide a valid level to remove the role reward from.';
+						},
+						start: 'please provide a level to remove the role reward from.',
+					},
 					type: (message, level) => {
 						if (!/^\d+$/.test(level)) return;
 						const current = this.client.settings.get(message.guild!, 'roleRewards', {});
 						if (!(level in current)) return Flag.fail('NOT_PRESENT');
 						return level;
 					},
-					prompt: {
-						start: 'please provide a level to remove the role reward from.',
-						retry: (_: Message, { failure }: { failure: { value: string } }) => {
-							if (failure.value) return 'please provide a level that has an existing role reward.';
-							return 'please provide a valid level to remove the role reward from.';
-						},
-					},
 				},
 			],
+			category: CATEGORIES.SETTINGS,
 		});
 	}
 

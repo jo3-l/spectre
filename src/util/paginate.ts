@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 export default function paginate<T>(data: T[], maxLength: number): T[][];
 export default function paginate<T>(
 	data: T[],
@@ -16,8 +17,8 @@ export default function paginate<T>(
 			items: data.length > pageLength
 				? data.slice((page - 1) * pageLength, page * pageLength)
 				: data,
-			page,
 			maxPage,
+			page,
 			pageLength,
 		};
 	}

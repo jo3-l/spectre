@@ -1,11 +1,11 @@
-import { Command, Argument } from 'discord-akairo';
-import { promisify, inspect } from 'util';
-import { exec } from 'child_process';
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { hastebin, escapedCodeblock } from '@util/util';
-import Timer from '@util/timer';
 import { CATEGORIES } from '@util/constants';
+import Timer from '@util/timer';
+import { escapedCodeblock, hastebin } from '@util/util';
+import { exec } from 'child_process';
+import { Argument, Command } from 'discord-akairo';
+import { Message } from 'discord.js';
+import { inspect, promisify } from 'util';
 
 const execAsync = promisify(exec);
 
@@ -13,35 +13,35 @@ export default class ExecCommand extends Command {
 	public constructor() {
 		super('exec', {
 			aliases: ['exec'],
-			category: CATEGORIES.OWNER,
-			description: {
-				content: 'Executes an expression in the terminal. Set a timeout with `--timeout` (in seconds, max 60).',
-				usage: '<expression> [flags]',
-				examples: ['git push', 'git add . --timeout 5'],
-			},
-			ownerOnly: true,
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			args: [
 				{
+					'default': 5000,
+					'flag': ['-t', '--timeout'],
 					'id': 'timeout',
 					'match': 'option',
 					'type': Argument.compose(
 						Argument.range('number', 0, 60, true),
 						(_, num: unknown) => num as number * 10,
 					),
-					'flag': ['-t', '--timeout'],
 					'unordered': true,
-					'default': 5000,
 				},
 				{
 					id: 'expr',
+					match: 'rest',
 					prompt: {
 						start: 'what would you like to execute?',
 					},
-					match: 'rest',
 					unordered: true,
 				},
 			],
+			category: CATEGORIES.OWNER,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: 'Executes an expression in the terminal. Set a timeout with `--timeout` (in seconds, max 60).',
+				examples: ['git push', 'git add . --timeout 5'],
+				usage: '<expression> [flags]',
+			},
+			ownerOnly: true,
 		});
 	}
 
@@ -50,8 +50,8 @@ export default class ExecCommand extends Command {
 		const timer = new Timer();
 		const result = await execAsync(expr, { timeout })
 			.catch(error => ({
-				stdout: null,
 				stderr: error.stderr,
+				stdout: null,
 			}));
 		const { stdout, stderr } = result;
 		const ms = timer.stop();

@@ -1,10 +1,9 @@
-import { TextChannel, MessageReaction, User, Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { Message, MessageReaction, TextChannel, User } from 'discord.js';
 
 export default class RichDisplay {
-	private readonly _emojis = { first: '⏪', prev: '◀️', stop: '⏹️', next: '▶️', last: '⏩' };
-	private readonly _filter: (reaction: MessageReaction, user: User) => boolean = () => true;
 	private readonly _timeout: number;
+	private readonly _authorizedUsers: string[];
 	private _pages: SpectreEmbed[];
 	private _page = 0;
 	// eslint-disable-next-line @typescript-eslint/prefer-readonly
@@ -13,23 +12,20 @@ export default class RichDisplay {
 	private _end: SpectreEmbed | null = null;
 	private readonly _channel: TextChannel;
 	private _message!: Message;
+	private readonly _emojis = { first: '⏪', last: '⏩', next: '▶️', prev: '◀️', stop: '⏹️' };
 
-	public constructor({ filter, timeout = 5 * 6e4, pages = [], channel }: RichDisplayOptions = {}) {
+	public constructor({ filter, authorizedUsers = [], timeout = 5 * 6e4, pages = [], channel }: RichDisplayOptions = {}) {
 		if (!channel) throw new TypeError('A channel must be provided.');
 		this._channel = channel;
 		if (filter) this._filter = filter;
 		this._timeout = timeout;
 		this._pages = pages;
+		this._authorizedUsers = authorizedUsers.map(user => typeof user === 'string' ? user : user.id);
 	}
 
 	public add(page: SpectreEmbed) {
 		this._pages.push(page);
 		return this;
-	}
-
-	private _updatePage(index: number) {
-		if (this._page !== index) this._page = index;
-		this._message.edit(this._pages[index]);
 	}
 
 	public set(type: 'start' | 'end', page: SpectreEmbed | number) {
@@ -83,6 +79,13 @@ export default class RichDisplay {
 			if (this._end) message.edit(this._end);
 		});
 	}
+
+	private readonly _filter: (reaction: MessageReaction, user: User) => boolean = () => true;
+
+	private _updatePage(index: number) {
+		if (this._page !== index) this._page = index;
+		this._message.edit(this._pages[index]);
+	}
 }
 
 interface RichDisplayOptions {
@@ -90,4 +93,5 @@ interface RichDisplayOptions {
 	timeout?: number;
 	pages?: SpectreEmbed[];
 	channel?: TextChannel;
+	authorizedUsers?: Array<string | User>;
 }

@@ -1,8 +1,8 @@
-import Log, { emojis } from '@util/logUtil';
-import { removeBlankLines, formatTime, formatUser } from '@util/util';
-import { Listener } from 'discord-akairo';
-import { GuildChannel, DMChannel, PermissionString, Guild, TextChannel, Permissions, User, Role } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import Log, { emojis } from '@util/logUtil';
+import { formatTime, formatUser, removeBlankLines } from '@util/util';
+import { Listener } from 'discord-akairo';
+import { DMChannel, Guild, GuildChannel, Permissions, PermissionString, Role, TextChannel, User } from 'discord.js';
 
 export interface ChannelPermission {
 	allow: PermissionString[];
@@ -54,8 +54,8 @@ export default class ChannelUpdateListener extends Listener {
 			if (!corresponding.allow.equals(perm.allow) || !corresponding.deny.equals(perm.deny)) {
 				const data = {
 					outdated: { allow: corresponding.allow, deny: corresponding.deny },
-					updated: { allow: perm.allow, deny: perm.deny },
 					target: await this._resolve(perm.id, guild),
+					updated: { allow: perm.allow, deny: perm.deny },
 				};
 				return this.client.emit('channelOverwriteUpdate', newChannel, data);
 			}

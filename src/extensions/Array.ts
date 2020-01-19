@@ -6,14 +6,14 @@ interface Array<T> {
 Object.defineProperties(
 	Array.prototype,
 	{
-		random: {
-			value: function(this: Array<any>) {
-				return this[Math.floor(Math.random() * this.length)];
+		last: {
+			get(this: Array<any>) {
+				return this[this.length - 1];
 			},
 		},
-		last: {
-			get: function(this: Array<any>) {
-				return this[this.length - 1];
+		random: {
+			value(this: Array<any>) {
+				return this[Math.floor(Math.random() * this.length)];
 			},
 		},
 	},

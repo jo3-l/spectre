@@ -1,8 +1,8 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
 import { escapedCodeblock, formatTime, formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class MessageUpdateListener extends Listener {
 	public constructor() {

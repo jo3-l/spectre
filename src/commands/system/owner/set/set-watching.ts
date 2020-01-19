@@ -1,12 +1,12 @@
+import { CATEGORIES } from '@util/constants';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { CATEGORIES } from '@util/constants';
 
 export default class SetWatchingCommand extends Command {
 	public constructor() {
 		super('set-watching', {
-			category: CATEGORIES.OWNER,
 			args: [{ id: 'status', match: 'content' }],
+			category: CATEGORIES.OWNER,
 		});
 	}
 

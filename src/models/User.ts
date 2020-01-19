@@ -1,10 +1,10 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
 	@PrimaryColumn({ type: 'bigint' })
 	public id!: string;
 
-	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'" })
+	@Column({ 'default': (): string => "'{}'", 'type': 'jsonb' })
 	public backgrounds!: any;
 }

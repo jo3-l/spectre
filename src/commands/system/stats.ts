@@ -1,21 +1,22 @@
+import 'moment-duration-format';
+
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { duration } from 'moment';
-import 'moment-duration-format';
-import { CATEGORIES } from '@util/constants';
 
 export default class StatCommands extends Command {
 	public constructor() {
 		super('stats', {
 			aliases: ['stats', 'info'],
 			category: CATEGORIES.SYSTEM,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: 'Spectre statistics!',
 				examples: [''],
 				usage: '',
 			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 		});
 	}

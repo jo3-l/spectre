@@ -1,14 +1,14 @@
-import { format, createLogger, transports } from 'winston';
+import { blue, green, hex, red, yellow } from 'chalk';
 import moment from 'moment';
-import { hex, red, yellow, green, blue } from 'chalk';
+import { createLogger, format, transports } from 'winston';
 
 const orange = hex('#FF8800');
 
 const levelColors = {
-	error: red,
-	warn: yellow,
-	info: green,
 	debug: blue,
+	error: red,
+	info: green,
+	warn: yellow,
 };
 
 export default createLogger({
@@ -24,6 +24,6 @@ export default createLogger({
 			return `${orange(displayedTime)} | ${color(`[${timestamp}] ${label} - ${level.toUpperCase()}: `)} ${message}`;
 		}),
 	),
-	levels: { error: 0, warn: 1, info: 2, debug: 3 },
+	levels: { debug: 3, error: 0, info: 2, warn: 1 },
 	transports: [new transports.Console({ level: 'debug' })],
 });

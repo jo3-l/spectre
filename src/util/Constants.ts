@@ -1,13 +1,13 @@
 export const CATEGORIES = {
 	ANIMAL: 'Animals',
 	FUN: 'Fun',
+	INFO: 'Info',
 	LEVELS: 'Levels',
+	OWNER: 'Owner',
 	REDDIT: 'Reddit',
 	SETTINGS: 'Settings',
 	SYSTEM: 'System',
-	OWNER: 'Owner',
 	TOOLS: 'Tools',
-	INFO: 'Info',
 };
 
 export const CATEGORY_IMAGES = {

@@ -1,8 +1,8 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
-import { removeBlankLines, humanizePermissionName, formatUser } from '@util/util';
+import { formatUser, humanizePermissionName, removeBlankLines } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { GuildMember, PermissionString } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class GuildMemberUpdateListener extends Listener {
 	public constructor() {

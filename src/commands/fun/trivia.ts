@@ -1,28 +1,28 @@
-import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { stringify } from 'querystring';
-import fetch from 'node-fetch';
+import { CATEGORIES } from '@util/constants';
 import { capitalize } from '@util/util';
 import { stripIndents } from 'common-tags';
-import { CATEGORIES } from '@util/constants';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
+import fetch from 'node-fetch';
+import { stringify } from 'querystring';
 
 export default class TriviaCommand extends Command {
 	public constructor() {
 		super('trivia', {
 			aliases: ['trivia'],
-			description: {
-				content: 'Play a game of trivia!',
-				usage: '',
-				examples: [''],
-			},
 			category: CATEGORIES.FUN,
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: 'Play a game of trivia!',
+				examples: [''],
+				usage: '',
+			},
 		});
 	}
 
 	public async exec(message: Message) {
-		const url = `https://opentdb.com/api.php?${stringify({ amount: 1, type: 'multiple', encode: 'url3986' })}`;
+		const url = `https://opentdb.com/api.php?${stringify({ amount: 1, encode: 'url3986', type: 'multiple' })}`;
 		const { results: [trivia] } = await fetch(url).then(res => res.json()) as ApiResponse;
 		for (const [key, value] of Object.entries(trivia)) {
 			trivia[key as keyof Question] = typeof value === 'string'
@@ -50,7 +50,7 @@ export default class TriviaCommand extends Command {
 		let choice: Message;
 		try {
 			choice = (await message.channel.awaitMessages((msg: Message) => msg.author.id === message.author.id, {
-				max: 1, time, errors: ['time'],
+				errors: ['time'], max: 1, time,
 			})).first()!;
 		} catch {
 			return message.channel.send(`You didn\'t answer in time. The correct answer was ${trivia.correct_answer}.`);

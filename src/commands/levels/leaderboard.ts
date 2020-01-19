@@ -1,43 +1,44 @@
-import { Command, Argument } from 'discord-akairo';
-import { Member } from '../../models/Member';
-import { Message, TextChannel } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { calculateLevel } from '@util/util';
 import RichDisplay from '@structures/RichDisplay';
-import paginate from '@util/paginate';
+import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
+import paginate from '@util/paginate';
+import { calculateLevel } from '@util/util';
+import { Argument, Command } from 'discord-akairo';
+import { Message, TextChannel } from 'discord.js';
+
+import { Member } from '../../models/Member';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {
 		super('leaderboard', {
-			category: CATEGORIES.LEVELS,
 			aliases: ['leaderboard', 'lb', 'top'],
-			description: {
-				content: 'Shows the XP leaderboard for this server.',
-				usage: '[page]',
-				examples: ['1', ''],
-			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			args: [
 				{
+					'default': 10,
 					'id': 'page',
 					'type': Argument.compose(
 						Argument.range('number', 0, Infinity),
 						(_, x: unknown) => x as number * 10,
 					),
-					'default': 10,
 				},
 			],
+			category: CATEGORIES.LEVELS,
 			channel: 'guild',
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: 'Shows the XP leaderboard for this server.',
+				examples: ['1', ''],
+				usage: '[page]',
+			},
 		});
 	}
 
 	public async exec(message: Message, { page }: { page: number }) {
 		const repo = this.client.db.getRepository(Member);
 		const result = await repo.find({
-			where: { guildId: message.guild!.id },
-			select: ['id', 'xp'],
 			order: { xp: 'DESC' },
+			select: ['id', 'xp'],
+			where: { guildId: message.guild!.id },
 			...this._getRange(page),
 		});
 		if (!result.length) return message.util!.reply(`there are no ranked members on page ${page / 10}!`);
@@ -46,8 +47,8 @@ export default class LeaderboardCommand extends Command {
 		), 10);
 
 		new RichDisplay({
-			filter: (_, user) => message.author.id === user.id,
 			channel: message.channel as TextChannel,
+			filter: (_, user) => message.author.id === user.id,
 			pages: pages.map(page => new SpectreEmbed().setDescription(page.join('\n\n'))),
 		})
 			.transformAll((page, i, total) => page

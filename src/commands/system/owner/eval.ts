@@ -1,15 +1,15 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
+import Timer from '@util/timer';
+import { escapedCodeblock, hastebin } from '@util/util';
+import { stripIndents } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { join } from 'path';
-import Timer from '@util/timer';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { inspect } from 'util';
 import fetch from 'node-fetch';
-import { stripIndents } from 'common-tags';
-import { hastebin, escapedCodeblock } from '@util/util';
-import { CATEGORIES } from '@util/constants';
+import { join } from 'path';
+import { inspect } from 'util';
 
-const CODEBLOCK_REGEX = /```(js|javascript)\n?([\s\S]*?)\n?```/;
+const CODEBLOCK_REGEX = /```(js|javascript)\n?([\S\s]*?)\n?```/;
 const LINK_REGEX = /^https?:\/\/(www)?hasteb\.in\/(.+)(\..+)?$/;
 
 export default class EvalCommand extends Command {
@@ -17,6 +17,7 @@ export default class EvalCommand extends Command {
 		super('eval', {
 			aliases: ['eval', 'evaluate', 'ev'],
 			category: CATEGORIES.OWNER,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: stripIndents`Evalutes arbitrary JavaScript code. 
 					
@@ -25,14 +26,13 @@ export default class EvalCommand extends Command {
 					• \`silent\` - Silently runs code
 					• \`stack\` - If there is an error, a stack trace will be shown
 					• \`insert-from\` - Insert prewritten code from a hastebin source.`,
-				usage: '<code> [...flags]',
 				examples: ['message.channel.send(\'Hello there!\')'],
+				usage: '<code> [...flags]',
 			},
-			ownerOnly: true,
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			ratelimit: 2,
 			flags: ['--async', '-a', '--silent', '-s', '--stack', '-st'],
 			optionFlags: ['-f', '--insert-from'],
+			ownerOnly: true,
+			ratelimit: 2,
 		});
 	}
 
@@ -53,19 +53,19 @@ export default class EvalCommand extends Command {
 
 		const flags: any = { async: ['--async', '-a'], silent: ['--silent', '-s'], stack: ['--stack', '-st'] };
 		for (const [name, flag] of Object.entries(flags)) {
-			flags[name] = yield { match: 'flag', flag, unordered: true };
+			flags[name] = yield { flag, match: 'flag', unordered: true };
 		}
 
 		let code = yield {
 			match: 'rest',
-			type: codeType,
 			prompt: { start: 'what would you like to evaluate?' },
+			type: codeType,
 			unordered: true,
 		};
 
 		const insert = yield {
-			match: 'option',
 			flag: ['--insert-from', '-f'],
+			match: 'option',
 			type: hastebinLinkType,
 			unordered: true,
 		};

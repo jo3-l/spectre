@@ -14,10 +14,10 @@ export const version = '0.5.0 Beta';
 export const db = '';
 // Emojis
 export const emojis = {
-	loading: '',
-	success: '',
 	error: '',
+	loading: '',
 	neutral: '',
+	success: '',
 };
 // Array of activities
 export const activities: Activity[] = [

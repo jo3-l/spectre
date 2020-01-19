@@ -1,32 +1,28 @@
+import RichDisplay from '@structures/RichDisplay';
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
+import { EmbedLimits, trim } from '@util/util';
 import { Command } from 'discord-akairo';
 import { Message, TextChannel } from 'discord.js';
 import fetch from 'node-fetch';
 import { stringify } from 'querystring';
-import RichDisplay from '@structures/RichDisplay';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { trim, EmbedLimits } from '@util/util';
-import { CATEGORIES } from '@util/constants';
 
 const addLinks = (str: string) => str
 	// eslint-disable-next-line max-len
-	.replace(/\[(.*?)\]/g, (_, word: string) => `[${word}](https://www.urbandictionary.com/define.php?${stringify({ term: word })})`);
+	.replace(/\[(.*?)]/g, (_, word: string) => `[${word}](https://www.urbandictionary.com/define.php?${stringify({ term: word })})`);
 
 export default class UrbanDictionaryCommand extends Command {
 	public constructor() {
 		super('urban', {
 			aliases: ['urban', 'urban-dictionary', 'ud'],
-			description: {
-				content: 'Search urban dictionary from the comfort of your Discord server!',
-				usage: '<term>',
-				examples: ['lmao'],
-			},
-			category: CATEGORIES.FUN,
-			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-			channel: 'guild',
 			args: [
 				{
 					id: 'result',
 					match: 'text',
+					prompt: {
+						retry: 'sorry, I couldn\'t find a definition with that query. Try again!',
+						start: 'what would you like to search for?',
+					},
 					type: async (_, phrase) => {
 						if (!phrase) return;
 						const query = stringify({ term: phrase });
@@ -35,19 +31,23 @@ export default class UrbanDictionaryCommand extends Command {
 						if (!list.length) return;
 						return list;
 					},
-					prompt: {
-						start: 'what would you like to search for?',
-						retry: 'sorry, I couldn\'t find a definition with that query. Try again!',
-					},
 				},
 			],
+			category: CATEGORIES.FUN,
+			channel: 'guild',
+			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+			description: {
+				content: 'Search urban dictionary from the comfort of your Discord server!',
+				examples: ['lmao'],
+				usage: '<term>',
+			},
 		});
 	}
 
 	public exec(message: Message, { result }: { result: Definition[] }) {
 		const display = new RichDisplay({
-			filter: (_, user) => user.id === message.author.id,
 			channel: message.channel as TextChannel,
+			filter: (_, user) => user.id === message.author.id,
 		});
 		for (const definition of result) display.add(this._buildEmbed(definition));
 		display

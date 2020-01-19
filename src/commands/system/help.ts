@@ -1,20 +1,20 @@
-import { Command, Category, Argument } from 'discord-akairo';
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { oneLineTrim } from 'common-tags';
 import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
+import { oneLineTrim } from 'common-tags';
+import { Argument, Category, Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 export default class HelpCommand extends Command {
 	public constructor() {
 		super('help', {
 			aliases: ['help', 'h', 'cmd', 'cmds', 'module', 'command', 'category'],
 			category: CATEGORIES.SYSTEM,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: 'Information on specific commands or modules.',
-				usage: '[command|module]',
 				examples: ['ping', 'General'],
+				usage: '[command|module]',
 			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 		});
 	}
 

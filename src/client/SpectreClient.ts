@@ -1,13 +1,14 @@
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
-import { join } from 'path';
-import { readdir } from 'fs-nextra';
-import { token, prefix, activities, owner, version, color, db, emojis } from '@root/config';
+import { activities, color, db, emojis, owner, prefix, token, version } from '@root/config';
 import ActivityHandler, { Activity } from '@structures/ActivityHandler';
-import Logger from '@structures/Logger';
-import Database from '@structures/Database';
-import TypeORMProvider from '@structures/SettingsProvider';
 import AssetHandler from '@structures/AssetHandler';
+import Database from '@structures/Database';
+import Logger from '@structures/Logger';
+import TypeORMProvider from '@structures/SettingsProvider';
+import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
+import { readdir } from 'fs-nextra';
+import { join } from 'path';
 import { Connection } from 'typeorm';
+
 import { Guild } from '../models/Guild';
 
 declare module 'discord-akairo' {
@@ -39,27 +40,27 @@ export interface SpectreConfig {
 export default class SpectreClient extends AkairoClient {
 	public version = version;
 	public commandHandler: CommandHandler = new CommandHandler(this, {
-		directory: join(__dirname, '..', 'commands'),
 		aliasReplacement: /-/g,
 		allowMention: true,
-		prefix: prefix,
-		handleEdits: true,
-		storeMessages: true,
-		commandUtil: true,
-		commandUtilLifetime: 300000,
-		ignoreCooldown: owner,
-		defaultCooldown: 3000,
 		argumentDefaults: {
 			prompt: {
-				modifyStart: (message, str) => `${message.author}, ${str}\n\n*Type \`cancel\` to cancel the command.*`,
-				modifyRetry: (message, str) => `${message.author}, ${str}\n\n*Type \`cancel\` to cancel the command.*`,
-				timeout: 'The command timed out.',
-				ended: 'Three tries and you still didn\'t get it. Try again.',
 				cancel: 'The command has been cancelled.',
+				ended: 'Three tries and you still didn\'t get it. Try again.',
+				modifyRetry: (message, str) => `${message.author}, ${str}\n\n*Type \`cancel\` to cancel the command.*`,
+				modifyStart: (message, str) => `${message.author}, ${str}\n\n*Type \`cancel\` to cancel the command.*`,
 				retries: 3,
 				time: 30000,
+				timeout: 'The command timed out.',
 			},
 		},
+		commandUtil: true,
+		commandUtilLifetime: 300000,
+		defaultCooldown: 3000,
+		directory: join(__dirname, '..', 'commands'),
+		handleEdits: true,
+		ignoreCooldown: owner,
+		prefix,
+		storeMessages: true,
 	});
 
 	public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
@@ -73,14 +74,19 @@ export default class SpectreClient extends AkairoClient {
 	public logger = Logger;
 	public db!: Connection;
 	public settings!: TypeORMProvider;
-	public config = { token, prefix, color, owner, db, activities, version, emojis };
+	public config = { activities, color, db, emojis, owner, prefix, token, version };
 	public activityHandler: ActivityHandler = new ActivityHandler(this, this.config.activities);
 	public assetHandler: AssetHandler = new AssetHandler(join(__dirname, '..', 'assets'));
 
 	public constructor() {
 		super({
-			ownerID: owner, disableEveryone: true, disabledEvents: ['TYPING_START', 'PRESENCE_UPDATE'],
+			disableEveryone: true, disabledEvents: ['TYPING_START', 'PRESENCE_UPDATE'], ownerID: owner,
 		});
+	}
+
+	public async start() {
+		await this._init();
+		this.login(token);
 	}
 
 	private async _init() {
@@ -101,8 +107,8 @@ export default class SpectreClient extends AkairoClient {
 		// Set emitters
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
-			listenerHandler: this.listenerHandler,
 			inhibitorHandler: this.inhibitorHandler,
+			listenerHandler: this.listenerHandler,
 			process,
 		});
 		// Load inhibitors
@@ -122,10 +128,5 @@ export default class SpectreClient extends AkairoClient {
 		// Load assets
 		await this.assetHandler.init();
 		this.logger.info(`Loaded ${this.assetHandler.size} assets.`);
-	}
-
-	public async start() {
-		await this._init();
-		this.login(token);
 	}
 }

@@ -1,20 +1,20 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
+import { stripIndents } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { stripIndents } from 'common-tags';
-import { CATEGORIES } from '@util/constants';
 
 export default class PingCommand extends Command {
 	public constructor() {
 		super('ping', {
 			aliases: ['ping', 'pong'],
 			category: CATEGORIES.SYSTEM,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: 'Check the latency of the bot.',
 				examples: [''],
 				usage: '',
 			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			ratelimit: 2,
 		});
 	}

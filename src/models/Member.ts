@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('members')
 export class Member {
@@ -8,6 +8,6 @@ export class Member {
 	@PrimaryColumn({ type: 'bigint' })
 	public guildId!: string;
 
-	@Column({ 'type': 'int', 'default': () => 0 })
+	@Column({ 'default': () => 0, 'type': 'int' })
 	public xp!: number;
 }

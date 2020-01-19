@@ -1,6 +1,7 @@
+import { calculateLevel } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Message, Snowflake } from 'discord.js';
-import { calculateLevel } from '@util/util';
+
 import { Member } from '../../models/Member';
 
 export default class MessageListener extends Listener {
@@ -42,7 +43,7 @@ export default class MessageListener extends Listener {
 			.execute();
 		const newLevel = calculateLevel(newXp);
 		if (newLevel && newLevel !== oldLevel && message.guild.me!.permissions.has(['SEND_MESSAGES', 'ATTACH_FILES'])) {
-			this.client.emit('levelUp', message.channel, { member: message.member, level: newLevel });
+			this.client.emit('levelUp', message.channel, { level: newLevel, member: message.member });
 		}
 		cooldowns.add(message.author.id);
 		setTimeout(() => cooldowns.delete(message.author.id), 60000);

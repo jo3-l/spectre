@@ -1,6 +1,6 @@
+import { CATEGORIES } from '@util/constants';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { CATEGORIES } from '@util/constants';
 const TWITCH_URL_REGEX = /(https?:\/\/)?(www\.)?twitch\.tv\/\S+/;
 
 export default class SetStreamingCommand extends Command {
@@ -16,12 +16,12 @@ export default class SetStreamingCommand extends Command {
 		let url;
 		if (status) {
 			url = yield {
+				'default': 'https://www.twitch.tv/officialspectrebot',
 				'flag': ['--url', '-u'],
 				'match': 'option',
 				'type': (_: Message, phrase: string) => {
 					if (TWITCH_URL_REGEX.test(phrase)) return phrase;
 				},
-				'default': 'https://www.twitch.tv/officialspectrebot',
 			};
 		}
 		return { status, url };

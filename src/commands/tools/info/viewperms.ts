@@ -1,23 +1,24 @@
-import { Command } from 'discord-akairo';
-import { Message, GuildMember, PermissionString, MessageEmbed, Permissions } from 'discord.js';
-import { humanizePermissionName } from '../../../util/util';
-import { oneLineTrim } from 'common-tags';
 import { CATEGORIES } from '@util/constants';
+import { oneLineTrim } from 'common-tags';
+import { Command } from 'discord-akairo';
+import { GuildMember, Message, MessageEmbed, Permissions, PermissionString } from 'discord.js';
+
+import { humanizePermissionName } from '../../../util/util';
 
 
 export default class ViewPermsCommand extends Command {
 	public constructor() {
 		super('view-perms', {
 			aliases: ['view-perms', 'permissions', 'perms'],
+			args: [{ 'default': (msg: Message) => msg.member, 'id': 'member', 'type': 'member' }],
 			category: CATEGORIES.INFO,
-			description: {
-				content: 'A list of permissions for a given member (defaults to yourself).',
-				usage: '[member]',
-				examples: ['@Joe', ''],
-			},
 			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			args: [{ 'id': 'member', 'type': 'member', 'default': (msg: Message) => msg.member }],
+			description: {
+				content: 'A list of permissions for a given member (defaults to yourself).',
+				examples: ['@Joe', ''],
+				usage: '[member]',
+			},
 		});
 	}
 

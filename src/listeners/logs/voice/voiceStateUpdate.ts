@@ -1,14 +1,14 @@
-import Log, { emojis } from '@util/logUtil';
-import { VoiceState } from 'discord.js';
-import { Listener } from 'discord-akairo';
-import { removeBlankLines, formatUser } from '@util/util';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import Log, { emojis } from '@util/logUtil';
+import { formatUser, removeBlankLines } from '@util/util';
+import { Listener } from 'discord-akairo';
+import { VoiceState } from 'discord.js';
 
 export default class VoiceStateUpdateListener extends Listener {
 	public constructor() {
 		super('voiceStateUpdate', {
-			event: 'voiceStateUpdate',
 			emitter: 'client',
+			event: 'voiceStateUpdate',
 		});
 	}
 

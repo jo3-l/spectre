@@ -1,5 +1,6 @@
-import Logger from '../structures/Logger';
 import { AkairoModule } from 'discord-akairo';
+
+import Logger from '../structures/Logger';
 
 declare module 'discord-akairo' {
 	interface AkairoModule {

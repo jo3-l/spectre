@@ -1,26 +1,26 @@
-import { Command } from 'discord-akairo';
-import { Message, User } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import { Command } from 'discord-akairo';
+import { Message, User } from 'discord.js';
 
 export default class AvatarCommand extends Command {
 	public constructor() {
 		super('avatar', {
 			aliases: ['avatar', 'av', 'pfp'],
-			category: CATEGORIES.INFO,
-			description: {
-				content: 'Displays the avatar of a given user.',
-				usage: '[user]',
-				examples: ['', '@Joe'],
-			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			args: [
 				{
+					'default': (msg: Message) => msg.author,
 					'id': 'user',
 					'type': 'user',
-					'default': (msg: Message) => msg.author,
 				},
 			],
+			category: CATEGORIES.INFO,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: 'Displays the avatar of a given user.',
+				examples: ['', '@Joe'],
+				usage: '[user]',
+			},
 		});
 	}
 

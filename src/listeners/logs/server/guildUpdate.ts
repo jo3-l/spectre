@@ -1,16 +1,17 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import { formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Guild } from 'discord.js';
 import ms from 'ms';
+
 import { humanizedRegions, verificationLevels } from '../../../commands/tools/info/serverinfo';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { formatUser } from '@util/util';
 
 export default class GuildUpdateListener extends Listener {
 	public constructor() {
 		super('guildUpdate', {
-			event: 'guildUpdate',
 			emitter: 'client',
+			event: 'guildUpdate',
 		});
 	}
 

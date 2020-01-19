@@ -1,10 +1,10 @@
-import { Command } from 'discord-akairo';
-import fetch from 'node-fetch';
-import cheerio from 'cheerio';
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { stripIndents } from 'common-tags';
 import { CATEGORIES } from '@util/constants';
+import cheerio from 'cheerio';
+import { stripIndents } from 'common-tags';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
+import fetch from 'node-fetch';
 
 const EMOJIS = { ONE: '1⃣', TWO: '2⃣' };
 
@@ -12,13 +12,13 @@ export default class WouldYouRatherCommand extends Command {
 	public constructor() {
 		super('wouldyourather', {
 			aliases: ['wouldyourather', 'wyr'],
-			description: {
-				content: 'Would you rather question, pulled from either.io.',
-				usage: '',
-				examples: [''],
-			},
 			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
+			description: {
+				content: 'Would you rather question, pulled from either.io.',
+				examples: [''],
+				usage: '',
+			},
 		});
 	}
 

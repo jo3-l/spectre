@@ -1,18 +1,16 @@
+import { CATEGORIES } from '@util/constants';
 import { Command } from 'discord-akairo';
 import { Message, User } from 'discord.js';
+
 import { blacklistUserType } from './blacklist';
-import { CATEGORIES } from '@util/constants';
 
 export default class BlacklistAddCommand extends Command {
 	public constructor() {
 		super('blacklist-add', {
-			category: CATEGORIES.OWNER,
 			args: [
 				{
 					id: 'user',
-					type: blacklistUserType(),
 					prompt: {
-						start: 'please provide a user ID to blacklist.',
 						retry: (_: Message, { failure }: { failure: { value: string } }) => {
 							switch (failure.value) {
 								// eslint-disable-next-line max-len
@@ -21,9 +19,12 @@ export default class BlacklistAddCommand extends Command {
 								default: return 'that was not a valid user ID. Try again.';
 							}
 						},
+						start: 'please provide a user ID to blacklist.',
 					},
+					type: blacklistUserType(),
 				},
 			],
+			category: CATEGORIES.OWNER,
 		});
 	}
 

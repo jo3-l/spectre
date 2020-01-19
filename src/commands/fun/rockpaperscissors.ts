@@ -1,17 +1,17 @@
-import { Command } from 'discord-akairo';
-import { Message, User, MessageReaction } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { oneLine } from 'common-tags';
 import { CATEGORIES } from '@util/constants';
+import { oneLine } from 'common-tags';
+import { Command } from 'discord-akairo';
+import { Message, MessageReaction, User } from 'discord.js';
 
 const rpsData: Record<Choice, { counters: string; emoji: string }> = {
-	rock: {
-		counters: 'scissors',
-		emoji: '⛰️',
-	},
 	paper: {
 		counters: 'rock',
 		emoji: '✋🏼',
+	},
+	rock: {
+		counters: 'scissors',
+		emoji: '⛰️',
 	},
 	scissors: {
 		counters: 'paper',
@@ -23,13 +23,13 @@ export default class RockPaperScissorsCommand extends Command {
 	public constructor() {
 		super('rock-paper-scissors', {
 			aliases: ['rock-paper-scissors', 'rps'],
-			description: {
-				content: 'Play a game of rock-paper-scissors with the bot!',
-				usage: '',
-				examples: [''],
-			},
 			category: CATEGORIES.FUN,
 			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS', 'MANAGE_MESSAGES'],
+			description: {
+				content: 'Play a game of rock-paper-scissors with the bot!',
+				examples: [''],
+				usage: '',
+			},
 		});
 	}
 
@@ -40,7 +40,7 @@ export default class RockPaperScissorsCommand extends Command {
 		for (const emoji of emojis) await msg.react(emoji);
 		const choice = await msg.awaitReactions(
 			(reaction: MessageReaction, user: User) => emojis.includes(reaction.emoji.name) && user.id === message.author.id,
-			{ time: 15e3, errors: ['time'], max: 1 },
+			{ errors: ['time'], max: 1, time: 15e3 },
 		).then(reactions => choices[emojis.indexOf(reactions.first()!.emoji.name)] as Choice)
 			.catch(() => undefined);
 		await msg.delete();

@@ -1,21 +1,21 @@
-import { Command } from 'discord-akairo';
 import Confirmation, { Responses } from '@structures/Confirmation';
 import SpectreEmbed from '@structures/SpectreEmbed';
-import { Message } from 'discord.js';
 import { CATEGORIES } from '@util/constants';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 export default class RebootCommand extends Command {
 	public constructor() {
 		super('reboot', {
 			aliases: ['reboot', 'die', 'shutdown'],
 			category: CATEGORIES.OWNER,
+			clientPermissions: ['SEND_MESSAGES'],
 			description: {
 				content: 'Reboots the bot.',
-				usage: '',
 				examples: [''],
+				usage: '',
 			},
 			ownerOnly: true,
-			clientPermissions: ['SEND_MESSAGES'],
 			ratelimit: 2,
 		});
 	}

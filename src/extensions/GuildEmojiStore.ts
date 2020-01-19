@@ -1,5 +1,6 @@
-import { emojis } from '../../config';
 import { GuildEmojiStore } from 'discord.js';
+
+import { emojis } from '../../config';
 
 declare module 'discord.js' {
 	interface GuildEmojiStore {
@@ -13,9 +14,9 @@ declare module 'discord.js' {
 Object.defineProperties(
 	GuildEmojiStore.prototype,
 	{
-		loading: { value: emojis.loading },
-		success: { value: emojis.success },
 		error: { value: emojis.error },
+		loading: { value: emojis.loading },
 		neutral: { value: emojis.neutral },
+		success: { value: emojis.success },
 	},
 );

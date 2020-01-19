@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
+import { bold, red } from 'chalk';
+import { stripIndent, stripIndents } from 'common-tags';
 import { Listener } from 'discord-akairo';
-import { red, bold } from 'chalk';
-import { stripIndents, stripIndent } from 'common-tags';
 
 export default class extends Listener {
 	public constructor() {

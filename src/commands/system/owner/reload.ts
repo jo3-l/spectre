@@ -1,4 +1,4 @@
-import { Command, Argument, Category, Listener, Inhibitor } from 'discord-akairo';
+import { Argument, Category, Command, Inhibitor, Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stat } from 'fs-nextra';
 import { join } from 'path';
@@ -8,15 +8,15 @@ export default class ReloadCommand extends Command {
 		super('reload', {
 			aliases: ['reload', 'r', 'reload-all'],
 			category: 'Owner',
+			clientPermissions: ['SEND_MESSAGES'],
 			description: {
 				// eslint-disable-next-line max-len
 				content: 'Reloads a category, module (command, listener, etc.), file, or all of a specific type (all commands, listeners, etc.).',
-				usage: '<category|module|file|type> [--all|--new]',
 				examples: ['Owner --all', 'commands --all', 'util/Util', 'xkcd'],
+				usage: '<category|module|file|type> [--all|--new]',
 			},
-			ownerOnly: true,
-			clientPermissions: ['SEND_MESSAGES'],
 			flags: ['--all', '-a'],
+			ownerOnly: true,
 		});
 	}
 
@@ -36,20 +36,20 @@ export default class ReloadCommand extends Command {
 		};
 		const all = ['reload-all', 'reloadall'].includes(message.util!.parsed!.alias!)
 			? true
-			: yield { match: 'flag', flag: ['--all', '-a'], unordered: true };
+			: yield { flag: ['--all', '-a'], match: 'flag', unordered: true };
 		if (all) {
 			const module = yield { type: moduleType, unordered: true };
 			return { many: module };
 		}
-		const file = yield { type: fileType, match: 'content' };
+		const file = yield { match: 'content', type: fileType };
 		if (file) return { file };
 		const module = yield {
-			type: Argument.union('commandAlias', 'command', 'inhibitor', 'listener', categoryType),
 			match: 'content',
 			prompt: {
-				start: 'please provide a valid module to reload.',
 				retry: 'that was not a valid module!',
+				start: 'please provide a valid module to reload.',
 			},
+			type: Argument.union('commandAlias', 'command', 'inhibitor', 'listener', categoryType),
 		};
 		return { module };
 	}

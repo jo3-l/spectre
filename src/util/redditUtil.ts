@@ -1,6 +1,6 @@
-import { stringify } from 'querystring';
-import fetch from 'node-fetch';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import fetch from 'node-fetch';
+import { stringify } from 'querystring';
 
 export async function scrapeSubreddit({
 	subreddit = 'dankmemes',
@@ -9,7 +9,7 @@ export async function scrapeSubreddit({
 	sort = 'top',
 	filterNSFW: filterNsfw = true,
 }: RedditScrapeOptions) {
-	const params = stringify({ t, limit });
+	const params = stringify({ limit, t });
 	const url = `https://www.reddit.com/r/${subreddit}/${sort}/.json?${params}`;
 	let data = (await fetch(url).then(res => res.json()) as RedditApiResponse).data.children;
 	if (filterNsfw) data = data.filter(({ data: postData }) => !postData.over_18);

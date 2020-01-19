@@ -1,24 +1,25 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
+import { commaListsAnd } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
+
 import { emojify } from '../../../util/util';
-import { commaListsAnd } from 'common-tags';
-import { CATEGORIES } from '@util/constants';
 
 export const humanizedRegions = {
 	'brazil': `${emojify('br')} Brazil`,
 	'europe': `${emojify('eu')} Europe`,
+	'hongkong': `${emojify('hk')} Hong Kong`,
+	'india': `${emojify('in')} India`,
+	'japan': `${emojify('jp')} Japan`,
+	'russia': `${emojify('ru')} Russia`,
 	'singapore': `${emojify('sg')} Singapore`,
+	'southafrica': `${emojify('za')} South Africa`,
+	'sydney': `${emojify('au')} Sydney`,
 	'us-central': `${emojify('us')} U.S. Central`,
 	'us-east': `${emojify('us')} U.S. East`,
 	'us-south': `${emojify('us')} U.S. South`,
 	'us-west': `${emojify('us')} U.S. West`,
-	'sydney': `${emojify('au')} Sydney`,
-	'hongkong': `${emojify('hk')} Hong Kong`,
-	'russia': `${emojify('ru')} Russia`,
-	'southafrica': `${emojify('za')} South Africa`,
-	'india': `${emojify('in')} India`,
-	'japan': `${emojify('jp')} Japan`,
 };
 
 export const verificationLevels = [
@@ -34,13 +35,13 @@ export default class ServerInfoCommand extends Command {
 		super('server-info', {
 			aliases: ['server-info', 'guild-info', 'guild', 'server'],
 			category: CATEGORIES.INFO,
-			description: {
-				content: 'Some information about the server.',
-				usage: '',
-				examples: [''],
-			},
 			channel: 'guild',
 			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: 'Some information about the server.',
+				examples: [''],
+				usage: '',
+			},
 		});
 	}
 
@@ -52,7 +53,7 @@ export default class ServerInfoCommand extends Command {
 			const key = channel.type === 'news' ? 'text' : channel.type as keyof typeof acc;
 			acc[key]++;
 			return acc;
-		}, { text: 0, store: 0, voice: 0, category: 0 });
+		}, { category: 0, store: 0, text: 0, voice: 0 });
 		const embed = new SpectreEmbed()
 			.setAuthor(`${guild.name} (ID ${guild.id})`, guild.iconURL() || '')
 			.setThumbnail(guild.iconURL() || '')

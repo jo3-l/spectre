@@ -1,13 +1,46 @@
 {
-	"extends": "marine",
+	"extends": [
+		"marine",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:import/typescript"
+	],
+	"plugins": [
+		"simple-import-sort",
+		"optimize-regex",
+		"sort-keys-fix"
+	],
 	"rules": {
 		"no-useless-constructor": "off",
 		"@typescript-eslint/no-useless-constructor": "error",
+		"import/no-unresolved": "off",
+		"@typescript-eslint/member-ordering": "error",
+		"object-shorthand": [
+			"error",
+			"always",
+			{
+				"avoidQuotes": true
+			}
+		],
+		"sort-keys": [
+			"error",
+			"asc",
+			{
+				"caseSensitive": true,
+				"natural": false,
+				"minKeys": 2
+			}
+		],
+		"optimize-regex/optimize-regex": "error",
+		"sort-keys-fix/sort-keys-fix": 2,
+		"simple-import-sort/sort": "error",
+		"@typescript-eslint/class-name-casing": "error",
 		"linebreak-style": "off",
 		"comma-dangle": [
 			"error",
 			"always-multiline"
 		],
+		"import/named": "off",
 		"no-extend-native": "off",
 		"comma-spacing": "error",
 		"comma-style": "error",

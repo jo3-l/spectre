@@ -1,7 +1,9 @@
-import fetch from 'node-fetch';
+/* eslint-disable sort-keys-fix/sort-keys-fix */
+/* eslint-disable sort-keys */
+import { replaceResultTransformer, TemplateTag } from 'common-tags';
 import { PermissionString, User } from 'discord.js';
-import { TemplateTag, replaceResultTransformer } from 'common-tags';
 import moment from 'moment';
+import fetch from 'node-fetch';
 
 /* Utilies for strings */
 export function ordinal(cardinal: number) {
@@ -56,16 +58,16 @@ export enum EmbedLimits {
 }
 
 export const removeBlankLines = new TemplateTag(
-	replaceResultTransformer(/^\s*[\r\n]/gm, ''),
+	replaceResultTransformer(/^\s*[\n\r]/gm, ''),
 );
 
 export async function hastebin(content: string, {
 	url = 'https://hasteb.in', extension = 'js',
-} = { url: 'https://hasteb.in', extension: 'js' }) {
+} = { extension: 'js', url: 'https://hasteb.in' }) {
 	const res = await fetch(`${url}/documents`, {
-		method: 'POST',
 		body: content,
 		headers: { 'Content-Type': 'text/plain' },
+		method: 'POST',
 	});
 
 	if (!res.ok) throw new Error(res.statusText);
@@ -84,13 +86,13 @@ export const emojis = {
 	'e': '🇪', 'f': '🇫', 'g': '🇬', 'h': '🇭',
 	'i': '🇮', 'j': '🇯', 'k': '🇰', 'l': '🇱',
 	'm': '🇲', 'n': '🇳', 'o': '🇴', 'p': '🇵',
-	'q': '🇶', 'r': '🇷', 's': '🇸', 't': '🇹',
-	'u': '🇺', 'v': '🇻', 'w': '🇼', 'x': '🇽',
-	'y': '🇾', 'z': '🇿', '0': '0⃣', '1': '1⃣',
-	'2': '2⃣', '3': '3⃣', '4': '4⃣', '5': '5⃣',
-	'6': '6⃣', '7': '7⃣', '8': '8⃣', '9': '9⃣',
-	'10': '🔟', '#': '#⃣', '*': '*⃣',
-	'!': '❗', '?': '❓',
+	'q': '🇶', '0': '0⃣', 'r': '�', '1': '1⃣',
+	's': '�', '2': '2⃣', 't': '�', '3': '3⃣',
+	'u': '�', '4': '4⃣', 'v': '🇻', '10': '🔟',
+	'w': '🇼', '!': '❗', 'x': '🇽', '#': '#',
+	'y': '🇾', '*': '*', 'z': '🇿', '5': '5',
+	'6': '6⃣', '7': '7', '8': '8',
+	'9': '9⃣', '?': '❓',
 };
 
 export function emojify(str: string) {

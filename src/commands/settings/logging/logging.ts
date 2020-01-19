@@ -1,7 +1,7 @@
+import { CATEGORIES } from '@util/constants';
+import { stripIndents } from 'common-tags';
 import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import { CATEGORIES } from '@util/constants';
 
 const base = 'logs';
 
@@ -10,6 +10,8 @@ export default class LoggingCommand extends Command {
 		super('logging', {
 			aliases: ['logging', 'logs'],
 			category: CATEGORIES.SETTINGS,
+			channel: 'guild',
+			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			description: {
 				content: stripIndents`Command to help manage logging settings on the server.
 
@@ -26,25 +28,23 @@ export default class LoggingCommand extends Command {
 					• \`remove <type>\` - Removes the log specified from the channel set.
 					• \`reset\` - Resets all the settings to default.
 					• \`view\` - Views the current settings.`,
-				usage: '<method> <...args>',
 				examples: ['add joinlogs #join-logs', 'remove joinlogs', 'reset', 'view'],
+				usage: '<method> <...args>',
 			},
-			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-			channel: 'guild',
 			userPermissions: ['MANAGE_GUILD'],
 		});
 	}
 
 	public *args() {
 		const method = yield {
+			otherwise: (msg: Message) =>
+				`${msg.author}, that's not a valid method. Try the \`help logging\` command for more information.`,
 			type: [
 				['add', 'set', 'create'],
 				['remove', 'rm'],
 				['reset', 'clear'],
 				['view'],
 			],
-			// eslint-disable-next-line max-len
-			otherwise: (msg: Message) => `${msg.author}, that's not a valid method. Try the \`help logging\` command for more information.`,
 		};
 
 		return Flag.continue(`${base}-${method}`);

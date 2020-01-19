@@ -1,9 +1,9 @@
-import translate, { languages } from '@vitalets/google-translate-api';
-import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
-import { oneLine, stripIndents } from 'common-tags';
 import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import translate, { languages } from '@vitalets/google-translate-api';
+import { oneLine, stripIndents } from 'common-tags';
+import { Command } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 const getCode = (desiredLang: string) => {
 	if (!desiredLang) return;
@@ -19,49 +19,39 @@ export default class TranslateCommand extends Command {
 	public constructor() {
 		super('translate', {
 			aliases: ['translate'],
-			category: CATEGORIES.TOOLS,
-			description: {
-				content: oneLine`Translates the given text. 
-					Optionally, supply a language to translate from with \`--from\` and to translate to with \`--to\`.
-					Supports ISO codes and language name.`,
-				usage: '<text> [...flags <language>]',
-				examples: ['@Joe', ''],
-			},
-			channel: 'guild',
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			args: [
 				{
+					flag: ['--to', '-t'],
 					id: 'to',
 					match: 'option',
-					flag: ['--to', '-t'],
-					unordered: true,
+					prompt: {
+						optional: true,
+						retry: 'that wasn\'t a valid language, try again.',
+						start: 'please provide a language to translate to.',
+					},
 					type: (_, phrase) => {
 						if (!phrase) return;
 						const code = getCode(phrase);
 						if (!code) return;
 						return code;
 					},
-					prompt: {
-						optional: true,
-						start: 'please provide a language to translate to.',
-						retry: 'that wasn\'t a valid language, try again.',
-					},
+					unordered: true,
 				}, {
+					flag: ['--from', '-f'],
 					id: 'from',
 					match: 'option',
-					flag: ['--from', '-f'],
-					unordered: true,
+					prompt: {
+						optional: true,
+						retry: 'that wasn\'t a valid language, try again.',
+						start: 'please provide a language to translate from.',
+					},
 					type: (_, phrase) => {
 						if (!phrase) return;
 						const code = getCode(phrase);
 						if (!phrase) return;
 						return code;
 					},
-					prompt: {
-						optional: true,
-						start: 'please provide a language to translate from.',
-						retry: 'that wasn\'t a valid language, try again.',
-					},
+					unordered: true,
 				}, {
 					id: 'text',
 					match: 'rest',
@@ -69,11 +59,21 @@ export default class TranslateCommand extends Command {
 					unordered: true,
 				},
 			],
+			category: CATEGORIES.TOOLS,
+			channel: 'guild',
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
+			description: {
+				content: oneLine`Translates the given text. 
+					Optionally, supply a language to translate from with \`--from\` and to translate to with \`--to\`.
+					Supports ISO codes and language name.`,
+				examples: ['@Joe', ''],
+				usage: '<text> [...flags <language>]',
+			},
 		});
 	}
 
 	public async exec(message: Message, { text, to, from }: { text: string; to?: string; from?: string }) {
-		const res = await translate(text, { to, from }).catch(() => null);
+		const res = await translate(text, { from, to }).catch(() => null);
 		if (!res) {
 			return message.util!.send(
 				`${this.client.emojis.error} An unexpected error occured during translation. Please try again later.`,

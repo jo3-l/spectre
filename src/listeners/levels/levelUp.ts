@@ -1,7 +1,7 @@
-import { Listener } from 'discord-akairo';
-import fetch from 'node-fetch';
 import { Canvas } from 'canvas-constructor';
+import { Listener } from 'discord-akairo';
 import { GuildMember, MessageAttachment, TextChannel } from 'discord.js';
+import fetch from 'node-fetch';
 
 export default class LevelUpListener extends Listener {
 	public constructor() {

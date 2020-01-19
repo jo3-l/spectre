@@ -1,22 +1,22 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
+import { codeblock } from '@util/util';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { evaluate } from 'mathjs';
-import { codeblock } from '@util/util';
-import { CATEGORIES } from '@util/constants';
 
 export default class EvaluateCommand extends Command {
 	public constructor() {
 		super('calculate', {
 			aliases: ['calculate', 'calc', 'math'],
+			args: [{ id: 'expr', match: 'content', prompt: { start: 'what would you like to calculate?' } }],
 			category: CATEGORIES.TOOLS,
+			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
 			description: {
 				content: 'Calculates a given mathematical expression.',
-				usage: '<expression>',
 				examples: ['1+1', '11^3', '12.7 cm to inch'],
+				usage: '<expression>',
 			},
-			clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES'],
-			args: [{ id: 'expr', match: 'content', prompt: { start: 'what would you like to calculate?' } }],
 		});
 	}
 

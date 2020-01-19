@@ -1,6 +1,7 @@
-import { GuildAuditLogsActions, Invite, TextChannel, Guild, PermissionString, GuildAuditLogsEntry } from 'discord.js';
-import { Log } from '../structures/SettingsProvider';
+import { Guild, GuildAuditLogsActions, GuildAuditLogsEntry, Invite, PermissionString, TextChannel } from 'discord.js';
+
 import SpectreClient from '../client/SpectreClient';
+import { Log } from '../structures/SettingsProvider';
 
 export const requiredPermissions: PermissionString[] = ['VIEW_AUDIT_LOG', 'EMBED_LINKS', 'MANAGE_WEBHOOKS'];
 
@@ -17,7 +18,7 @@ export default {
 	},
 
 	async getEntry(guild: Guild, auditType: keyof GuildAuditLogsActions) {
-		return guild.fetchAuditLogs({ type: auditType, limit: 1 })
+		return guild.fetchAuditLogs({ limit: 1, type: auditType })
 			// eslint-disable-next-line promise/prefer-await-to-then
 			.then(audit => audit.entries.first())
 			.catch(() => undefined);
@@ -36,19 +37,19 @@ export default {
 };
 
 export const emojis = {
-	all: 'https://i.imgur.com/MQsYYLB.png',
-	updateRole: 'https://i.imgur.com/tqXKABH.png',
-	updateMember: 'https://i.imgur.com/1pXc6BA.png',
-	updateEmoji: 'https://i.imgur.com/bsuD40F.png',
-	updateChannel: 'https://i.imgur.com/5XPVC8s.png',
-	updateMessage: 'https://i.imgur.com/ZswKOog.png',
-	removeMember: 'https://i.imgur.com/TJ9zdIN.png',
-	deleteRole: 'https://i.imgur.com/2utRE50.png',
-	deleteMessage: 'https://i.imgur.com/BHKe4S9.png',
-	deleteEmoji: 'https://i.imgur.com/LMdyD3P.png',
-	deleteChannel: 'https://i.imgur.com/KstZBdw.png',
 	addChannel: 'https://i.imgur.com/jqsDvX7.png',
 	addMember: 'https://i.imgur.com/FqpvZcA.png',
+	all: 'https://i.imgur.com/MQsYYLB.png',
 	createEmoji: 'https://i.imgur.com/WQtVx5l.png',
 	createRole: 'https://i.imgur.com/cbq66lt.png',
+	deleteChannel: 'https://i.imgur.com/KstZBdw.png',
+	deleteEmoji: 'https://i.imgur.com/LMdyD3P.png',
+	deleteMessage: 'https://i.imgur.com/BHKe4S9.png',
+	deleteRole: 'https://i.imgur.com/2utRE50.png',
+	removeMember: 'https://i.imgur.com/TJ9zdIN.png',
+	updateChannel: 'https://i.imgur.com/5XPVC8s.png',
+	updateEmoji: 'https://i.imgur.com/bsuD40F.png',
+	updateMember: 'https://i.imgur.com/1pXc6BA.png',
+	updateMessage: 'https://i.imgur.com/ZswKOog.png',
+	updateRole: 'https://i.imgur.com/tqXKABH.png',
 };

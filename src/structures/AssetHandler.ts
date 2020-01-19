@@ -1,6 +1,6 @@
+import { Collection } from 'discord.js';
 import { readdir, readFile } from 'fs-nextra';
 import { join } from 'path';
-import { Collection } from 'discord.js';
 
 interface Image {
 	buffer: Buffer;

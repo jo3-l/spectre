@@ -1,15 +1,15 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
+import Log, { emojis } from '@util/logUtil';
+import { formatTime, formatUser, removeBlankLines } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Role } from 'discord.js';
-import Log, { emojis } from '@util/logUtil';
 import { stringify } from 'querystring';
-import { removeBlankLines, formatTime, formatUser } from '@util/util';
-import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class RoleCreateListener extends Listener {
 	public constructor() {
 		super('roleCreate', {
-			event: 'roleCreate',
 			emitter: 'client',
+			event: 'roleCreate',
 		});
 	}
 

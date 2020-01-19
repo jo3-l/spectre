@@ -1,8 +1,8 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import { formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { GuildEmoji } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { formatUser } from '@util/util';
 
 export default class EmojiUpdateListener extends Listener {
 	public constructor() {

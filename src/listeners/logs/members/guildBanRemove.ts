@@ -1,8 +1,8 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import { formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Guild, User } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { formatUser } from '@util/util';
 
 export default class GuildBanRemoveListener extends Listener {
 	public constructor() {

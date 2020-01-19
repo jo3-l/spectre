@@ -1,6 +1,7 @@
 import { Provider } from 'discord-akairo';
 import { Guild as DiscordGuild, Snowflake } from 'discord.js';
 import { Repository } from 'typeorm';
+
 import { Guild } from '../models/Guild';
 
 export type Log = 'messages' | 'members' | 'join' | 'server' | 'voice';
@@ -27,6 +28,13 @@ export default class TypeORMProvider extends Provider {
 
 	public constructor(private readonly repo: Repository<Guild>) {
 		super();
+	}
+
+	private static _resolveId(guild: GuildResolvable) {
+		if (guild instanceof DiscordGuild) return guild.id;
+		if (guild === 'global') return '0';
+		if (typeof guild === 'string' && /^\d+$/.test(guild)) return guild;
+		throw new TypeError('Unable to resolve ID based on the guild or ID provided.');
 	}
 
 	public async init() {
@@ -104,12 +112,5 @@ export default class TypeORMProvider extends Provider {
 		this.items.delete(id);
 
 		return this.repo.delete(id);
-	}
-
-	private static _resolveId(guild: GuildResolvable) {
-		if (guild instanceof DiscordGuild) return guild.id;
-		if (guild === 'global') return '0';
-		if (typeof guild === 'string' && /^\d+$/.test(guild)) return guild;
-		throw new TypeError('Unable to resolve ID based on the guild or ID provided.');
 	}
 }

@@ -1,8 +1,8 @@
+import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
-import { escapedCodeblock, formatUser, formatTime } from '@util/util';
+import { escapedCodeblock, formatTime, formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Message, User } from 'discord.js';
-import SpectreEmbed from '@structures/SpectreEmbed';
 
 export default class MessageDeleteListener extends Listener {
 	public constructor() {

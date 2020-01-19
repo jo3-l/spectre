@@ -1,23 +1,23 @@
+import { CATEGORIES } from '@util/constants';
 import { Command } from 'discord-akairo';
 import { Message, PresenceStatusData } from 'discord.js';
-import { CATEGORIES } from '@util/constants';
 
 export default class SetStatusCommand extends Command {
 	public constructor() {
 		super('set-status', {
-			category: CATEGORIES.OWNER,
 			args: [
 				{
+					'default': 'online',
 					'id': 'status',
 					'type': [
-						['offline', 'invisible', 'invis'],
+						['invisible', 'invis', 'offline'],
 						['dnd', 'do not disturb'],
 						'online',
 						'idle',
 					],
-					'default': 'online',
 				},
 			],
+			category: CATEGORIES.OWNER,
 		});
 	}
 

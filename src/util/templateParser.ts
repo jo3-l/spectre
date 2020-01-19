@@ -49,9 +49,9 @@ export function parseEmbed(resolvable: string, templates: Templates): SpectreEmb
 			if (value?.name) embed[part]!.name = parse(value.name, templates);
 		} else if (part === 'fields') {
 			embed[part] = embed[part].map(field => ({
+				inline: field.inline,
 				name: parse(field.name, templates),
 				value: parse(field.value, templates),
-				inline: field.inline,
 			}));
 		} else if (part === 'footer') {
 			if (value?.text) embed[part]!.text = parse(value.text, templates);

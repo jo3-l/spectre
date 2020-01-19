@@ -1,15 +1,22 @@
-import { Command, Argument, Flag } from 'discord-akairo';
 import { Log } from '@structures/SettingsProvider';
-import { Message } from 'discord.js';
 import { CATEGORIES } from '@util/constants';
+import { Argument, Command, Flag } from 'discord-akairo';
+import { Message } from 'discord.js';
 
 export default class RemoveLogcommand extends Command {
 	public constructor() {
 		super('logs-remove', {
-			category: CATEGORIES.SETTINGS,
 			args: [
 				{
 					id: 'type',
+					prompt: {
+						retry: (_: Message, { failure }: { failure: { value: string } }) => {
+							// eslint-disable-next-line max-len
+							if (failure.value) return 'there is no channel set for that type. Try again.';
+							return 'please provide the type of log to remove from the settings.';
+						},
+						start: 'please choose a type of log to remove (join, members, messages, server, voice).',
+					},
 					type: Argument.compose([
 						['join', 'joinlogs', 'joins', 'join-log', 'join-logs'],
 						['members', 'memberlog', 'member-log', 'member-logs', 'member'],
@@ -23,16 +30,9 @@ export default class RemoveLogcommand extends Command {
 						if (!(type in settings)) return Flag.fail('NON_EXISTENT');
 						return type;
 					}),
-					prompt: {
-						start: 'please choose a type of log to remove (join, members, messages, server, voice).',
-						retry: (_: Message, { failure }: { failure: { value: string } }) => {
-							// eslint-disable-next-line max-len
-							if (failure.value) return 'there is no channel set for that type. Try again.';
-							return 'please provide the type of log to remove from the settings.';
-						},
-					},
 				},
 			],
+			category: CATEGORIES.SETTINGS,
 		});
 	}
 

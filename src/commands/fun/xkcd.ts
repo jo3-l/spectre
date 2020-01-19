@@ -1,34 +1,34 @@
-import { Command, Argument } from 'discord-akairo';
+import SpectreEmbed from '@structures/SpectreEmbed';
+import { CATEGORIES } from '@util/constants';
+import { oneLineTrim } from 'common-tags';
+import { Argument, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import fetch from 'node-fetch';
-import SpectreEmbed from '@structures/SpectreEmbed';
-import { oneLineTrim } from 'common-tags';
-import { CATEGORIES } from '@util/constants';
 
 export default class XkcdCommand extends Command {
 	public constructor() {
 		super('xkcd', {
 			aliases: ['xkcd'],
+			args: [
+				{
+					flag: ['-l', '--latest'],
+					id: 'latest',
+					match: 'flag',
+				},
+				{
+					id: 'number',
+					match: 'rest',
+					type: Argument.range('number', 0, Infinity),
+				},
+			],
+			category: CATEGORIES.FUN,
+			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
 			description: {
 				content: oneLineTrim`Fetches an XKCD comic of your choice. If no arguments are given, a random comic is selected. 
 					Use \`-l\` for latest, or choose a specific comic (by it's number).`,
-				usage: '[comic #] [-l|--latest]',
 				examples: ['1234', '-l', ''],
+				usage: '[comic #] [-l|--latest]',
 			},
-			category: CATEGORIES.FUN,
-			clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-			args: [
-				{
-					match: 'flag',
-					flag: ['-l', '--latest'],
-					id: 'latest',
-				},
-				{
-					match: 'rest',
-					type: Argument.range('number', 0, Infinity),
-					id: 'number',
-				},
-			],
 		});
 	}
 

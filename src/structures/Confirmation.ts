@@ -1,10 +1,10 @@
-import { Message } from 'discord.js';
 import SpectreEmbed from '@structures/SpectreEmbed';
+import { Message } from 'discord.js';
 
 const RESPONSES = {
-	YES: ['yes', 'y', 'yup'],
-	NO: ['no', 'n', 'nah', 'nope'],
 	CANCEL: ['cancel'],
+	NO: ['no', 'n', 'nah', 'nope'],
+	YES: ['yes', 'y', 'yup'],
 };
 
 export enum Responses {
@@ -20,9 +20,9 @@ export default class Confirmation {
 		let response: Message;
 		try {
 			response = (await message.channel.awaitMessages(filter, {
+				errors: ['time'],
 				max: 1,
 				time: this.timeout,
-				errors: ['time'],
 			})).first()!;
 		} catch { return Responses.Timeout; }
 
