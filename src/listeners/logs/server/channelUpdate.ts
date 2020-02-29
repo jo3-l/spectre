@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { formatTime, formatUser, removeBlankLines } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { DMChannel, Guild, GuildChannel, Permissions, PermissionString, Role, TextChannel, User } from 'discord.js';
@@ -89,7 +89,7 @@ export default class ChannelUpdateListener extends Listener {
 	}
 
 	private async _resolve(id: string, guild: Guild) {
-		if (guild.roles.has(id)) return guild.roles.get(id)!;
+		if (guild.roles.cache.has(id)) return guild.roles.cache.get(id)!;
 		return this.client.users.fetch(id).catch(() => undefined);
 	}
 }

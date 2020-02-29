@@ -1,4 +1,4 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { Message } from 'discord.js';
 
 const RESPONSES = {

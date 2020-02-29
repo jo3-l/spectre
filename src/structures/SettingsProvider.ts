@@ -1,8 +1,7 @@
+import { Guild } from '@schemas/Guild';
 import { Provider } from 'discord-akairo';
 import { Guild as DiscordGuild, Snowflake } from 'discord.js';
 import { Repository } from 'typeorm';
-
-import { Guild } from '../models/Guild';
 
 export type Log = 'messages' | 'members' | 'join' | 'server' | 'voice';
 

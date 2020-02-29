@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import Timer from '@util/timer';
 import { escapedCodeblock, hastebin } from '@util/util';
 import { exec } from 'child_process';

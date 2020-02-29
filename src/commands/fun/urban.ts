@@ -1,6 +1,6 @@
 import RichDisplay from '@structures/RichDisplay';
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { EmbedLimits, trim } from '@util/util';
 import { Command } from 'discord-akairo';
 import { Message, TextChannel } from 'discord.js';

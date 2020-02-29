@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { formatTime, formatUser, removeBlankLines } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Role } from 'discord.js';
@@ -31,7 +31,7 @@ export default class RoleCreateListener extends Listener {
 				▫️ **Color:** ${role.color ? role.hexColor : 'Default color'}
 				▫️ **Mentionable:** ${role.mentionable ? 'yes' : 'no'}
 				▫️ **Hoisted:** ${role.hoist ? 'yes' : 'no'}
-				▫️ **Role position:** ${Math.abs(role.position - guild.roles.size)}
+				▫️ **Role position:** ${Math.abs(role.position - guild.roles.cache.size)}
 				▫️ **Timestamp of creation:** ${formatTime(role.createdAt)}
 			`)
 			.setThumbnail(`https://dummyimage.com/500/${role.hexColor.substr(1)}/ffffff/&${stringify({ text: 'Role color' })}`);

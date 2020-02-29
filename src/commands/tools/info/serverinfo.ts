@@ -1,10 +1,9 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
+import { emojify } from '@util/util';
 import { commaListsAnd } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-
-import { emojify } from '../../../util/util';
 
 export const humanizedRegions = {
 	'brazil': `${emojify('br')} Brazil`,
@@ -22,13 +21,13 @@ export const humanizedRegions = {
 	'us-west': `${emojify('us')} U.S. West`,
 };
 
-export const verificationLevels = [
-	'None: Unrestricted',
-	'Low: Must have a verified email on their Discord account.',
-	'Medium: Must also be a member of this server for longer than 10 minutes.',
-	'(╯°□°）╯︵ ┻━┻: Must also be a member of this server for longer than 10 minutes.',
-	'┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻: Must have a verified phone on their Discord account.',
-];
+export const verificationLevels = {
+	HIGH: '(╯°□°）╯︵ ┻━┻: Must also be a member of this server for longer than 10 minutes.',
+	LOW: 'Low: Must have a verified email on their Discord account.',
+	MEDIUM: 'Medium: Must also be a member of this server for longer than 10 minutes.',
+	NONE: 'None: Unrestricted',
+	VERY_HIGH: '┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻: Must have a verified phone on their Discord account.',
+};
 
 export default class ServerInfoCommand extends Command {
 	public constructor() {
@@ -48,9 +47,9 @@ export default class ServerInfoCommand extends Command {
 	public async exec(message: Message) {
 		const guild = message.guild!;
 		const suffixes = ['Text', 'Store', 'Voice', 'Category'];
-		const data = guild.channels.reduce((acc, channel) => {
+		const data = guild.channels.cache.reduce((acc, channel) => {
 			if (!['category', 'news', 'text', 'store', 'voice'].includes(channel.type)) return acc;
-			const key = channel.type === 'news' ? 'text' : channel.type as keyof typeof acc;
+			const key = channel.type === 'news' ? 'text' : channel.type;
 			acc[key]++;
 			return acc;
 		}, { category: 0, store: 0, text: 0, voice: 0 });
@@ -62,7 +61,7 @@ export default class ServerInfoCommand extends Command {
 				• AFK: ${guild.afkChannel?.toString() ?? 'None'}`)
 			.addField('❯ Membercount', `${guild.memberCount}`)
 			.addField('❯ Owner', `${(await guild.members.fetch(guild.ownerID)).user.tag} (${guild.ownerID})`)
-			.addField('❯ Roles', guild.roles.size)
+			.addField('❯ Roles', guild.roles.cache.size)
 			.addField('❯ Region', humanizedRegions[guild.region as keyof typeof humanizedRegions])
 			.addField('❯ Verification Level', verificationLevels[guild.verificationLevel])
 			.setFooter('Created at')

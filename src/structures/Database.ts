@@ -4,7 +4,7 @@ import { ConnectionManager } from 'typeorm';
 
 const connectionManager = new ConnectionManager();
 connectionManager.create({
-	entities: [join(__dirname, '..', 'models/*.{ts,js}')],
+	entities: [join(__dirname, '..', 'schemas/*.{ts,js}')],
 	name: 'spectre',
 	synchronize: Boolean(process.env.DEV),
 	type: 'postgres',

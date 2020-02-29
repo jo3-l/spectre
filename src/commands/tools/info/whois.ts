@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { commaListsAnd } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { GuildMember, Message } from 'discord.js';
@@ -48,7 +48,10 @@ export default class WhoisCommand extends Command {
 			.addField('❯ Playing', user.presence.activities[0]?.name ?? 'None')
 			.addField('❯ Joined at', moment.utc(member.joinedAt!).format('YYYY/MM/DD hh:mm:ss'))
 			.addField('❯ Registered', moment.utc(user.createdAt).format('YYYY/MM/DD hh:mm:ss'))
-			.addField(`❯ Roles [${member.roles.size}]`, member.roles.map(role => `\`${role.name}\``).join(', ') || 'None');
+			.addField(
+				`❯ Roles [${member.roles.cache.size}]`,
+				member.roles.cache.map(role => `\`${role.name}\``).join(', ') || 'None',
+			);
 
 		if (user.presence.clientStatus) {
 			embed.setFooter(commaListsAnd`${user.username} is active on ${Object.keys(user.presence.clientStatus)}`);

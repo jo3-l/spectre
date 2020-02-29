@@ -1,3 +1,4 @@
+import { Member } from '@schemas/Member';
 import { CATEGORIES } from '@util/constants';
 import { calculateLevel, calculateXp } from '@util/util';
 import { Canvas } from 'canvas-constructor';
@@ -5,8 +6,6 @@ import { format as d3format } from 'd3-format';
 import { Command } from 'discord-akairo';
 import { Message, MessageAttachment, User } from 'discord.js';
 import fetch from 'node-fetch';
-
-import { Member } from '../../models/Member';
 
 const format = (number: number) => number > 999 ? d3format('.3s')(number) : number;
 const toPercentage = (current: number, total: number) => Math.round(current / total * 640);

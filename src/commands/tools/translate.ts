@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import translate, { languages } from '@vitalets/google-translate-api';
 import { oneLine, stripIndents } from 'common-tags';
 import { Command } from 'discord-akairo';

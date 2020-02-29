@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { formatTime, formatUser, removeBlankLines } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { DMChannel, GuildChannel } from 'discord.js';

@@ -62,12 +62,12 @@
 		"@types/ws": "^6.0.4",
 		"@typescript-eslint/eslint-plugin": "^2.9.0",
 		"@typescript-eslint/parser": "^2.9.0",
-		"eslint-plugin-simple-import-sort": "^5.0.0",
 		"cross-env": "^6.0.3",
 		"eslint": "^6.7.2",
 		"eslint-config-marine": "^5.3.2",
 		"eslint-plugin-import": "^2.20.0",
 		"eslint-plugin-optimize-regex": "^1.1.7",
+		"eslint-plugin-simple-import-sort": "^5.0.0",
 		"eslint-plugin-sort-keys-fix": "^1.1.0",
 		"tsconfig-paths": "^3.9.0",
 		"typescript": "^3.7.2"
@@ -75,6 +75,7 @@
 	"_moduleAliases": {
 		"@util": "src/util",
 		"@structures": "src/structures",
+		"@schemas": "src/schemas",
 		"@root": "."
 	}
 }

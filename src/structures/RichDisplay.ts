@@ -1,4 +1,4 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { Message, MessageReaction, TextChannel, User } from 'discord.js';
 
 export default class RichDisplay {
@@ -71,7 +71,7 @@ export default class RichDisplay {
 					this._updatePage(this._pages.length - 1);
 					break;
 			}
-			message.reactions.get(reaction.emoji.name)!.users.remove(user.id);
+			message.reactions.cache.get(reaction.emoji.name)!.users.remove(user.id);
 		});
 
 		collector.on('end', () => {

@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { oneLineTrim } from 'common-tags';
 import { Argument, Category, Command } from 'discord-akairo';
 import { Message } from 'discord.js';

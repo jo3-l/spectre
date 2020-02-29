@@ -1,4 +1,4 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
+import SpectreEmbed from '@util/SpectreEmbed';
 
 enum EmbedParseErrors {
 	Invalid = 0, NoContent

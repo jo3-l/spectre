@@ -1,12 +1,11 @@
+import { Member } from '@schemas/Member';
 import RichDisplay from '@structures/RichDisplay';
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
 import paginate from '@util/paginate';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { calculateLevel } from '@util/util';
 import { Argument, Command } from 'discord-akairo';
 import { Message, TextChannel } from 'discord.js';
-
-import { Member } from '../../models/Member';
 
 export default class LeaderboardCommand extends Command {
 	public constructor() {

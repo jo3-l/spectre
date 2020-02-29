@@ -39,6 +39,9 @@
 			"@structures/*": [
 				"src/structures/*"
 			],
+			"@schemas/*": [
+				"src/schemas/*"
+			],
 			"@root/*": [
 				"*"
 			]

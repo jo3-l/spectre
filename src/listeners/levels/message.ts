@@ -1,8 +1,7 @@
+import { Member } from '@schemas/Member';
 import { calculateLevel } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Message, Snowflake } from 'discord.js';
-
-import { Member } from '../../models/Member';
 
 export default class MessageListener extends Listener {
 	private readonly _cooldowns: Map<Snowflake, Set<Snowflake>> = new Map();

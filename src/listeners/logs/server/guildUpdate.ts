@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { formatUser } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { Guild } from 'discord.js';
@@ -43,13 +43,13 @@ export default class GuildUpdateListener extends Listener {
 			after = verificationLevels[newGuild.verificationLevel];
 			change = 'verification level';
 		} else if (oldGuild.explicitContentFilter !== newGuild.explicitContentFilter) {
-			const arr = [
-				'Don\'t scan any messages.',
-				'Scan messages from members without a role.',
-				'Scan messages sent by all members.',
-			];
-			before = arr[oldGuild.explicitContentFilter];
-			after = arr[newGuild.explicitContentFilter];
+			const contentFilter = {
+				ALL_MEMBERS: 'Scan messages sent by all members.',
+				DISABLED: 'Don\'t scan any messages.',
+				MEMBERS_WITHOUT_ROLES: 'Scan messages from members without a role.',
+			};
+			before = contentFilter[oldGuild.explicitContentFilter];
+			after = contentFilter[newGuild.explicitContentFilter];
 			change = 'explicit content filter';
 		} else if (oldGuild.ownerID !== newGuild.ownerID) {
 			executor = await this.client.users.fetch(oldGuild.ownerID);

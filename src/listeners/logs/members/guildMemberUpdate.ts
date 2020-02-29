@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import Log, { emojis } from '@util/logUtil';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { formatUser, humanizePermissionName, removeBlankLines } from '@util/util';
 import { Listener } from 'discord-akairo';
 import { GuildMember, PermissionString } from 'discord.js';
@@ -34,13 +34,13 @@ export default class GuildMemberUpdateListener extends Listener {
 			channel.send(embed);
 		}
 
-		if (oldMember.roles.size !== newMember.roles.size) {
-			const roleRemoved = oldMember.roles.size > newMember.roles.size;
+		if (oldMember.roles.cache.size !== newMember.roles.cache.size) {
+			const roleRemoved = oldMember.roles.cache.size > newMember.roles.cache.size;
 			const entry = await Log.getEntry(guild, 'MEMBER_ROLE_UPDATE');
 			const executor = await Log.getExecutor({ guild, id: user.id }, 'MEMBER_ROLE_UPDATE', entry);
 			const role = roleRemoved
-				? oldMember.roles.find(({ id }) => !newMember.roles.has(id))!
-				: newMember.roles.find(({ id }) => !oldMember.roles.has(id))!;
+				? oldMember.roles.cache.find(({ id }) => !newMember.roles.cache.has(id))!
+				: newMember.roles.cache.find(({ id }) => !oldMember.roles.cache.has(id))!;
 			if (!role) return;
 			let permissionsAdded: string | PermissionString[] = oldMember.permissions.missing(newMember.permissions);
 			let permissionsRemoved: string | PermissionString[] = newMember.permissions.missing(oldMember.permissions);

@@ -9,7 +9,7 @@ export default {
 	fetchChannel(guild: Guild, type: Log) {
 		const id = (guild.client as SpectreClient).settings.get(guild, 'logs')?.[type];
 		if (!id) return;
-		const channel = guild.client.channels.get(id) as TextChannel | undefined;
+		const channel = guild.client.channels.cache.get(id) as TextChannel | undefined;
 		if (!channel) return;
 		const permChecks = channel.permissionsFor(channel.guild.me!)?.has(requiredPermissions) ??
 			channel.guild.me!.permissions.has(requiredPermissions);

@@ -37,8 +37,8 @@ export default class extends Listener {
 
 			${bold('• Mode:')} ${process.env.DEV ? 'Development' : 'Production'}
 			${bold('• Version:')} ${this.client.version}
-			${bold('• Guilds:')} ${this.client.guilds.size}
-			${bold('• Total users:')} ${this.client.users.size}
+			${bold('• Guilds:')} ${this.client.guilds.cache.size}
+			${bold('• Total users:')} ${this.client.users.cache.size}
 			${bold('• Bot instance:')} ${this.client.user!.tag}
 			${bold('• Bot instance owned by:')} ${owner}
 			${bold('• GitHub:')} https://github.com/jo3-l/spectre

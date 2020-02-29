@@ -54,10 +54,10 @@ export default class LevelUpListener extends Listener {
 
 		channel.send(`🎉 GG ${user}, you advanced to level ${level}!`, new MessageAttachment(generatedImg));
 		if (!guild.me!.permissions.has('MANAGE_ROLES')) return;
-		const toAdd = roleData.add.filter(id => guild.roles.has(id));
-		const toRemove = roleData.remove.filter(id => guild.roles.has(id));
+		const toAdd = roleData.add.filter(id => guild.roles.cache.has(id));
+		const toRemove = roleData.remove.filter(id => guild.roles.cache.has(id));
 		member.roles.set(
-			[...member.roles.keyArray(), ...toAdd].filter(role => !toRemove.includes(role)),
+			[...member.roles.cache.keyArray(), ...toAdd].filter(role => !toRemove.includes(role)),
 			'Spectre leveled roles settings',
 		);
 	}

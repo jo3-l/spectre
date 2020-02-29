@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 
@@ -37,7 +37,7 @@ export default class QuoteCommand extends Command {
 	public async exec(message: Message, { match, msg }: { match?: RegExpMatchArray; msg?: Message }) {
 		if (!msg && match) {
 			const [, channel, id] = match;
-			if (!message.guild!.channels.has(channel)) return;
+			if (!message.guild!.channels.cache.has(channel)) return;
 			try { msg = await message.channel.messages.fetch(id); } catch { }
 		}
 		if (!msg || (!msg.content && !msg.attachments.size)) return;

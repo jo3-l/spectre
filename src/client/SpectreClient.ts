@@ -1,4 +1,5 @@
 import { activities, color, db, emojis, owner, prefix, token, version } from '@root/config';
+import { Guild } from '@schemas/Guild';
 import ActivityHandler, { Activity } from '@structures/ActivityHandler';
 import AssetHandler from '@structures/AssetHandler';
 import Database from '@structures/Database';
@@ -8,8 +9,6 @@ import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 
 import { readdir } from 'fs-nextra';
 import { join } from 'path';
 import { Connection } from 'typeorm';
-
-import { Guild } from '../models/Guild';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -79,9 +78,7 @@ export default class SpectreClient extends AkairoClient {
 	public assetHandler: AssetHandler = new AssetHandler(join(__dirname, '..', 'assets'));
 
 	public constructor() {
-		super({
-			disableEveryone: true, disabledEvents: ['TYPING_START', 'PRESENCE_UPDATE'], ownerID: owner,
-		});
+		super({ ownerID: owner });
 	}
 
 	public async start() {

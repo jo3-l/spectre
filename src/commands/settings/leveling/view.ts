@@ -1,5 +1,5 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
 import { CATEGORIES, CATEGORY_IMAGES } from '@util/constants';
+import SpectreEmbed from '@util/SpectreEmbed';
 import { capitalize } from '@util/util';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
@@ -17,7 +17,7 @@ export default class ViewRoleRewardsCommand extends Command {
 		if (!roleRewards) return message.util!.reply('there are no role rewards set for this server.');
 		const data = Object.entries(roleRewards)
 			.sort(([a], [b]) => Number(a) - Number(b))
-			.map(([level, reward]) => `\n• **Level ${level}.** \`${guild.roles.get(reward)?.name ?? 'Unknown role'}\``)
+			.map(([level, reward]) => `\n• **Level ${level}.** \`${guild.roles.cache.get(reward)?.name ?? 'Unknown role'}\``)
 			.join('\n');
 		const type = capitalize(this.client.settings.get(guild, 'rewardType', 'stack'));
 		const embed = new SpectreEmbed()

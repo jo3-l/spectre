@@ -1,4 +1,4 @@
-import SpectreEmbed from '@structures/SpectreEmbed';
+import SpectreEmbed from '@util/SpectreEmbed';
 import fetch from 'node-fetch';
 import { stringify } from 'querystring';
 
