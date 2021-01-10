@@ -1,3 +1,5 @@
+# ⚠️ THIS REPOSITORY IS ARCHIVED. NO SUPPORT WILL BE PROVIDED NOR WILL THERE BE ANY FURTHER UPDATES TO THE BOT. USE AT YOUR OWN RISK.
+
 ![Banner](https://i.imgur.com/abq2Gwr.png)
 # Spectre
 > Multi-purpose Discord Bot written in [TypeScript](https://typescriptlang.org)
